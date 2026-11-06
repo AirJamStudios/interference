@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bgpo85ywxp7vy"]
+
+[ext_resource type="Script" uid="uid://cbaixg3dx45e7" path="res://scripts/knob.gd" id="1_j686r"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_anpke"]
+inner_radius = 0.6
+outer_radius = 0.8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_anpke"]
+top_radius = 0.45
+bottom_radius = 0.7
+height = 1.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_anpke"]
+size = Vector3(0.5829468, 1.0718689, 0.076416016)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_21xpk"]
+albedo_color = Color(0.60784316, 0, 0, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_anpke"]
+height = 1.3699341
+radius = 0.8911133
+
+[node name="knob" type="Node3D" unique_id=1453220056 node_paths=PackedStringArray("pivot", "body")]
+script = ExtResource("1_j686r")
+pivot = NodePath("mesh/body")
+body = NodePath("static_body_3d")
+
+[node name="mesh" type="Node3D" parent="." unique_id=1377843604]
+
+[node name="ring" type="MeshInstance3D" parent="mesh" unique_id=1073045037]
+mesh = SubResource("TorusMesh_anpke")
+
+[node name="body" type="MeshInstance3D" parent="mesh" unique_id=152116140]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.60043335, 0)
+mesh = SubResource("CylinderMesh_anpke")
+
+[node name="indicator" type="MeshInstance3D" parent="mesh/body" unique_id=1556118437]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29167876, 0.12094259, 0)
+mesh = SubResource("BoxMesh_anpke")
+surface_material_override/0 = SubResource("StandardMaterial3D_21xpk")
+
+[node name="static_body_3d" type="StaticBody3D" parent="." unique_id=479216716]
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="static_body_3d" unique_id=1199487746]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59976196, 0)
+shape = SubResource("CylinderShape3D_anpke")

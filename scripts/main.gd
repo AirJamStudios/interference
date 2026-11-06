@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 
 const MAIN_MENU_SCENE = preload("res://scenes/main_menu.tscn")
 var pause_menu_overlay: Node = null

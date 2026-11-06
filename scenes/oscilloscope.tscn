@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bkw0tnek4hnjl"]
+
+[ext_resource type="PackedScene" uid="uid://bgpo85ywxp7vy" path="res://scenes/knob.tscn" id="1_ncd6b"]
+[ext_resource type="PackedScene" uid="uid://8ohy674clkp2" path="res://scenes/wave_selection_panel.tscn" id="2_k27eh"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_anpke"]
+size = Vector3(3, 1.35, 2.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_21xpk"]
+size = Vector3(0.05709839, 0.68847656, 0.9868164)
+
+[node name="oscilloscope" type="Node3D" unique_id=1586478783]
+
+[node name="mesh" type="Node3D" parent="." unique_id=227931808]
+
+[node name="main_body" type="MeshInstance3D" parent="mesh" unique_id=527782634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19085693, 0)
+mesh = SubResource("BoxMesh_anpke")
+
+[node name="screen_body" type="MeshInstance3D" parent="mesh" unique_id=1208833370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5321198, 0.36376953, 0.42749023)
+mesh = SubResource("BoxMesh_21xpk")
+
+[node name="knobs" type="Node3D" parent="mesh" unique_id=1281705064]
+
+[node name="knob" parent="mesh/knobs" unique_id=1453220056 instance=ExtResource("1_ncd6b")]
+transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.5463699, -0.29360604)
+
+[node name="knob2" parent="mesh/knobs" unique_id=763197121 instance=ExtResource("1_ncd6b")]
+transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.5463699, -0.5116452)
+
+[node name="knob3" parent="mesh/knobs" unique_id=2063200244 instance=ExtResource("1_ncd6b")]
+transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.5463699, -0.7291044)
+
+[node name="wave_selection_panel" parent="mesh" unique_id=195832394 instance=ExtResource("2_k27eh")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 1.5073744, 0.17317083, -0.5172204)
