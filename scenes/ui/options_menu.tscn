@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://dwarpp3ui3h05"]
+
+[ext_resource type="Script" uid="uid://dh803rr0nstv0" path="res://scripts/ui/options_menu.gd" id="1_ta2k2"]
+
+[node name="options_menu" type="Control" unique_id=1220031915 node_paths=PackedStringArray("window_resolution_option_button", "vsync_enabled_check_button", "sound_fx_volume_slider", "music_volume_slider", "back_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ta2k2")
+window_resolution_option_button = NodePath("center_container/vertical_container/window_res")
+vsync_enabled_check_button = NodePath("center_container/vertical_container/vsync_checkbox")
+sound_fx_volume_slider = NodePath("center_container/vertical_container/sound_fx_slider")
+music_volume_slider = NodePath("center_container/vertical_container/music_slider")
+back_button = NodePath("center_container/vertical_container/back_button")
+
+[node name="center_container" type="CenterContainer" parent="." unique_id=690145118]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vertical_container" type="VBoxContainer" parent="center_container" unique_id=553917873]
+layout_mode = 2
+
+[node name="options_label" type="Label" parent="center_container/vertical_container" unique_id=118643694]
+layout_mode = 2
+text = "OPTIONS"
+horizontal_alignment = 1
+
+[node name="window_res" type="OptionButton" parent="center_container/vertical_container" unique_id=863054674]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "1920 x 1080"
+popup/item_0/id = 0
+popup/item_1/text = "1280 x 720"
+popup/item_1/id = 1
+popup/item_2/text = "1366 × 768"
+popup/item_2/id = 2
+popup/item_3/text = "1440 × 900"
+popup/item_3/id = 3
+popup/item_4/text = "3840 × 2160"
+popup/item_4/id = 4
+
+[node name="vsync_checkbox" type="CheckBox" parent="center_container/vertical_container" unique_id=425916908]
+layout_mode = 2
+text = "VSYNC"
+alignment = 1
+
+[node name="sound_fx_label" type="Label" parent="center_container/vertical_container" unique_id=2115634038]
+layout_mode = 2
+text = "SOUND FX"
+horizontal_alignment = 1
+
+[node name="sound_fx_slider" type="HSlider" parent="center_container/vertical_container" unique_id=1398261624]
+layout_mode = 2
+
+[node name="music_label" type="Label" parent="center_container/vertical_container" unique_id=317473353]
+layout_mode = 2
+text = "MUSIC"
+horizontal_alignment = 1
+
+[node name="music_slider" type="HSlider" parent="center_container/vertical_container" unique_id=1452851369]
+layout_mode = 2
+
+[node name="back_button" type="Button" parent="center_container/vertical_container" unique_id=1104228324]
+layout_mode = 2
+text = "BACK"

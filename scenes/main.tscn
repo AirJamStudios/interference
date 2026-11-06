@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cpv70cvwyjo3c"]
+
+[ext_resource type="Script" uid="uid://bk15hmjdnkqpk" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="AudioStream" uid="uid://wyx8ndwrq0b8" path="res://assets/sound_fx/music/gameplay_music.wav" id="2_0wfyh"]
+
+[node name="main" type="Node2D" unique_id=1851295044]
+script = ExtResource("1_o5qli")
+
+[node name="sound_fx_players" type="Node2D" parent="." unique_id=1855332851]
+
+[node name="gameplay_music" type="AudioStreamPlayer2D" parent="sound_fx_players" unique_id=128934302]
+stream = ExtResource("2_0wfyh")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"

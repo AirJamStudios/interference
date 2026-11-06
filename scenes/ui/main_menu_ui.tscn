@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://d4fw5tgdks77h"]
+
+[ext_resource type="Script" uid="uid://b7ut8f15a3en" path="res://scripts/ui/main_menu_ui.gd" id="1_eyy0p"]
+
+[node name="main_menu_ui" type="Control" unique_id=212842020 node_paths=PackedStringArray("play_button", "options_button", "quit_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eyy0p")
+play_button = NodePath("center_container/vertical_container/play_button")
+options_button = NodePath("center_container/vertical_container/options_button")
+quit_button = NodePath("center_container/vertical_container/quit_button")
+
+[node name="center_container" type="CenterContainer" parent="." unique_id=187949271]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vertical_container" type="VBoxContainer" parent="center_container" unique_id=1101521049]
+layout_mode = 2
+
+[node name="play_button" type="Button" parent="center_container/vertical_container" unique_id=1994269057]
+layout_mode = 2
+text = "PLAY"
+
+[node name="options_button" type="Button" parent="center_container/vertical_container" unique_id=255756398]
+layout_mode = 2
+text = "OPTIONS"
+
+[node name="quit_button" type="Button" parent="center_container/vertical_container" unique_id=351395291]
+layout_mode = 2
+text = "QUIT"

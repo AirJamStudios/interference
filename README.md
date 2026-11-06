@@ -1,0 +1,6 @@
+TODO:
+- Scene transition manager = DONE
+- Basic main menu functionality = DOING
+- Basic options functionality
+- UI audio manager
+- Airpocket intro scene
