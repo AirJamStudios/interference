@@ -15,7 +15,7 @@ script = ExtResource("1_o5qli")
 [node name="gameplay_music" type="AudioStreamPlayer2D" parent="sound_fx_players" unique_id=128934302]
 stream = ExtResource("2_0wfyh")
 volume_db = -10.0
-autoplay = true
+autoplay = false
 bus = &"Music"
 
 [node name="oscilloscope" parent="." unique_id=1586478783 instance=ExtResource("3_sugp2")]

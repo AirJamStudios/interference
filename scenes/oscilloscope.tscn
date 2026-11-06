@@ -2,14 +2,29 @@
 
 [ext_resource type="PackedScene" uid="uid://bgpo85ywxp7vy" path="res://scenes/knob.tscn" id="1_ncd6b"]
 [ext_resource type="PackedScene" uid="uid://8ohy674clkp2" path="res://scenes/wave_selection_panel.tscn" id="2_k27eh"]
+[ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="3_32ph5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_anpke"]
 size = Vector3(3, 1.35, 2.25)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yeat3"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_21xpk"]
-size = Vector3(0.05709839, 0.68847656, 0.9868164)
+material = SubResource("StandardMaterial3D_yeat3")
+size = Vector3(0.05709839, 1.050293, 1.1368408)
 
 [node name="oscilloscope" type="Node3D" unique_id=1586478783]
+
+[node name="plotter_canvas" type="CanvasLayer" parent="." unique_id=1206868591]
+
+[node name="plotter_panel" type="Panel" parent="plotter_canvas" unique_id=825170084]
+offset_left = 173.0
+offset_top = 111.0
+offset_right = 615.0
+offset_bottom = 515.0
+
+[node name="wave_plotter" type="Line2D" parent="plotter_canvas/plotter_panel" unique_id=40412895]
+script = ExtResource("3_32ph5")
 
 [node name="mesh" type="Node3D" parent="." unique_id=227931808]
 
@@ -18,19 +33,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19085693, 0)
 mesh = SubResource("BoxMesh_anpke")
 
 [node name="screen_body" type="MeshInstance3D" parent="mesh" unique_id=1208833370]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5321198, 0.36376953, 0.42749023)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5321198, 0.22192383, 0.45965576)
 mesh = SubResource("BoxMesh_21xpk")
 
 [node name="knobs" type="Node3D" parent="mesh" unique_id=1281705064]
 
-[node name="knob" parent="mesh/knobs" unique_id=1453220056 instance=ExtResource("1_ncd6b")]
+[node name="amplitude_knob" parent="mesh/knobs" unique_id=1453220056 instance=ExtResource("1_ncd6b")]
 transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.5463699, -0.29360604)
 
-[node name="knob2" parent="mesh/knobs" unique_id=763197121 instance=ExtResource("1_ncd6b")]
+[node name="freq_knob" parent="mesh/knobs" unique_id=763197121 instance=ExtResource("1_ncd6b")]
 transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.5463699, -0.5116452)
 
-[node name="knob3" parent="mesh/knobs" unique_id=2063200244 instance=ExtResource("1_ncd6b")]
+[node name="phase_knob" parent="mesh/knobs" unique_id=2063200244 instance=ExtResource("1_ncd6b")]
 transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.5463699, -0.7291044)
 
 [node name="wave_selection_panel" parent="mesh" unique_id=195832394 instance=ExtResource("2_k27eh")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 1.5073744, 0.17317083, -0.5172204)
+
+[connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="plotter_canvas/plotter_panel/wave_plotter" method="_on_amplitude_knob_value_changed"]
+[connection signal="value_changed" from="mesh/knobs/freq_knob" to="plotter_canvas/plotter_panel/wave_plotter" method="_on_freq_knob_value_changed"]
+[connection signal="value_changed" from="mesh/knobs/phase_knob" to="plotter_canvas/plotter_panel/wave_plotter" method="_on_phase_knob_value_changed"]
