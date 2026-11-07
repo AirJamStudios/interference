@@ -46,7 +46,7 @@ func _on_phase_knob_value_changed(value: float) -> void:
 	if !total_wave: return
 	var selected_wave = total_wave.get_wave(selected_wave_id)
 	if selected_wave:
-		selected_wave.phase = lerpf(0, 10.0, value)
+		selected_wave.calc_and_set_phase(value)
 		wave_plotter_user.redraw_plot()
 		print("Phase: ", selected_wave.phase)
 		_score()
