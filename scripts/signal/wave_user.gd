@@ -23,6 +23,7 @@ func _ready() -> void:
 func _plus_button_pressed() -> void:
 	# TODO: I left this default wave, maybe is not the best default one i dunno
 	total_wave.add_wave(SingleWave.new(1.0, 0.4, 0.0))
+	_select_wave(total_wave.waves.size() - 1)
 	wave_plotter_user.redraw_plot()
 
 func _left_button_pressed() -> void:
