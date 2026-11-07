@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bk15hmjdnkqpk" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="AudioStream" uid="uid://wyx8ndwrq0b8" path="res://assets/sound_fx/music/gameplay_music.wav" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bkw0tnek4hnjl" path="res://scenes/oscilloscope.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://bvvin5fvjmyxl" path="res://scenes/ui/dialogue.tscn" id="4_jyhfs"]
 
 [sub_resource type="Environment" id="Environment_anpke"]
 ambient_light_source = 3
@@ -27,3 +28,5 @@ transform = Transform3D(0.81004167, -0.24781166, 0.5314338, 0, 0.9063077, 0.4226
 
 [node name="world_environment" type="WorldEnvironment" parent="." unique_id=1766253352]
 environment = SubResource("Environment_anpke")
+
+[node name="dialogue" parent="." unique_id=374022607 instance=ExtResource("4_jyhfs")]

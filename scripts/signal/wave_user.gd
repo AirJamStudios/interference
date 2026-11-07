@@ -1,24 +1,49 @@
 extends Node
 
-
 @export_group("References")
 @export var wave_plotter_user : WavePlotter
 @export var enemy : EnemyWave
 @export var progress_bar : CustomProgressBar
+@export var wave_selection_panel : WaveSelectionPanel
 
 var selected_wave_id: int = 0
-var total_wave: CompositeWave 
+var total_wave: CompositeWave
 
 func _ready() -> void:
-	# Tempory to test
-	var single_wave1 = SingleWave.new(1.0, 0.4, 0.0) 
-	var single_wave2 = SingleWave.new(0.3, 2, 0.0) 
 	total_wave = CompositeWave.new()
-	total_wave.add_wave(single_wave1)
-	total_wave.add_wave(single_wave2)
+
+	wave_selection_panel.plus_pressed.connect(_plus_button_pressed)
+	wave_selection_panel.minus_pressed.connect(_minus_button_pressed)
+	wave_selection_panel.left_pressed.connect(_left_button_pressed)
+	wave_selection_panel.right_pressed.connect(_right_button_pressed)
+
 	wave_plotter_user.set_wave(total_wave)
 	wave_plotter_user.redraw_plot()
 
+func _plus_button_pressed() -> void:
+	# TODO: I left this default wave, maybe is not the best default one i dunno
+	total_wave.add_wave(SingleWave.new(1.0, 0.4, 0.0))
+	wave_plotter_user.redraw_plot()
+
+func _left_button_pressed() -> void:
+	_select_wave(selected_wave_id - 1)
+
+func _right_button_pressed() -> void:
+	_select_wave(selected_wave_id + 1)
+
+func _minus_button_pressed() -> void:
+	if total_wave.waves.is_empty():
+		return
+	total_wave.remove_wave(total_wave.waves[selected_wave_id])
+	_select_wave(selected_wave_id - 1)
+	wave_plotter_user.redraw_plot()
+
+func _select_wave(id: int) -> void:
+	var last_id: int = maxi(total_wave.waves.size() - 1, 0)
+	selected_wave_id = clampi(id, 0, last_id)
+	print("Selected wave: ", selected_wave_id)
+
+# Score over the same time window the plotter draws
 func _score() -> void:
 	#TODO! unhardcode this
 	var score : float = total_wave.get_accuracy(enemy.total_wave, -10, 10, 0.05)

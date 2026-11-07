@@ -1,3 +1,4 @@
+class_name WaveSelectionPanel
 extends Node3D
 
 signal minus_pressed

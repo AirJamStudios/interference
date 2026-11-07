@@ -15,5 +15,6 @@ func _init(amp: float = 1.0, freq: float = 1.0, phase_normalized: float = 0.0):
 func sample(t: float) -> float:
 	return amplitude * sin(2.0 * PI * frequency * t + phase)
 
+# Map 0-1 to one full cycle (-PI..PI). A wider range just repeats the same shapes.
 func calc_and_set_phase(value: float) -> void:
-	phase = lerpf(-2*PI, 2*PI, clampf(value, 0.0, 1.0))
+	phase = lerpf(-PI, PI, clampf(value, 0.0, 1.0))
