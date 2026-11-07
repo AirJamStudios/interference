@@ -15,13 +15,12 @@ script = ExtResource("1_o5qli")
 [node name="gameplay_music" type="AudioStreamPlayer2D" parent="sound_fx_players" unique_id=128934302]
 stream = ExtResource("2_0wfyh")
 volume_db = -10.0
-autoplay = false
 bus = &"Music"
 
 [node name="oscilloscope" parent="." unique_id=1586478783 instance=ExtResource("3_sugp2")]
 
 [node name="camera_3d" type="Camera3D" parent="." unique_id=893420369]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.6307492, 0.19830626, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.729507, 0.23964113, 0)
 
 [node name="directional_light" type="DirectionalLight3D" parent="." unique_id=61692033]
 transform = Transform3D(0.81004167, -0.24781166, 0.5314338, 0, 0.9063077, 0.42261827, -0.5863724, -0.34233838, 0.7341471, 0, 0, 0)

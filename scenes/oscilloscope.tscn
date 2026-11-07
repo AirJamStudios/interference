@@ -1,12 +1,10 @@
 [gd_scene format=3 uid="uid://bkw0tnek4hnjl"]
 
+[ext_resource type="Script" uid="uid://b288yb0c4nrb8" path="res://scripts/screen.gd" id="1_7hroh"]
 [ext_resource type="PackedScene" uid="uid://bgpo85ywxp7vy" path="res://scenes/knob.tscn" id="1_ncd6b"]
 [ext_resource type="Script" uid="uid://4fgxuwm2kadt" path="res://scripts/signal/grid.gd" id="1_yeat3"]
 [ext_resource type="PackedScene" uid="uid://8ohy674clkp2" path="res://scenes/wave_selection_panel.tscn" id="2_k27eh"]
 [ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="3_32ph5"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yeat3"]
-bg_color = Color(0.019607844, 0.078431375, 0.03137255, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_anpke"]
 size = Vector3(3, 1.35, 2.25)
@@ -17,25 +15,17 @@ size = Vector3(3, 1.35, 2.25)
 material = SubResource("StandardMaterial3D_yeat3")
 size = Vector3(0.05709839, 1.050293, 1.5459595)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7hroh"]
+resource_local_to_scene = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_anpke"]
+material = SubResource("StandardMaterial3D_7hroh")
+size = Vector2(1.4, 0.95)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yeat3"]
+bg_color = Color(0.019607844, 0.078431375, 0.03137255, 1)
+
 [node name="oscilloscope" type="Node3D" unique_id=1586478783]
-
-[node name="plotter_canvas" type="CanvasLayer" parent="." unique_id=1206868591]
-
-[node name="plotter_panel" type="Panel" parent="plotter_canvas" unique_id=825170084]
-offset_left = 173.0
-offset_top = 111.0
-offset_right = 777.0
-offset_bottom = 518.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_yeat3")
-
-[node name="grid" type="Control" parent="plotter_canvas/plotter_panel" unique_id=420403765]
-anchors_preset = 0
-offset_right = 231.0
-offset_bottom = 124.0
-script = ExtResource("1_yeat3")
-
-[node name="wave_plotter" type="Line2D" parent="plotter_canvas/plotter_panel" unique_id=40412895]
-script = ExtResource("3_32ph5")
 
 [node name="mesh" type="Node3D" parent="." unique_id=227931808]
 
@@ -46,6 +36,12 @@ mesh = SubResource("BoxMesh_anpke")
 [node name="screen_body" type="MeshInstance3D" parent="mesh" unique_id=1208833370]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5321198, 0.22192383, 0.25509644)
 mesh = SubResource("BoxMesh_21xpk")
+
+[node name="screen_quad" type="MeshInstance3D" parent="mesh/screen_body" unique_id=1396068650 node_paths=PackedStringArray("sub_viewport")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.05107975, 0, 0)
+mesh = SubResource("QuadMesh_anpke")
+script = ExtResource("1_7hroh")
+sub_viewport = NodePath("../../../sub_viewport")
 
 [node name="knobs" type="Node3D" parent="mesh" unique_id=1281705064]
 
@@ -61,6 +57,27 @@ transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1
 [node name="wave_selection_panel" parent="mesh" unique_id=195832394 instance=ExtResource("2_k27eh")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 1.5073744, -0.1685831, -0.8106103)
 
-[connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="plotter_canvas/plotter_panel/wave_plotter" method="_on_amplitude_knob_value_changed"]
-[connection signal="value_changed" from="mesh/knobs/freq_knob" to="plotter_canvas/plotter_panel/wave_plotter" method="_on_freq_knob_value_changed"]
-[connection signal="value_changed" from="mesh/knobs/phase_knob" to="plotter_canvas/plotter_panel/wave_plotter" method="_on_phase_knob_value_changed"]
+[node name="sub_viewport" type="SubViewport" parent="." unique_id=599071737]
+size = Vector2i(681, 512)
+render_target_update_mode = 4
+
+[node name="plotter_panel" type="Panel" parent="sub_viewport" unique_id=825170084]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yeat3")
+
+[node name="grid" type="Control" parent="sub_viewport/plotter_panel" unique_id=420403765]
+anchors_preset = 0
+offset_right = 231.0
+offset_bottom = 124.0
+script = ExtResource("1_yeat3")
+
+[node name="wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=40412895]
+script = ExtResource("3_32ph5")
+
+[connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="sub_viewport/plotter_panel/wave_plotter" method="_on_amplitude_knob_value_changed"]
+[connection signal="value_changed" from="mesh/knobs/freq_knob" to="sub_viewport/plotter_panel/wave_plotter" method="_on_freq_knob_value_changed"]
+[connection signal="value_changed" from="mesh/knobs/phase_knob" to="sub_viewport/plotter_panel/wave_plotter" method="_on_phase_knob_value_changed"]
