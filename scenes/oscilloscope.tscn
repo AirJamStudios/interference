@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b7sydhpcego0" path="res://scripts/signal/wave_user.gd" id="2_7hroh"]
 [ext_resource type="PackedScene" uid="uid://8ohy674clkp2" path="res://scenes/wave_selection_panel.tscn" id="2_k27eh"]
 [ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="3_32ph5"]
+[ext_resource type="PackedScene" uid="uid://bvvin5fvjmyxl" path="res://scenes/ui/dialogue.tscn" id="8_70ia8"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_anpke"]
 size = Vector3(3, 1.35, 2.25)
@@ -92,6 +93,8 @@ enemy = NodePath("../enemy_wave")
 
 [node name="user_wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=40412895]
 script = ExtResource("3_32ph5")
+
+[node name="dialogue" parent="." unique_id=374022607 instance=ExtResource("8_70ia8")]
 
 [connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_amplitude_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/freq_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_freq_knob_value_changed"]

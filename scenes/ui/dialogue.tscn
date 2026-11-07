@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://bvvin5fvjmyxl"]
+
+[ext_resource type="Script" uid="uid://b72yt08wxx4jn" path="res://scripts/dialogue/dialogue_manager.gd" id="1_84wqv"]
+[ext_resource type="Texture2D" uid="uid://djl403rjm0qu2" path="res://assets/characters/Soldier_1/soldier_atlas_texture.tres" id="2_65ue4"]
+[ext_resource type="FontFile" uid="uid://jetw6m64d6dn" path="res://assets/fonts/Redaction_50/Redaction50-Regular.ttf" id="3_umwmw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53ofh"]
+bg_color = Color(0.101960786, 0.12941177, 0.09411765, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8o8sq"]
+bg_color = Color(0.2901961, 0.3647059, 0.25882354, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Dialogue" type="CanvasLayer" unique_id=374022607 node_paths=PackedStringArray("portrait_rect", "text_label")]
+script = ExtResource("1_84wqv")
+portrait_rect = NodePath("MarginContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/TextureRect")
+text_label = NodePath("MarginContainer/PanelContainer/HBoxContainer/RichTextLabel")
+soldier_portrait = ExtResource("2_65ue4")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=999653741]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=375671851]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_53ofh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer" unique_id=1518343926]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/HBoxContainer" unique_id=689581155]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/HBoxContainer/MarginContainer" unique_id=1933509169]
+custom_minimum_size = Vector2(110, 110)
+custom_maximum_size = Vector2(110, 110)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8o8sq")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer" unique_id=1273887756]
+custom_minimum_size = Vector2(110, 110)
+custom_maximum_size = Vector2(110, 110)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/PanelContainer/HBoxContainer" unique_id=2121434229]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("3_umwmw")
+theme_override_font_sizes/normal_font_size = 32
+vertical_alignment = 1
