@@ -20,7 +20,8 @@ var dialogue_lines = [
 
 
 func _ready() -> void:
-	start_dialogue(dialogue_lines)
+	hide()
+	# start_dialogue(dialogue_lines)
 
 func start_dialogue(lines: Array) -> void:
 	current_lines = lines
@@ -50,7 +51,7 @@ func _show_line() -> void:
 	tween.tween_property(text_label, "visible_characters", total_chars, duration)
 	tween.finished.connect(func(): is_typing = false)
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not visible:
 		return
 	

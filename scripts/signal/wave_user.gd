@@ -1,11 +1,13 @@
 extends Node
 
+
+@export_group("References")
+@export var wave_plotter_user : WavePlotter
+@export var enemy : EnemyWave
+@export var progress_bar : CustomProgressBar
+
 var selected_wave_id: int = 0
 var total_wave: CompositeWave 
-@export var wave_plotter_user : WavePlotter
-
-@export var enemy : EnemyWave
-
 
 func _ready() -> void:
 	# Tempory to test
@@ -19,7 +21,9 @@ func _ready() -> void:
 
 func _score() -> void:
 	#TODO! unhardcode this
-	print("SCORE: " , total_wave.get_accuracy(enemy.total_wave, -10, 10, 0.05))
+	var score : float = total_wave.get_accuracy(enemy.total_wave, -10, 10, 0.05)
+	progress_bar.set_score(score)
+	print("SCORE: " ,score )
 
 #TODO! adjust the ranges of freq and phase to be sensible
 # Signals to modify selected wave

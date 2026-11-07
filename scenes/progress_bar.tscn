@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://d31js5jkqq3vi"]
+
+[ext_resource type="Script" uid="uid://c4v1ft3tyk0u8" path="res://scripts/progress_bar.gd" id="1_vt3ux"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_53ofh"]
+size = Vector3(0.051, 0.06, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vt3ux"]
+albedo_color = Color(0.2592937, 0.2592937, 0.25929365, 1)
+
+[node name="progress_bar" type="Node3D" unique_id=572663055 node_paths=PackedStringArray("body_mesh")]
+script = ExtResource("1_vt3ux")
+body_mesh = NodePath("mesh/body")
+left_color = null
+right_color = null
+off_color = null
+leds_amount = null
+bulb_radius = null
+emission_strength = 1.0
+
+[node name="mesh" type="Node3D" parent="." unique_id=522260781]
+
+[node name="body" type="MeshInstance3D" parent="mesh" unique_id=171188477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.013551652, 0, 0)
+mesh = SubResource("BoxMesh_53ofh")
+surface_material_override/0 = SubResource("StandardMaterial3D_vt3ux")

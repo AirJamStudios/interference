@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://8ohy674clkp2" path="res://scenes/wave_selection_panel.tscn" id="2_k27eh"]
 [ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="3_32ph5"]
 [ext_resource type="PackedScene" uid="uid://bvvin5fvjmyxl" path="res://scenes/ui/dialogue.tscn" id="8_70ia8"]
+[ext_resource type="PackedScene" uid="uid://d31js5jkqq3vi" path="res://scenes/progress_bar.tscn" id="9_w04ya"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_anpke"]
 size = Vector3(3, 1.35, 2.25)
@@ -86,15 +87,24 @@ wave_plotter_enemy = NodePath("../enemy_wave_plotter")
 script = ExtResource("3_32ph5")
 wave_color = Color(1, 0, 0, 1)
 
-[node name="user_wave" type="Node2D" parent="sub_viewport/plotter_panel" unique_id=501270090 node_paths=PackedStringArray("wave_plotter_user", "enemy")]
+[node name="user_wave" type="Node2D" parent="sub_viewport/plotter_panel" unique_id=501270090 node_paths=PackedStringArray("wave_plotter_user", "enemy", "progress_bar")]
 script = ExtResource("2_7hroh")
 wave_plotter_user = NodePath("../user_wave_plotter")
 enemy = NodePath("../enemy_wave")
+progress_bar = NodePath("../../../progress_bar")
 
 [node name="user_wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=40412895]
 script = ExtResource("3_32ph5")
 
 [node name="dialogue" parent="." unique_id=374022607 instance=ExtResource("8_70ia8")]
+
+[node name="progress_bar" parent="." unique_id=572663055 instance=ExtResource("9_w04ya")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5148922, -0.3891083, 0.24976555)
+left_color = null
+right_color = null
+off_color = null
+leds_amount = null
+bulb_radius = null
 
 [connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_amplitude_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/freq_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_freq_knob_value_changed"]
