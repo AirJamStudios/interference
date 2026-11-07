@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://b288yb0c4nrb8" path="res://scripts/screen.gd" id="1_7hroh"]
 [ext_resource type="PackedScene" uid="uid://bgpo85ywxp7vy" path="res://scenes/knob.tscn" id="1_ncd6b"]
 [ext_resource type="Script" uid="uid://4fgxuwm2kadt" path="res://scripts/signal/grid.gd" id="1_yeat3"]
+[ext_resource type="Script" uid="uid://by32vt4jcgtey" path="res://scripts/signal/wave_enemy.gd" id="2_2wiel"]
+[ext_resource type="Script" uid="uid://b7sydhpcego0" path="res://scripts/signal/wave_user.gd" id="2_7hroh"]
 [ext_resource type="PackedScene" uid="uid://8ohy674clkp2" path="res://scenes/wave_selection_panel.tscn" id="2_k27eh"]
 [ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="3_32ph5"]
 
@@ -75,9 +77,22 @@ offset_right = 231.0
 offset_bottom = 124.0
 script = ExtResource("1_yeat3")
 
-[node name="wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=40412895]
+[node name="enemy_wave" type="Node2D" parent="sub_viewport/plotter_panel" unique_id=918639175 node_paths=PackedStringArray("wave_plotter_enemy")]
+script = ExtResource("2_2wiel")
+wave_plotter_enemy = NodePath("../enemy_wave_plotter")
+
+[node name="enemy_wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=1325866320]
+script = ExtResource("3_32ph5")
+wave_color = Color(1, 0, 0, 1)
+
+[node name="user_wave" type="Node2D" parent="sub_viewport/plotter_panel" unique_id=501270090 node_paths=PackedStringArray("wave_plotter_user", "enemy")]
+script = ExtResource("2_7hroh")
+wave_plotter_user = NodePath("../user_wave_plotter")
+enemy = NodePath("../enemy_wave")
+
+[node name="user_wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=40412895]
 script = ExtResource("3_32ph5")
 
-[connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="sub_viewport/plotter_panel/wave_plotter" method="_on_amplitude_knob_value_changed"]
-[connection signal="value_changed" from="mesh/knobs/freq_knob" to="sub_viewport/plotter_panel/wave_plotter" method="_on_freq_knob_value_changed"]
-[connection signal="value_changed" from="mesh/knobs/phase_knob" to="sub_viewport/plotter_panel/wave_plotter" method="_on_phase_knob_value_changed"]
+[connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_amplitude_knob_value_changed"]
+[connection signal="value_changed" from="mesh/knobs/freq_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_freq_knob_value_changed"]
+[connection signal="value_changed" from="mesh/knobs/phase_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_phase_knob_value_changed"]
