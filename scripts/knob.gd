@@ -17,6 +17,7 @@ signal value_changed(value: float)
 var _dragging := false
 var _angle := 0.0
 var _base_basis: Basis
+var _saved_mouse_pos: Vector2
 
 func _ready() -> void:
 	get_viewport().physics_object_picking = true
@@ -32,6 +33,7 @@ func _ready() -> void:
 func _on_body_input_event(_camera, event, _pos, _normal, _shape_idx) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		_dragging = true
+		_saved_mouse_pos = get_viewport().get_mouse_position()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		get_viewport().set_input_as_handled()
 
@@ -41,6 +43,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 		_dragging = false
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		get_viewport().warp_mouse(_saved_mouse_pos)
 	elif event is InputEventMouseMotion:
 		# drag right or up = turn clockwise
 		var delta: float = (event.relative.x - event.relative.y) * sensitivity

@@ -11,7 +11,8 @@ var active_wave: Wave
 func _ready() -> void:
 	#Temporary color for wave
 	width = 1.5               
-	default_color = Color.BLUE
+	default_color = Color.html("#33FF33")
+
 	
 	# Tempory to test
 	active_wave = SingleWave.new(1.0, 1.0, 0.0) 

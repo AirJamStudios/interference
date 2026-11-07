@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://8ohy674clkp2"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_anpke"]
-size = Vector3(0.05444336, 1.1923828, 2.819336)
+size = Vector3(0.05444336, 1.736023, 1.7009888)
 
 [sub_resource type="PrismMesh" id="PrismMesh_anpke"]
 size = Vector3(0.5, 0.5, 0.2)
@@ -29,25 +29,26 @@ albedo_color = Color(0.96862745, 0.24705882, 0.26666668, 1)
 [node name="mesh" type="Node3D" parent="." unique_id=804450261]
 
 [node name="body" type="MeshInstance3D" parent="mesh" unique_id=1693563199]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27182007, -0.17263794)
 mesh = SubResource("BoxMesh_anpke")
 
 [node name="right_button" type="MeshInstance3D" parent="mesh/body" unique_id=859533449]
-transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0.11582118, 0, 0.25809908)
+transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0.11582118, 0.39999628, -0.3582542)
 mesh = SubResource("PrismMesh_anpke")
 surface_material_override/0 = SubResource("StandardMaterial3D_anpke")
 
 [node name="left_button" type="MeshInstance3D" parent="mesh/body" unique_id=1870093843]
-transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0.11582118, 0, 0.9673466)
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0.11582118, 0.39999628, 0.35099334)
 mesh = SubResource("PrismMesh_anpke")
 surface_material_override/0 = SubResource("StandardMaterial3D_21xpk")
 
 [node name="minus" type="MeshInstance3D" parent="mesh/body" unique_id=546404461]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10600358, 0, -0.40053654)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10600358, -0.3003354, 0.28643417)
 mesh = SubResource("BoxMesh_21xpk")
 surface_material_override/0 = SubResource("StandardMaterial3D_kc3om")
 
 [node name="plus" type="Node3D" parent="mesh/body" unique_id=962119466]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5821706)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3003354, 0.104800105)
 
 [node name="plus_1" type="MeshInstance3D" parent="mesh/body/plus" unique_id=272338038]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10600358, 0, -0.459791)
