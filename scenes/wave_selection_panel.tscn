@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://8ohy674clkp2"]
 
+[ext_resource type="Script" uid="uid://f13wtk8mffh" path="res://scripts/wave_selection_panel.gd" id="1_p8qyh"]
+[ext_resource type="Script" uid="uid://d2jt5uxxw4h71" path="res://scripts/button_3d.gd" id="2_t5r60"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_anpke"]
 size = Vector3(0.05444336, 1.736023, 1.7009888)
 
@@ -9,8 +12,14 @@ size = Vector3(0.5, 0.5, 0.2)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_anpke"]
 albedo_color = Color(0, 0.6745098, 0, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_anpke"]
+size = Vector3(0.55804443, 0.6741562, 0.28222656)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_21xpk"]
 albedo_color = Color(0, 0.6745098, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_21xpk"]
+size = Vector3(0.5258789, 0.74768066, 0.27441406)
 
 [sub_resource type="BoxMesh" id="BoxMesh_21xpk"]
 size = Vector3(0.17285156, 0.1015625, 0.5078125)
@@ -18,13 +27,24 @@ size = Vector3(0.17285156, 0.1015625, 0.5078125)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kc3om"]
 albedo_color = Color(0.36078432, 0.34901962, 1, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_kc3om"]
+size = Vector3(0.23800659, 0.5944519, 0.630249)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bkmyr"]
 albedo_color = Color(0.96862745, 0.24705882, 0.26666668, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hxgdj"]
 albedo_color = Color(0.96862745, 0.24705882, 0.26666668, 1)
 
-[node name="wave_selection_panel" type="Node3D" unique_id=195832394]
+[sub_resource type="BoxShape3D" id="BoxShape3D_bkmyr"]
+size = Vector3(0.23062134, 0.61257935, 0.6237793)
+
+[node name="wave_selection_panel" type="Node3D" unique_id=195832394 node_paths=PackedStringArray("left_button", "right_button", "minus_button", "plus_button")]
+script = ExtResource("1_p8qyh")
+left_button = NodePath("mesh/body/left_button")
+right_button = NodePath("mesh/body/right_button")
+minus_button = NodePath("mesh/body/minus")
+plus_button = NodePath("mesh/body/plus")
 
 [node name="mesh" type="Node3D" parent="." unique_id=804450261]
 
@@ -36,19 +56,41 @@ mesh = SubResource("BoxMesh_anpke")
 transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0.11582118, 0.39999628, -0.3582542)
 mesh = SubResource("PrismMesh_anpke")
 surface_material_override/0 = SubResource("StandardMaterial3D_anpke")
+script = ExtResource("2_t5r60")
+
+[node name="static_body" type="StaticBody3D" parent="mesh/body/right_button" unique_id=1245639974]
+
+[node name="collision_shape" type="CollisionShape3D" parent="mesh/body/right_button/static_body" unique_id=1274452150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0007019043, 0.013186991, -0.0024414063)
+shape = SubResource("BoxShape3D_anpke")
 
 [node name="left_button" type="MeshInstance3D" parent="mesh/body" unique_id=1870093843]
 transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0.11582118, 0.39999628, 0.35099334)
 mesh = SubResource("PrismMesh_anpke")
 surface_material_override/0 = SubResource("StandardMaterial3D_21xpk")
+script = ExtResource("2_t5r60")
+
+[node name="static_body" type="StaticBody3D" parent="mesh/body/left_button" unique_id=2121560136]
+
+[node name="collision_shape" type="CollisionShape3D" parent="mesh/body/left_button/static_body" unique_id=1573363676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0078125, 0.051696777, -0.008300841)
+shape = SubResource("BoxShape3D_21xpk")
 
 [node name="minus" type="MeshInstance3D" parent="mesh/body" unique_id=546404461]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10600358, -0.3003354, 0.28643417)
 mesh = SubResource("BoxMesh_21xpk")
 surface_material_override/0 = SubResource("StandardMaterial3D_kc3om")
+script = ExtResource("2_t5r60")
+
+[node name="static_body" type="StaticBody3D" parent="mesh/body/minus" unique_id=1539674957]
+
+[node name="collision_shape" type="CollisionShape3D" parent="mesh/body/minus/static_body" unique_id=1615417428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0074005127, 0.0034332275, 0.01751709)
+shape = SubResource("BoxShape3D_kc3om")
 
 [node name="plus" type="Node3D" parent="mesh/body" unique_id=962119466]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3003354, 0.104800105)
+script = ExtResource("2_t5r60")
 
 [node name="plus_1" type="MeshInstance3D" parent="mesh/body/plus" unique_id=272338038]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10600358, 0, -0.459791)
@@ -59,3 +101,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_bkmyr")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.10600358, 0, -0.459791)
 mesh = SubResource("BoxMesh_21xpk")
 surface_material_override/0 = SubResource("StandardMaterial3D_hxgdj")
+
+[node name="static_body" type="StaticBody3D" parent="mesh/body/plus" unique_id=1167913761]
+
+[node name="collision_shape" type="CollisionShape3D" parent="mesh/body/plus/static_body" unique_id=1621739247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10038757, 0.003829956, -0.4769287)
+shape = SubResource("BoxShape3D_bkmyr")
