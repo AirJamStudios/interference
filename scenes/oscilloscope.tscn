@@ -144,6 +144,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5148922, -0.3891083, 0.2497
 [connection signal="value_changed" from="mesh/knobs/freq_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_freq_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/phase_knob" to="mesh/displays/numeric_display3" method="_on_phase_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/phase_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_phase_knob_value_changed"]
-[connection signal="selected_wave_changed" from="sub_viewport/plotter_panel/user_wave" to="mesh/displays/numeric_display" method="_on_user_wave_selected_wave_changed"]
-[connection signal="selected_wave_changed" from="sub_viewport/plotter_panel/user_wave" to="mesh/displays/numeric_display2" method="_on_user_wave_selected_wave_changed"]
-[connection signal="selected_wave_changed" from="sub_viewport/plotter_panel/user_wave" to="mesh/displays/numeric_display3" method="_on_user_wave_selected_wave_changed"]
