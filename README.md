@@ -4,3 +4,7 @@ TODO:
 - Basic options functionality
 - UI audio manager
 - Airpocket intro scene
+
+
+Credits:
+	Wood table texture: https://polyhaven.com/a/wood_table

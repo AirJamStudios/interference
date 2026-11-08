@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c14cqxnxtnsnl"]
+
+[ext_resource type="Texture2D" uid="uid://c473xf8itwsyd" path="res://assets/textures/wood/wood_table_diff_4k.jpg" id="1_5gl68"]
+[ext_resource type="Texture2D" uid="uid://d4drpds3fokx6" path="res://assets/textures/wood/wood_table_disp_4k.png" id="2_t2c6q"]
+[ext_resource type="Texture2D" uid="uid://caakcxu5yt1uu" path="res://assets/textures/wood/wood_table_nor_gl_4k.png" id="3_afip1"]
+[ext_resource type="Texture2D" uid="uid://cauqdglt2tump" path="res://assets/textures/wood/wood_table_rough_4k.png" id="4_5830a"]
+
+[resource]
+albedo_texture = ExtResource("1_5gl68")
+roughness_texture = ExtResource("4_5830a")
+normal_enabled = true
+normal_texture = ExtResource("3_afip1")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_t2c6q")
