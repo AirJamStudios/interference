@@ -9,8 +9,8 @@ var wave: Wave
 @export_range(0.0, 1.0) var dim_amount: float = 0.6
 
 @export_group("Time Domain")
-@export var t_min: float = -10.0
-@export var t_max: float = 10.0
+@export var t_min: float = -6.667
+@export var t_max: float = 6.667
 @export var dt: float = 0.05
 
 var _dimmed: bool = false

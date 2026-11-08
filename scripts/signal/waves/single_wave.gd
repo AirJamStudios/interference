@@ -4,7 +4,7 @@ extends Wave
 # Wave parameters (ALL normalized 0-1)
 var _frequency: float = 1.0
 var _amplitude: float = 1.0
-var _phase: float = 0.0  # mapped to -PI, PI
+var _phase: float = 0.0  # mapped to 0, 2PI
 
 var min_frequency: float = 0.05
 var max_frequency: float = 2.0
@@ -16,7 +16,7 @@ func _init(amp_normalized: float = 1.0, freq: float = 1.0, phase_normalized: flo
 
 
 func sample(t: float) -> float:
-	var mapped_phase := lerpf(-PI, PI, _phase)
+	var mapped_phase := _phase * TAU
 	var mapped_freq := lerpf(min_frequency, max_frequency, _frequency)
 	return _amplitude * sin(2.0 * PI * mapped_freq * t + mapped_phase)
 

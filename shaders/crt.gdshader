@@ -20,7 +20,7 @@ uniform float roll_speed = 8.0;
 uniform float roll_size : hint_range(0.0, 100.0) = 15.0;
 uniform float roll_variation : hint_range(0.1, 5.0) = 1.8;
 uniform float distort_intensity : hint_range(0.0, 0.2) = 0.05;
-uniform float aberration : hint_range(-1.0, 1.0) = 0.03;
+uniform float aberration : hint_range(-1.0, 1.0) = 0.0;
 
 // Noise settings
 uniform float noise_opacity : hint_range(0.0, 1.0) = 0.4;
@@ -99,7 +99,7 @@ void fragment() {
 
 	vec3 text;
 	if (roll) {
-		text.r = texture(screen_tex, text_uv + roll_uv * 0.8 + vec2(aberration, 0.0) * 0.1).r;
+		text.r = texture(screen_tex, text_uv + roll_uv * 1.2 + vec2(aberration, 0.0) * 0.1).r;
 		text.g = texture(screen_tex, text_uv + roll_uv * 1.2 - vec2(aberration, 0.0) * 0.1).g;
 		text.b = texture(screen_tex, text_uv + roll_uv).b;
 	} else {
