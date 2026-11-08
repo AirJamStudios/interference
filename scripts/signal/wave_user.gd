@@ -29,6 +29,7 @@ func _plus_button_pressed() -> void:
 	# TODO: I left this default wave, maybe is not the best default one i dunno
 	total_wave.add_wave(SingleWave.new(1.0, 0.4, 0.0))
 	_select_wave(total_wave.waves.size() - 1)
+	_score()
 
 func _left_button_pressed() -> void:
 	_select_wave(selected_wave_id - 1)
@@ -41,6 +42,7 @@ func _minus_button_pressed() -> void:
 		return
 	total_wave.remove_wave(total_wave.waves[selected_wave_id])
 	_select_wave(selected_wave_id - 1)
+	_score()
 
 func _select_wave(id: int) -> void:
 	var last_id: int = maxi(total_wave.waves.size() - 1, 0)
