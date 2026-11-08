@@ -46,6 +46,8 @@ func _select_wave(id: int) -> void:
 	var last_id: int = maxi(total_wave.waves.size() - 1, 0)
 	selected_wave_id = clampi(id, 0, last_id)
 	print("Selected wave: ", selected_wave_id)
+	print(total_wave.sample(0))
+	print(enemy.total_wave.sample(0))
 	_refresh_plots()
 	total_wave.print_parameters()
 	enemy.total_wave.print_parameters()

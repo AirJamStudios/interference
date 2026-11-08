@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dfmnkgavu0r4j"]
 
 [ext_resource type="Script" uid="uid://4fgxuwm2kadt" path="res://scripts/signal/grid.gd" id="1_grid"]
 [ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="2_plot"]
@@ -10,13 +10,13 @@ border_width_top = 1
 border_width_bottom = 1
 border_color = Color(0.09803922, 0.36862746, 0.14901961, 1)
 
-[node name="sub_wave_panel" type="Panel"]
+[node name="sub_wave_panel" type="Panel" unique_id=1737371655]
 clip_contents = true
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_sub")
 
-[node name="grid" type="Control" parent="."]
-anchors_preset = 15
+[node name="grid" type="Control" parent="." unique_id=235208759]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -26,6 +26,8 @@ script = ExtResource("1_grid")
 columns = 4
 rows = 4
 
-[node name="plotter" type="Line2D" parent="."]
+[node name="plotter" type="Line2D" parent="." unique_id=951350223]
 script = ExtResource("2_plot")
 line_thickness = 1.0
+t_min = -6.667
+t_max = 6.667
