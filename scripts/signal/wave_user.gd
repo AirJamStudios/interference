@@ -13,7 +13,7 @@ var selected_wave_id: int = 0
 var total_wave: CompositeWave
 
 func _ready() -> void:
-	total_wave = CompositeWave.new()
+	total_wave = CompositeWave.new(enemy.total_wave.wave_count())
 
 	wave_selection_panel.plus_pressed.connect(_plus_button_pressed)
 	wave_selection_panel.minus_pressed.connect(_minus_button_pressed)
