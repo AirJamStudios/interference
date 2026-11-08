@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bvvin5fvjmyxl" path="res://scenes/ui/dialogue.tscn" id="4_jyhfs"]
 [ext_resource type="Material" uid="uid://c14cqxnxtnsnl" path="res://resources/wood_material.tres" id="5_tbgi4"]
 [ext_resource type="Material" uid="uid://gnfj577sevo6" path="res://resources/concrete_material.tres" id="5_tefeu"]
+[ext_resource type="PackedScene" uid="uid://sh047oh48vna" path="res://assets/models/radio/vintage_radio_transceiver_4k.gltf" id="6_tipki"]
+[ext_resource type="Script" uid="uid://cy42yyfxg0hem" path="res://scripts/scene_fx.gd" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://exwhtkkfgdde" path="res://assets/models/wall_lamp/industrial_wall_lamp_4k.gltf" id="8_85g3d"]
 
 [sub_resource type="Environment" id="Environment_anpke"]
 ambient_light_source = 3
@@ -44,6 +47,9 @@ environment = SubResource("Environment_anpke")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.5230286, 0)
 mesh = SubResource("QuadMesh_anpke")
 
+[node name="vintage_radio_transceiver_4k" parent="room/table" unique_id=1406016167 instance=ExtResource("6_tipki")]
+transform = Transform3D(3.6524243, 1.02615786e-07, 4.760231, 4.760231, -2.0807629e-07, -3.6524243, 1.02615786e-07, 6, -2.0807629e-07, 2.1359754, 3.0570385, -0.0066028237)
+
 [node name="lamp_light" type="OmniLight3D" parent="room" unique_id=661684959]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2795105, 12.008829, 0)
 light_color = Color(1, 1, 0.9607843, 1)
@@ -62,6 +68,17 @@ mesh = SubResource("QuadMesh_21xpk")
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -9.036854, 0, 0)
 mesh = SubResource("QuadMesh_21xpk")
 
+[node name="industrial_wall_lamp_4k" parent="room/walls/wall" unique_id=1017129926 instance=ExtResource("8_85g3d")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.4896398, 8.353498, 0.0107831955)
+
+[node name="industrial_wall_lamp_4k2" parent="room/walls/wall" unique_id=1403489555 instance=ExtResource("8_85g3d")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -8.864346, 8.353498, 0.0107831955)
+
 [node name="wall_2" type="MeshInstance3D" parent="room/walls" unique_id=2120988382]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94864, 0, -15.008734)
 mesh = SubResource("QuadMesh_21xpk")
+
+[node name="scene_fx" type="Node" parent="." unique_id=100556952 node_paths=PackedStringArray("camera", "light")]
+script = ExtResource("7_o6xl0")
+camera = NodePath("../camera_3d")
+light = NodePath("../room/lamp_light")
