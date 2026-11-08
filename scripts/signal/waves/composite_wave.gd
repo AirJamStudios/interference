@@ -52,8 +52,14 @@ func get_accuracy(other_wave: CompositeWave, t_min: float, t_max: float, dt: flo
 	
 	# RMSE to percentage (!TODO: more forigving?)
 	var raw_accuracy: float =  clampf((1.0 - rmse) * 100.0, 0.0, 100.0)
-	# Remap 30.0..100.0 to 0.0..100.0 because 30 is awful wave lgn up
 
-	var accuracy: float = remap(raw_accuracy, 30.0, 100.0, 0.0, 100.0)
+	# Remap 30.0..95.0 to 0.0..100.0 
+	var accuracy: float = remap(raw_accuracy, 30.0, 95.0, 0.0, 100.0)
 
 	return clampf(accuracy, 0.0, 100.0)
+
+
+func print_parameters() -> void:
+	print("Composite wave with ", len(waves), " waves:")
+	for wave in waves:
+		wave.print_parameters()

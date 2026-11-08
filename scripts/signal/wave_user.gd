@@ -47,6 +47,8 @@ func _select_wave(id: int) -> void:
 	selected_wave_id = clampi(id, 0, last_id)
 	print("Selected wave: ", selected_wave_id)
 	_refresh_plots()
+	total_wave.print_parameters()
+	enemy.total_wave.print_parameters()
 
 # Redraw the composed wave plus every sub wave slot (selected one bright, rest dimmed)
 func _refresh_plots() -> void:
@@ -76,18 +78,16 @@ func _on_amplitude_knob_value_changed(value: float) -> void:
 	if !total_wave: return
 	var selected_wave = total_wave.get_wave(selected_wave_id)
 	if selected_wave:
-		selected_wave.amplitude = value
+		selected_wave.set_amplitude(value)
 		_refresh_selected_plot()
-		print("Amp:" , selected_wave.amplitude)
 		_score()
 
 func _on_freq_knob_value_changed(value: float) -> void:
 	if !total_wave: return
 	var selected_wave = total_wave.get_wave(selected_wave_id)
 	if selected_wave:
-		selected_wave.frequency = lerpf(0.05, 2.0, value)
+		selected_wave.set_frequency(lerpf(0.05, 2.0, value))
 		_refresh_selected_plot()
-		print("Freq: ", selected_wave.frequency)
 		_score()
 
 func _on_phase_knob_value_changed(value: float) -> void:
@@ -96,5 +96,4 @@ func _on_phase_knob_value_changed(value: float) -> void:
 	if selected_wave:
 		selected_wave.calc_and_set_phase(value)
 		_refresh_selected_plot()
-		print("Phase: ", selected_wave.phase)
 		_score()
