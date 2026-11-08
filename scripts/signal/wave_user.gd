@@ -74,26 +74,26 @@ func _score() -> void:
 #TODO! adjust the ranges of freq and phase to be sensible
 # Signals to modify selected wave
 # Amplitude of waves goes from 0-1
-func _on_amplitude_knob_value_changed(value: float) -> void:
+func _on_amplitude_knob_value_changed(delta_value: float) -> void:
 	if !total_wave: return
 	var selected_wave = total_wave.get_wave(selected_wave_id)
 	if selected_wave:
-		selected_wave.set_amplitude(value)
+		selected_wave.set_amplitude(selected_wave.get_amplitude() + delta_value)
 		_refresh_selected_plot()
 		_score()
 
-func _on_freq_knob_value_changed(value: float) -> void:
+func _on_freq_knob_value_changed(delta_value: float) -> void:
 	if !total_wave: return
 	var selected_wave = total_wave.get_wave(selected_wave_id)
 	if selected_wave:
-		selected_wave.set_frequency(lerpf(0.05, 2.0, value))
+		selected_wave.set_frequency(selected_wave.get_frequency() + delta_value)
 		_refresh_selected_plot()
 		_score()
 
-func _on_phase_knob_value_changed(value: float) -> void:
+func _on_phase_knob_value_changed(delta_value: float) -> void:
 	if !total_wave: return
 	var selected_wave = total_wave.get_wave(selected_wave_id)
 	if selected_wave:
-		selected_wave.calc_and_set_phase(value)
+		selected_wave.set_phase(selected_wave.get_phase() + delta_value)
 		_refresh_selected_plot()
 		_score()

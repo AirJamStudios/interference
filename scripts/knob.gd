@@ -3,11 +3,10 @@ extends Node3D
 signal value_changed(value: float)
 
 @export_group("Settings")
-@export var min_angle_deg := 0.0
-@export var max_angle_deg := 360.0
+@export var value_per_degree := 0.005
 @export var sensitivity := 0.5
 @export var rotation_axis := Vector3(0, -1, 0)
-@export_range(0.0, 1.0) var start_value := 0.0
+@export var start_angle_deg := 0.0
 
 @export_group("References")
 @export var pivot: Node3D
@@ -28,7 +27,7 @@ func _ready() -> void:
 	body.mouse_entered.connect(func(): Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND))
 	body.mouse_exited.connect(func(): Input.set_default_cursor_shape(Input.CURSOR_ARROW))
 
-	set_value(start_value)
+	set_angle(start_angle_deg)
 
 func _on_body_input_event(_camera, event, _pos, _normal, _shape_idx) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -47,17 +46,12 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion:
 		# drag right or up = turn clockwise
 		var delta: float = (event.relative.x - event.relative.y) * sensitivity
-		set_angle(_angle + delta)
+		rotate_by(delta)
+
+func rotate_by(delta_deg: float) -> void:
+	set_angle(_angle + delta_deg)
+	value_changed.emit(delta_deg * value_per_degree)
 
 func set_angle(deg: float) -> void:
-	_angle = clampf(deg, min_angle_deg, max_angle_deg)
+	_angle = fposmod(deg, 360.0)
 	pivot.transform.basis = _base_basis * Basis(rotation_axis.normalized(), deg_to_rad(_angle))
-	value_changed.emit(get_value())
-
-func get_value() -> float:
-	if is_equal_approx(min_angle_deg, max_angle_deg):
-		return 0.0
-	return inverse_lerp(min_angle_deg, max_angle_deg, _angle)
-
-func set_value(value: float) -> void:
-	set_angle(lerpf(min_angle_deg, max_angle_deg, clampf(value, 0.0, 1.0)))
