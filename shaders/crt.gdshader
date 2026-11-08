@@ -24,13 +24,13 @@ uniform float aberration : hint_range(-1.0, 1.0) = 0.03;
 
 // Noise settings
 uniform float noise_opacity : hint_range(0.0, 1.0) = 0.4;
-uniform float noise_speed = 5.0;
+uniform float noise_speed = 2.0;
 uniform float static_noise_intensity : hint_range(0.0, 1.0) = 0.06;
 
 // Additional effects
 uniform bool pixelate = true;
 uniform bool discolor = false;
-uniform float warp_amount : hint_range(0.0, 5.0) = 1.0;
+uniform float warp_amount : hint_range(0.0, 5.0) = 0.25;
 uniform float vignette_intensity = 0.4;
 uniform float vignette_opacity : hint_range(0.0, 1.0) = 0.5;
 

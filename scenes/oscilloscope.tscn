@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://8ohy674clkp2" path="res://scenes/wave_selection_panel.tscn" id="2_k27eh"]
 [ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="3_32ph5"]
 [ext_resource type="PackedScene" uid="uid://d31js5jkqq3vi" path="res://scenes/progress_bar.tscn" id="9_w04ya"]
+[ext_resource type="PackedScene" path="res://scenes/sub_wave_panel.tscn" id="10_subwv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_anpke"]
 size = Vector3(3, 1.35, 2.25)
@@ -65,8 +66,8 @@ size = Vector2i(681, 512)
 render_target_update_mode = 4
 
 [node name="plotter_panel" type="Panel" parent="sub_viewport" unique_id=825170084]
-anchors_preset = 15
-anchor_right = 1.0
+clip_contents = true
+anchor_right = 0.6667
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -85,9 +86,12 @@ wave_plotter_enemy = NodePath("../enemy_wave_plotter")
 [node name="enemy_wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=1325866320]
 script = ExtResource("3_32ph5")
 wave_color = Color(1, 0, 0, 1)
+t_min = -6.667
+t_max = 6.667
 
-[node name="user_wave" type="Node2D" parent="sub_viewport/plotter_panel" unique_id=501270090 node_paths=PackedStringArray("wave_plotter_user", "enemy", "progress_bar", "wave_selection_panel")]
+[node name="user_wave" type="Node2D" parent="sub_viewport/plotter_panel" unique_id=501270090 node_paths=PackedStringArray("wave_plotter_user", "enemy", "progress_bar", "wave_selection_panel", "sub_plotters")]
 script = ExtResource("2_7hroh")
+sub_plotters = [NodePath("../../sub_plots/sub_wave_panel_0/plotter"), NodePath("../../sub_plots/sub_wave_panel_1/plotter"), NodePath("../../sub_plots/sub_wave_panel_2/plotter")]
 wave_plotter_user = NodePath("../user_wave_plotter")
 enemy = NodePath("../enemy_wave")
 progress_bar = NodePath("../../../progress_bar")
@@ -95,6 +99,25 @@ wave_selection_panel = NodePath("../../../mesh/wave_selection_panel")
 
 [node name="user_wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=40412895]
 script = ExtResource("3_32ph5")
+t_min = -6.667
+t_max = 6.667
+
+[node name="sub_plots" type="VBoxContainer" parent="sub_viewport"]
+anchor_left = 0.6667
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="sub_wave_panel_0" parent="sub_viewport/sub_plots" instance=ExtResource("10_subwv")]
+layout_mode = 2
+
+[node name="sub_wave_panel_1" parent="sub_viewport/sub_plots" instance=ExtResource("10_subwv")]
+layout_mode = 2
+
+[node name="sub_wave_panel_2" parent="sub_viewport/sub_plots" instance=ExtResource("10_subwv")]
+layout_mode = 2
 
 [node name="progress_bar" parent="." unique_id=572663055 instance=ExtResource("9_w04ya")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5148922, -0.3891083, 0.24976555)

@@ -25,6 +25,11 @@ SceneManager="*uid://7kh8pvq1rqh1"
 OptionsManager="*uid://q771d2if8q8r"
 GameManager="*uid://brf7iktp2hbsg"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
