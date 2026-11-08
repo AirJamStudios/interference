@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bkw0tnek4hnjl" path="res://scenes/oscilloscope.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bvvin5fvjmyxl" path="res://scenes/ui/dialogue.tscn" id="4_jyhfs"]
 [ext_resource type="Material" uid="uid://c14cqxnxtnsnl" path="res://resources/wood_material.tres" id="5_tbgi4"]
+[ext_resource type="Material" uid="uid://gnfj577sevo6" path="res://resources/concrete_material.tres" id="5_tefeu"]
 
 [sub_resource type="Environment" id="Environment_anpke"]
 ambient_light_source = 3
@@ -12,6 +13,10 @@ ambient_light_source = 3
 [sub_resource type="QuadMesh" id="QuadMesh_anpke"]
 material = ExtResource("5_tbgi4")
 size = Vector2(15, 15)
+
+[sub_resource type="QuadMesh" id="QuadMesh_21xpk"]
+material = ExtResource("5_tefeu")
+size = Vector2(30, 30)
 
 [node name="main" type="Node3D" unique_id=367742630]
 script = ExtResource("1_o5qli")
@@ -28,14 +33,35 @@ bus = &"Music"
 [node name="camera_3d" type="Camera3D" parent="." unique_id=893420369]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.729507, 0.23964113, 0)
 
-[node name="directional_light" type="DirectionalLight3D" parent="." unique_id=61692033]
-transform = Transform3D(0.81004167, -0.24781166, 0.5314338, 0, 0.9063077, 0.42261827, -0.5863724, -0.34233838, 0.7341471, 0, 0, 0)
-
 [node name="world_environment" type="WorldEnvironment" parent="." unique_id=1766253352]
 environment = SubResource("Environment_anpke")
 
 [node name="dialogue" parent="." unique_id=374022607 instance=ExtResource("4_jyhfs")]
 
-[node name="table" type="MeshInstance3D" parent="." unique_id=2066330543]
+[node name="room" type="Node3D" parent="." unique_id=774476428]
+
+[node name="table" type="MeshInstance3D" parent="room" unique_id=2066330543]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.5230286, 0)
 mesh = SubResource("QuadMesh_anpke")
+
+[node name="lamp_light" type="OmniLight3D" parent="room" unique_id=661684959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2795105, 12.008829, 0)
+light_color = Color(1, 1, 0.9607843, 1)
+light_energy = 3.0
+light_indirect_energy = 2.0
+light_specular = 2.0
+omni_range = 36.28999
+
+[node name="walls" type="Node3D" parent="room" unique_id=1121277163]
+
+[node name="wall_1" type="MeshInstance3D" parent="room/walls" unique_id=27993720]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.94864, 0, 15.010004)
+mesh = SubResource("QuadMesh_21xpk")
+
+[node name="wall" type="MeshInstance3D" parent="room/walls" unique_id=1730624850]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -9.036854, 0, 0)
+mesh = SubResource("QuadMesh_21xpk")
+
+[node name="wall_2" type="MeshInstance3D" parent="room/walls" unique_id=2120988382]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94864, 0, -15.008734)
+mesh = SubResource("QuadMesh_21xpk")

@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://gnfj577sevo6"]
+
+[ext_resource type="Texture2D" uid="uid://cikynhqy42ef0" path="res://assets/textures/concrete/plastered_wall_03_diff_4k.jpg" id="1_6fvno"]
+[ext_resource type="Texture2D" uid="uid://b8cgpavtbe8dt" path="res://assets/textures/concrete/plastered_wall_03_disp_4k.png" id="2_f8bx8"]
+[ext_resource type="Texture2D" uid="uid://c525he2u1tbkn" path="res://assets/textures/concrete/plastered_wall_03_nor_gl_4k.png" id="3_w1awn"]
+[ext_resource type="Texture2D" uid="uid://dbc6bynqix8bm" path="res://assets/textures/concrete/plastered_wall_03_rough_4k.png" id="4_6y76i"]
+
+[resource]
+albedo_texture = ExtResource("1_6fvno")
+roughness_texture = ExtResource("4_6y76i")
+normal_enabled = true
+normal_texture = ExtResource("3_w1awn")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_f8bx8")
