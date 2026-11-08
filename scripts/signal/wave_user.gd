@@ -1,3 +1,4 @@
+class_name UserWave
 extends Node
 
 @export_group("References")
@@ -6,6 +7,11 @@ extends Node
 @export var progress_bar : CustomProgressBar
 @export var wave_selection_panel : WaveSelectionPanel
 @export var sub_plotters : Array[WavePlotter] = []
+
+@export var display_amp : NumericDisplay
+@export var display_freq : NumericDisplay
+@export var display_phase : NumericDisplay
+
 
 const MAX_WAVES: int = 3
 
@@ -48,11 +54,8 @@ func _select_wave(id: int) -> void:
 	var last_id: int = maxi(total_wave.waves.size() - 1, 0)
 	selected_wave_id = clampi(id, 0, last_id)
 	print("Selected wave: ", selected_wave_id)
-	print(total_wave.sample(0))
-	print(enemy.total_wave.sample(0))
 	_refresh_plots()
-	total_wave.print_parameters()
-	enemy.total_wave.print_parameters()
+	_update_displays()
 
 # Redraw the composed wave plus every sub wave slot (selected one bright, rest dimmed)
 func _refresh_plots() -> void:
@@ -85,6 +88,7 @@ func _on_amplitude_knob_value_changed(delta_value: float) -> void:
 		selected_wave.set_amplitude(selected_wave.get_amplitude() + delta_value)
 		_refresh_selected_plot()
 		_score()
+		_update_displays() 
 
 func _on_freq_knob_value_changed(delta_value: float) -> void:
 	if !total_wave: return
@@ -93,6 +97,7 @@ func _on_freq_knob_value_changed(delta_value: float) -> void:
 		selected_wave.set_frequency(selected_wave.get_frequency() + delta_value)
 		_refresh_selected_plot()
 		_score()
+		_update_displays() 
 
 func _on_phase_knob_value_changed(delta_value: float) -> void:
 	if !total_wave: return
@@ -101,3 +106,15 @@ func _on_phase_knob_value_changed(delta_value: float) -> void:
 		selected_wave.set_phase(selected_wave.get_phase() + delta_value)
 		_refresh_selected_plot()
 		_score()
+		_update_displays() 
+
+func _update_displays() -> void:
+	if total_wave.waves.is_empty():
+		display_amp.clear()
+		display_freq.clear()
+		display_phase.clear()
+		return
+	var selected_wave = total_wave.get_wave(selected_wave_id)
+	display_amp.set_value(selected_wave.get_amplitude())
+	display_freq.set_value(selected_wave.get_frequency())
+	display_phase.set_value(selected_wave.get_phase())

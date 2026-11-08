@@ -7,8 +7,9 @@
 [ext_resource type="Script" uid="uid://b7sydhpcego0" path="res://scripts/signal/wave_user.gd" id="2_7hroh"]
 [ext_resource type="PackedScene" uid="uid://8ohy674clkp2" path="res://scenes/wave_selection_panel.tscn" id="2_k27eh"]
 [ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="3_32ph5"]
+[ext_resource type="PackedScene" uid="uid://bjd4h84s5b6l2" path="res://scenes/numeric_display.tscn" id="4_w04ya"]
 [ext_resource type="PackedScene" uid="uid://d31js5jkqq3vi" path="res://scenes/progress_bar.tscn" id="9_w04ya"]
-[ext_resource type="PackedScene" path="res://scenes/sub_wave_panel.tscn" id="10_subwv"]
+[ext_resource type="PackedScene" uid="uid://dfmnkgavu0r4j" path="res://scenes/sub_wave_panel.tscn" id="10_subwv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_anpke"]
 size = Vector3(3, 1.35, 2.25)
@@ -50,16 +51,30 @@ sub_viewport = NodePath("../../../sub_viewport")
 [node name="knobs" type="Node3D" parent="mesh" unique_id=1281705064]
 
 [node name="amplitude_knob" parent="mesh/knobs" unique_id=1453220056 instance=ExtResource("1_ncd6b")]
-transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.6375507, -0.83629924)
+transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.6375507, -0.9068427)
 
 [node name="freq_knob" parent="mesh/knobs" unique_id=763197121 instance=ExtResource("1_ncd6b")]
-transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.43250078, -0.8450022)
+transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.43250078, -0.91554564)
 
 [node name="phase_knob" parent="mesh/knobs" unique_id=2063200244 instance=ExtResource("1_ncd6b")]
-transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.22926074, -0.8373544)
+transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.22926074, -0.9078979)
 
 [node name="wave_selection_panel" parent="mesh" unique_id=195832394 instance=ExtResource("2_k27eh")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 1.5073744, -0.1685831, -0.8106103)
+
+[node name="displays" type="Node3D" parent="mesh" unique_id=1286373436]
+
+[node name="numeric_display" parent="mesh/displays" unique_id=1757733746 node_paths=PackedStringArray("user_wave") instance=ExtResource("4_w04ya")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5009313, 0.634602, -0.74116254)
+user_wave = NodePath("../../../sub_viewport/plotter_panel/user_wave")
+
+[node name="numeric_display2" parent="mesh/displays" unique_id=967007519 node_paths=PackedStringArray("user_wave") instance=ExtResource("4_w04ya")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5009313, 0.43365854, -0.74116254)
+user_wave = NodePath("../../../sub_viewport/plotter_panel/user_wave")
+
+[node name="numeric_display3" parent="mesh/displays" unique_id=180259506 node_paths=PackedStringArray("user_wave") instance=ExtResource("4_w04ya")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5009313, 0.2361021, -0.74116254)
+user_wave = NodePath("../../../sub_viewport/plotter_panel/user_wave")
 
 [node name="sub_viewport" type="SubViewport" parent="." unique_id=599071737]
 size = Vector2i(681, 512)
@@ -67,6 +82,7 @@ render_target_update_mode = 4
 
 [node name="plotter_panel" type="Panel" parent="sub_viewport" unique_id=825170084]
 clip_contents = true
+anchors_preset = -1
 anchor_right = 0.6667
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -86,23 +102,23 @@ wave_plotter_enemy = NodePath("../enemy_wave_plotter")
 [node name="enemy_wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=1325866320]
 script = ExtResource("3_32ph5")
 wave_color = Color(1, 0, 0, 1)
-t_min = -6.667
-t_max = 6.667
 
-[node name="user_wave" type="Node2D" parent="sub_viewport/plotter_panel" unique_id=501270090 node_paths=PackedStringArray("wave_plotter_user", "enemy", "progress_bar", "wave_selection_panel", "sub_plotters")]
+[node name="user_wave" type="Node2D" parent="sub_viewport/plotter_panel" unique_id=501270090 node_paths=PackedStringArray("wave_plotter_user", "enemy", "progress_bar", "wave_selection_panel", "sub_plotters", "display_amp", "display_freq", "display_phase")]
 script = ExtResource("2_7hroh")
-sub_plotters = [NodePath("../../sub_plots/sub_wave_panel_0/plotter"), NodePath("../../sub_plots/sub_wave_panel_1/plotter"), NodePath("../../sub_plots/sub_wave_panel_2/plotter")]
 wave_plotter_user = NodePath("../user_wave_plotter")
 enemy = NodePath("../enemy_wave")
 progress_bar = NodePath("../../../progress_bar")
 wave_selection_panel = NodePath("../../../mesh/wave_selection_panel")
+sub_plotters = [NodePath("../../sub_plots/sub_wave_panel_0/plotter"), NodePath("../../sub_plots/sub_wave_panel_1/plotter"), NodePath("../../sub_plots/sub_wave_panel_2/plotter")]
+display_amp = NodePath("../../../mesh/displays/numeric_display")
+display_freq = NodePath("../../../mesh/displays/numeric_display2")
+display_phase = NodePath("../../../mesh/displays/numeric_display3")
 
 [node name="user_wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=40412895]
 script = ExtResource("3_32ph5")
-t_min = -6.667
-t_max = 6.667
 
-[node name="sub_plots" type="VBoxContainer" parent="sub_viewport"]
+[node name="sub_plots" type="VBoxContainer" parent="sub_viewport" unique_id=1196078735]
+anchors_preset = -1
 anchor_left = 0.6667
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -110,23 +126,24 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="sub_wave_panel_0" parent="sub_viewport/sub_plots" instance=ExtResource("10_subwv")]
+[node name="sub_wave_panel_0" parent="sub_viewport/sub_plots" unique_id=2033620321 instance=ExtResource("10_subwv")]
 layout_mode = 2
 
-[node name="sub_wave_panel_1" parent="sub_viewport/sub_plots" instance=ExtResource("10_subwv")]
+[node name="sub_wave_panel_1" parent="sub_viewport/sub_plots" unique_id=1561843864 instance=ExtResource("10_subwv")]
 layout_mode = 2
 
-[node name="sub_wave_panel_2" parent="sub_viewport/sub_plots" instance=ExtResource("10_subwv")]
+[node name="sub_wave_panel_2" parent="sub_viewport/sub_plots" unique_id=1226680289 instance=ExtResource("10_subwv")]
 layout_mode = 2
 
 [node name="progress_bar" parent="." unique_id=572663055 instance=ExtResource("9_w04ya")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5148922, -0.3891083, 0.24976555)
-left_color = null
-right_color = null
-off_color = null
-leds_amount = null
-bulb_radius = null
 
+[connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="mesh/displays/numeric_display" method="_on_amplitude_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_amplitude_knob_value_changed"]
+[connection signal="value_changed" from="mesh/knobs/freq_knob" to="mesh/displays/numeric_display2" method="_on_freq_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/freq_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_freq_knob_value_changed"]
+[connection signal="value_changed" from="mesh/knobs/phase_knob" to="mesh/displays/numeric_display3" method="_on_phase_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/phase_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_phase_knob_value_changed"]
+[connection signal="selected_wave_changed" from="sub_viewport/plotter_panel/user_wave" to="mesh/displays/numeric_display" method="_on_user_wave_selected_wave_changed"]
+[connection signal="selected_wave_changed" from="sub_viewport/plotter_panel/user_wave" to="mesh/displays/numeric_display2" method="_on_user_wave_selected_wave_changed"]
+[connection signal="selected_wave_changed" from="sub_viewport/plotter_panel/user_wave" to="mesh/displays/numeric_display3" method="_on_user_wave_selected_wave_changed"]
