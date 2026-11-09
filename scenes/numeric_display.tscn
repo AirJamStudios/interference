@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bjd4h84s5b6l2"]
+[gd_scene format=3 uid="uid://d3axqiks5lqtr"]
 
 [ext_resource type="FontFile" uid="uid://df0kcg5xpkoc0" path="res://assets/fonts/digital_7/digital-7 (mono).ttf" id="2_xaxe4"]
 [ext_resource type="Script" uid="uid://7vpr62ui3au5" path="res://scripts/numeric_display.gd" id="3_sychk"]
@@ -21,7 +21,7 @@ albedo_color = Color(0.5122025, 0.4578933, 0.43079594, 1)
 size = Vector3(0.021728698, 0.006359375, 0.11560802)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cq21m"]
-size = Vector3(0.021496093, 0.006359375, 0.06855227)
+size = Vector3(0.021496093, 0.006359375, 0.071947634)
 
 [node name="numeric_display" type="Node3D" unique_id=1757733746 node_paths=PackedStringArray("sub_viewport", "mesh", "label")]
 script = ExtResource("3_sychk")
@@ -75,12 +75,12 @@ material_override = SubResource("StandardMaterial3D_2vwso")
 mesh = SubResource("BoxMesh_5bcn7")
 
 [node name="frame_top" type="MeshInstance3D" parent="mesh/frame" unique_id=2068445920]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0003828425, 0.032685958, -0.0009729937)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0003828425, 0.032973275, -0.0009729937)
 material_override = SubResource("StandardMaterial3D_2vwso")
 mesh = SubResource("BoxMesh_5bcn7")
 
 [node name="frame_left" type="MeshInstance3D" parent="mesh/frame" unique_id=774814812]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.055)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2.6823953e-05, 0.055)
 material_override = SubResource("StandardMaterial3D_2vwso")
 mesh = SubResource("BoxMesh_cq21m")
 

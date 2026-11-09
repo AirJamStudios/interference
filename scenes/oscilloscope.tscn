@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://b7sydhpcego0" path="res://scripts/signal/wave_user.gd" id="2_7hroh"]
 [ext_resource type="PackedScene" uid="uid://8ohy674clkp2" path="res://scenes/wave_selection_panel.tscn" id="2_k27eh"]
 [ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="3_32ph5"]
-[ext_resource type="PackedScene" uid="uid://bjd4h84s5b6l2" path="res://scenes/numeric_display.tscn" id="4_w04ya"]
+[ext_resource type="PackedScene" uid="uid://d3axqiks5lqtr" path="res://scenes/numeric_display.tscn" id="4_w04ya"]
 [ext_resource type="PackedScene" uid="uid://d31js5jkqq3vi" path="res://scenes/progress_bar.tscn" id="9_w04ya"]
 [ext_resource type="PackedScene" uid="uid://dfmnkgavu0r4j" path="res://scenes/sub_wave_panel.tscn" id="10_subwv"]
 
@@ -39,7 +39,7 @@ user_wave = NodePath("sub_viewport/plotter_panel/user_wave")
 [node name="mesh" type="Node3D" parent="." unique_id=227931808]
 
 [node name="main_body" type="MeshInstance3D" parent="mesh" unique_id=527782634]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19085693, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19085693, -0.00086194277)
 mesh = SubResource("BoxMesh_anpke")
 
 [node name="screen_body" type="MeshInstance3D" parent="mesh" unique_id=1208833370]
@@ -64,12 +64,12 @@ transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1
 transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.22926074, -0.9078979)
 
 [node name="wave_selection_panel" parent="mesh" unique_id=195832394 instance=ExtResource("2_k27eh")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 1.5073744, -0.1685831, -0.8106103)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 1.5073744, -0.1685831, -0.77660847)
 
 [node name="displays" type="Node3D" parent="mesh" unique_id=1286373436]
 
 [node name="numeric_display" parent="mesh/displays" unique_id=1757733746 node_paths=PackedStringArray("user_wave") instance=ExtResource("4_w04ya")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5009313, 0.634602, -0.74116254)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5009313, 0.634602, -0.7417372)
 user_wave = NodePath("../../../sub_viewport/plotter_panel/user_wave")
 
 [node name="numeric_display2" parent="mesh/displays" unique_id=967007519 node_paths=PackedStringArray("user_wave") instance=ExtResource("4_w04ya")]

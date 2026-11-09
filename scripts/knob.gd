@@ -3,8 +3,8 @@ extends Node3D
 signal value_changed(value: float)
 
 @export_group("Settings")
-@export var value_per_degree := 0.005
-@export var sensitivity := 0.5
+@export var value_per_degree := 1/360.0  # 360 degree rotation is 0 to 100
+@export var sensitivity := 0.25
 @export var rotation_axis := Vector3(0, -1, 0)
 @export var start_angle_deg := 0.0
 

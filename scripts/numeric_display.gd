@@ -20,11 +20,11 @@ func _ready() -> void:
 
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	set_value(0)
+	clear()
 
 func set_value(value: float) -> void:
 	var int_value : int = (roundi(value * 100.0))
-	label.text = "%02d" % clampi(int_value, 0, 100)
+	label.text = "%3d" % clampi(int_value, 0, 100)
 
 func clear() -> void:
 	set_value(0)

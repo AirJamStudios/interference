@@ -23,13 +23,13 @@ func sample(t: float) -> float:
 # Map 0-1 to one full cycle (-PI..PI). A wider range just repeats the same shapes.
 # Setters
 func set_phase(value: float) -> void:
-	_phase = snapped(clampf(value, 0.0, 1.0), 0.01)
+	_phase = snapped(clampf(value, 0.0, 1.0), 0.0001)
 
 func set_amplitude(value: float) -> void:
-	_amplitude = snapped(clampf(value, 0.0, 1.0), 0.01)
+	_amplitude = snapped(clampf(value, 0.0, 1.0), 0.0001)
 
 func set_frequency(value: float) -> void:
-	_frequency = snapped(clampf(value, 0.0, 1.0), 0.01)
+	_frequency = snapped(clampf(value, 0.0, 1.0), 0.0001)
 
 # Getters
 func get_frequency() -> float:
