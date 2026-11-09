@@ -1,6 +1,8 @@
 class_name UserWave
 extends Node
 
+signal target_reached
+
 @export_group("References")
 @export var wave_plotter_user : WavePlotter
 @export var enemy : EnemyWave
@@ -15,8 +17,12 @@ extends Node
 
 const MAX_WAVES: int = 3
 
+# Score needed to complete the level, maybe make it configurable per level instead of hardcoded
+const TARGET_SCORE: float = 95.0
+
 var selected_wave_id: int = 0
 var total_wave: CompositeWave
+var _target_reached: bool = false
 
 func _ready() -> void:
 	wave_selection_panel.plus_pressed.connect(_plus_button_pressed)
@@ -29,6 +35,7 @@ func _ready() -> void:
 func setup(enemy_wave: CompositeWave) -> void:
 	total_wave = CompositeWave.new(enemy_wave.wave_count())
 	selected_wave_id = 0
+	_target_reached = false
 	wave_plotter_user.set_wave(total_wave)
 	_refresh_plots()
 	_update_displays()
@@ -85,6 +92,9 @@ func _score() -> void:
 	var score : float = total_wave.get_accuracy(enemy.total_wave, wave_plotter_user.t_min, wave_plotter_user.t_max, wave_plotter_user.dt)
 	progress_bar.set_score(score)
 	print("SCORE: " ,score )
+	if not _target_reached and score >= TARGET_SCORE:
+		_target_reached = true
+		target_reached.emit()
 
 #TODO! adjust the ranges of freq and phase to be sensible
 # Signals to modify selected wave
