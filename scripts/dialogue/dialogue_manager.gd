@@ -1,3 +1,4 @@
+class_name DialogueManager
 extends CanvasLayer
 
 @export_group("References")
@@ -13,15 +14,8 @@ var current_index: int = 0
 var is_typing: bool = false
 var tween: Tween
 
-var dialogue_lines = [
-	{"speaker": "Soldier", "text": "Sir! We are getting attacked, cancel out the enemy's waves. Hurry we don't have much time!"},
-	{"speaker": "Soldier", "text": "Hi"}
-]
-
-
 func _ready() -> void:
 	hide()
-	# start_dialogue(dialogue_lines)
 
 func start_dialogue(lines: Array) -> void:
 	current_lines = lines

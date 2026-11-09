@@ -19,17 +19,23 @@ var selected_wave_id: int = 0
 var total_wave: CompositeWave
 
 func _ready() -> void:
-	total_wave = CompositeWave.new(enemy.total_wave.wave_count())
-
 	wave_selection_panel.plus_pressed.connect(_plus_button_pressed)
 	wave_selection_panel.minus_pressed.connect(_minus_button_pressed)
 	wave_selection_panel.left_pressed.connect(_left_button_pressed)
 	wave_selection_panel.right_pressed.connect(_right_button_pressed)
 
+# Called whenever a new enemy wave is set (level start). Safe to call repeatedly:
+# discards the player's previous waves and resets selection, plots, displays and score.
+func setup(enemy_wave: CompositeWave) -> void:
+	total_wave = CompositeWave.new(enemy_wave.wave_count())
+	selected_wave_id = 0
 	wave_plotter_user.set_wave(total_wave)
 	_refresh_plots()
+	_update_displays()
+	_score()
 
 func _plus_button_pressed() -> void:
+	if !total_wave: return
 	if total_wave.waves.size() >= MAX_WAVES:
 		return
 	# TODO: I left this default wave, maybe is not the best default one i dunno
@@ -38,12 +44,15 @@ func _plus_button_pressed() -> void:
 	_score()
 
 func _left_button_pressed() -> void:
+	if !total_wave: return
 	_select_wave(selected_wave_id - 1)
 
 func _right_button_pressed() -> void:
+	if !total_wave: return
 	_select_wave(selected_wave_id + 1)
 
 func _minus_button_pressed() -> void:
+	if !total_wave: return
 	if total_wave.waves.is_empty():
 		return
 	total_wave.remove_wave(total_wave.waves[selected_wave_id])
@@ -53,7 +62,6 @@ func _minus_button_pressed() -> void:
 func _select_wave(id: int) -> void:
 	var last_id: int = maxi(total_wave.waves.size() - 1, 0)
 	selected_wave_id = clampi(id, 0, last_id)
-	print("Selected wave: ", selected_wave_id)
 	_refresh_plots()
 	_update_displays()
 
