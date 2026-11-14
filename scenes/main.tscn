@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://wyx8ndwrq0b8" path="res://assets/sound_fx/music/gameplay_music.wav" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bkw0tnek4hnjl" path="res://scenes/oscilloscope.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bvvin5fvjmyxl" path="res://scenes/ui/dialogue.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://06j854lrlc5d" path="res://scenes/radar.tscn" id="4_ya4ey"]
 [ext_resource type="Material" uid="uid://c14cqxnxtnsnl" path="res://resources/wood_material.tres" id="5_tbgi4"]
 [ext_resource type="Material" uid="uid://gnfj577sevo6" path="res://resources/concrete_material.tres" id="5_tefeu"]
 [ext_resource type="PackedScene" uid="uid://sh047oh48vna" path="res://assets/models/radio/vintage_radio_transceiver_4k.gltf" id="6_tipki"]
@@ -33,9 +34,14 @@ volume_db = -10.0
 bus = &"Music"
 
 [node name="oscilloscope" parent="." unique_id=1586478783 instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.20458138)
+
+[node name="radar" parent="." unique_id=2104920419 instance=ExtResource("4_ya4ey")]
+transform = Transform3D(0.87551856, 0, 0.48318455, 0, 1, 0, -0.48318455, 0, 0.87551856, 0.99031734, 0, 1.8144172)
+radius_scale = 0.948
 
 [node name="camera_3d" type="Camera3D" parent="." unique_id=893420369]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.729507, 0.23964113, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.071017, 0.23964113, 0)
 
 [node name="world_environment" type="WorldEnvironment" parent="." unique_id=1766253352]
 environment = SubResource("Environment_anpke")
@@ -49,7 +55,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -
 mesh = SubResource("QuadMesh_anpke")
 
 [node name="vintage_radio_transceiver_4k" parent="room/table" unique_id=1406016167 instance=ExtResource("6_tipki")]
-transform = Transform3D(3.6524243, 1.02615786e-07, 4.760231, 4.760231, -2.0807629e-07, -3.6524243, 1.02615786e-07, 6, -2.0807629e-07, 2.1359754, 3.0570385, -0.0066028237)
+transform = Transform3D(3.6524243, 1.02615786e-07, 4.760231, 4.760231, -2.0807629e-07, -3.6524243, 1.02615786e-07, 6, -2.0807629e-07, 2.1359754, 3.3554368, -0.0066028237)
 
 [node name="lamp_light" type="OmniLight3D" parent="room" unique_id=661684959]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2795105, 12.008829, 0)

@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://06j854lrlc5d"]
+
+[ext_resource type="Script" uid="uid://m71x4a8vsh3c" path="res://scripts/signal/radar.gd" id="1_g0dnf"]
+[ext_resource type="Texture2D" uid="uid://dilwr4jqo51y8" path="res://assets/models/radio/textures/vintage_radio_transceiver_accessories_diff_4k.jpg" id="2_stu0n"]
+[ext_resource type="Material" uid="uid://dyei8dy30eemy" path="res://assets/textures/black_plastic.tres" id="3_i2hdy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_anpke"]
+size = Vector3(0.56811523, 1.1183593, 0.73843)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uxni"]
+albedo_texture = ExtResource("2_stu0n")
+roughness = 0.59
+uv1_scale = Vector3(0.09, 0.09, 0.09)
+uv1_offset = Vector3(7.52, -1.47, 0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vb1ax"]
+top_radius = 0.32470703
+bottom_radius = 0.32470703
+height = 0.08746338
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fso2y"]
+uv2_padding = 0.0
+top_radius = 0.26123047
+bottom_radius = 0.26123047
+height = 0.001
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yeat3"]
+bg_color = Color(0.043137256, 0.23137255, 0.078431375, 1)
+
+[node name="radar" type="Node3D" unique_id=1586478783 node_paths=PackedStringArray("sub_viewport", "mesh", "canvas")]
+script = ExtResource("1_g0dnf")
+sub_viewport = NodePath("sub_viewport")
+mesh = NodePath("mesh/screen_body/screen_quad")
+canvas = NodePath("sub_viewport/plotter_panel/radial_grid")
+
+[node name="mesh" type="Node3D" parent="." unique_id=227931808]
+
+[node name="main_body" type="MeshInstance3D" parent="mesh" unique_id=527782634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075805664, 0.11582035, 0.0063495636)
+mesh = SubResource("BoxMesh_anpke")
+surface_material_override/0 = SubResource("StandardMaterial3D_6uxni")
+
+[node name="screen_body" type="MeshInstance3D" parent="mesh" unique_id=1208833370]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.41063923, 0.2425986, 0)
+mesh = SubResource("CylinderMesh_vb1ax")
+surface_material_override/0 = ExtResource("3_i2hdy")
+
+[node name="screen_quad" type="MeshInstance3D" parent="mesh/screen_body" unique_id=1396068650]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.4901161e-08, 0.05677247, 0.0017309785)
+mesh = SubResource("CylinderMesh_fso2y")
+
+[node name="sub_viewport" type="SubViewport" parent="." unique_id=599071737]
+transparent_bg = true
+render_target_update_mode = 4
+
+[node name="plotter_panel" type="Panel" parent="sub_viewport" unique_id=825170084]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yeat3")
+
+[node name="radial_grid" type="Control" parent="sub_viewport/plotter_panel" unique_id=420403765]
+anchors_preset = 0
+offset_right = 512.0
+offset_bottom = 512.0

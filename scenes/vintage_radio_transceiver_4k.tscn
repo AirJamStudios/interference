@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://5ujjmf8usaa8"]
+
+[ext_resource type="PackedScene" uid="uid://sh047oh48vna" path="res://assets/models/radio/vintage_radio_transceiver_4k.gltf" id="1_je0vn"]
+
+[node name="vintage_radio_transceiver_4k" unique_id=1055652567 instance=ExtResource("1_je0vn")]
+
+[node name="vintage_radio_transceiver_antenna" parent="." index="3" unique_id=1711341493]
+visible = false
+
+[node name="vintage_radio_transceiver_microphone" parent="." index="7" unique_id=1263025300]
+visible = false
+
+[node name="vintage_radio_transceiver_microphone_plug" parent="." index="8" unique_id=1266785156]
+visible = false
+
+[node name="vintage_radio_transceiver_morse_key_arm" parent="." index="9" unique_id=2029058559]
+visible = false
+
+[node name="vintage_radio_transceiver_morse_key_base" parent="." index="10" unique_id=1979221487]
+visible = false
+
+[node name="vintage_radio_transceiver_morse_key_plug" parent="." index="11" unique_id=267772966]
+visible = false
+
+[node name="vintage_radio_transceiver_speaker" parent="." index="12" unique_id=2031558380]
+visible = false
+
+[node name="vintage_radio_transceiver_speaker_plug" parent="." index="13" unique_id=361056459]
+visible = false
+
+[node name="vintage_radio_transceiver_cables" parent="." index="14" unique_id=199476839]
+visible = false

@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://du5rl0vkuos00"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_apgmm"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_folqe"]
+noise = SubResource("FastNoiseLite_apgmm")
+as_normal_map = true
+bump_strength = 8.8
+
+[resource]
+albedo_color = Color(0.7061261, 0.6631953, 0.5728404, 1)
+metallic = 1.0
+roughness = 0.9
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_folqe")

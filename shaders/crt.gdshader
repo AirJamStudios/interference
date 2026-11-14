@@ -16,8 +16,8 @@ uniform float grille_opacity : hint_range(0.0, 1.0) = 0.3;
 
 // Distortion settings
 uniform bool roll = true;
-uniform float roll_speed = 8.0;
-uniform float roll_size : hint_range(0.0, 100.0) = 15.0;
+uniform float roll_speed = 3.0;
+uniform float roll_size : hint_range(0.0, 100.0) = 10.0;
 uniform float roll_variation : hint_range(0.1, 5.0) = 1.8;
 uniform float distort_intensity : hint_range(0.0, 0.2) = 0.05;
 uniform float aberration : hint_range(-1.0, 1.0) = 0.0;

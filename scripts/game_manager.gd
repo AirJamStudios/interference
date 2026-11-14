@@ -32,7 +32,6 @@ func _build_levels() -> void:
 		Level.new(
 			[
 				{"speaker": "Soldier", "text": "Sir! We are getting attacked, cancel out the enemy's waves. Hurry we don't have much time!"},
-				{"speaker": "Soldier", "text": "Hi"},
 			],
 			[SingleWave.new(1.0, 0.1, 0.5), SingleWave.new(0.3, 1.0, 0.0)]
 		),
