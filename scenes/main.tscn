@@ -37,7 +37,7 @@ bus = &"Music"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.20458138)
 
 [node name="radar" parent="." unique_id=2104920419 instance=ExtResource("4_ya4ey")]
-transform = Transform3D(0.87551856, 0, 0.48318455, 0, 1, 0, -0.48318455, 0, 0.87551856, 0.99031734, 0, 1.8144172)
+transform = Transform3D(0.85752267, 0, 0.51444614, 0, 1, 0, -0.51444614, 0, 0.85752267, 0.99031734, 0, 1.8144172)
 radius_scale = 0.948
 
 [node name="camera_3d" type="Camera3D" parent="." unique_id=893420369]
@@ -90,8 +90,9 @@ script = ExtResource("7_o6xl0")
 camera = NodePath("../camera_3d")
 light = NodePath("../room/lamp_light")
 
-[node name="game_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogueManage", "oscilloscope", "scene_fx")]
+[node name="game_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogueManage", "oscilloscope", "scene_fx", "radar")]
 script = ExtResource("10_choun")
 dialogueManage = NodePath("../dialogue")
 oscilloscope = NodePath("../oscilloscope")
 scene_fx = NodePath("../scene_fx")
+radar = NodePath("../radar")

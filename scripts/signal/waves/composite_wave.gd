@@ -4,17 +4,13 @@ extends Wave
 
 var waves: Array[SingleWave] = []
 
-# Use the known amount of waves needed to return
-# correctly normalized wave from the start
-var solution_waves_count: int = 1
-
-func _init(n: int):
-	solution_waves_count = n
+var max_waves: int = 3
 
 func add_wave(wave: SingleWave) -> void:
+	if(wave_count()>=max_waves):
+		print("Warning, too many waves!!")
+		return
 	waves.append(wave)
-	if(wave_count()>solution_waves_count):
-		print("Warning, wave amount does not match config!!")
 
 func remove_wave(wave: SingleWave) -> void:
 	waves.erase(wave)
@@ -26,13 +22,13 @@ func wave_count() -> int:
 	return len(waves)
 
 # Normalize so that amplitude is between 0-1
-# Normalize with total amount of waves needed (NOT current amount)
+# Normalize with total max waves
 func sample(t: float) -> float:
 	var total_wave: float = 0.0
 	for wave in waves:
 		total_wave += wave.sample(t)
 	if waves:
-		total_wave /= solution_waves_count
+		total_wave /= max_waves
 	return total_wave
 
 func get_wave(i: int) -> SingleWave:

@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://m71x4a8vsh3c" path="res://scripts/signal/radar.gd" id="1_g0dnf"]
 [ext_resource type="Texture2D" uid="uid://dilwr4jqo51y8" path="res://assets/models/radio/textures/vintage_radio_transceiver_accessories_diff_4k.jpg" id="2_stu0n"]
 [ext_resource type="Material" uid="uid://dyei8dy30eemy" path="res://assets/textures/black_plastic.tres" id="3_i2hdy"]
+[ext_resource type="PackedScene" uid="uid://bgpo85ywxp7vy" path="res://scenes/knob.tscn" id="4_5eocc"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_anpke"]
-size = Vector3(0.56811523, 1.1183593, 0.73843)
+size = Vector3(0.56811523, 0.92355955, 0.73843)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uxni"]
 albedo_texture = ExtResource("2_stu0n")
@@ -36,12 +37,12 @@ canvas = NodePath("sub_viewport/plotter_panel/radial_grid")
 [node name="mesh" type="Node3D" parent="." unique_id=227931808]
 
 [node name="main_body" type="MeshInstance3D" parent="mesh" unique_id=527782634]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075805664, 0.11582035, 0.0063495636)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075805664, 0.018420458, 0.0063495636)
 mesh = SubResource("BoxMesh_anpke")
 surface_material_override/0 = SubResource("StandardMaterial3D_6uxni")
 
 [node name="screen_body" type="MeshInstance3D" parent="mesh" unique_id=1208833370]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.41063923, 0.2425986, 0)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.41063923, 0.07212183, 0)
 mesh = SubResource("CylinderMesh_vb1ax")
 surface_material_override/0 = ExtResource("3_i2hdy")
 
@@ -66,3 +67,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_yeat3")
 anchors_preset = 0
 offset_right = 512.0
 offset_bottom = 512.0
+
+[node name="knob" parent="." unique_id=1453220056 instance=ExtResource("4_5eocc")]
+transform = Transform3D(-3.934025e-09, 0.09, 0, -0.09, -3.934025e-09, 0, 0, 0, 0.09, 0.3710037, -0.3116706, 0.24874097)
+
+[connection signal="value_changed" from="knob" to="." method="_on_knob_value_changed"]

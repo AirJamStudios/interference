@@ -65,7 +65,7 @@ mesh = SubResource("BoxMesh_anpke")
 surface_material_override/0 = SubResource("StandardMaterial3D_t5r60")
 
 [node name="right_button" type="MeshInstance3D" parent="mesh/body" unique_id=859533449]
-transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0.11582118, 0.39999628, -0.3582542)
+transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, 0.11582118, -0.24732172, -0.3792165)
 mesh = SubResource("PrismMesh_anpke")
 surface_material_override/0 = SubResource("StandardMaterial3D_anpke")
 script = ExtResource("2_t5r60")
@@ -77,7 +77,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0007019043, 0.013186991, -0
 shape = SubResource("BoxShape3D_anpke")
 
 [node name="left_button" type="MeshInstance3D" parent="mesh/body" unique_id=1870093843]
-transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0.11582118, 0.39999628, 0.35099334)
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0.11582118, -0.24732172, 0.43131632)
 mesh = SubResource("PrismMesh_anpke")
 surface_material_override/0 = SubResource("StandardMaterial3D_21xpk")
 script = ExtResource("2_t5r60")
@@ -89,7 +89,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0078125, 0.051696777, -0.00
 shape = SubResource("BoxShape3D_21xpk")
 
 [node name="minus" type="MeshInstance3D" parent="mesh/body" unique_id=546404461]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10600358, -0.3003354, 0.28643417)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10600358, 0.4194163, -0.3276806)
 mesh = SubResource("BoxMesh_21xpk")
 surface_material_override/0 = SubResource("StandardMaterial3D_kc3om")
 script = ExtResource("2_t5r60")
@@ -101,7 +101,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0074005127, 0.0034332275, 0
 shape = SubResource("BoxShape3D_kc3om")
 
 [node name="plus" type="Node3D" parent="mesh/body" unique_id=962119466]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3003354, 0.104800105)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42814887, 0.91818064)
 script = ExtResource("2_t5r60")
 
 [node name="plus_1" type="MeshInstance3D" parent="mesh/body/plus" unique_id=272338038]

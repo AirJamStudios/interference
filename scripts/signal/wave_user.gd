@@ -14,6 +14,8 @@ signal target_reached
 @export var display_freq : NumericDisplay
 @export var display_phase : NumericDisplay
 
+# For animation and level completion
+var is_locked: bool = false
 
 const MAX_WAVES: int = 3
 
@@ -22,7 +24,6 @@ const TARGET_SCORE: float = 95.0
 
 var selected_wave_id: int = 0
 var total_wave: CompositeWave
-var _target_reached: bool = false
 
 func _ready() -> void:
 	wave_selection_panel.plus_pressed.connect(_plus_button_pressed)
@@ -30,12 +31,9 @@ func _ready() -> void:
 	wave_selection_panel.left_pressed.connect(_left_button_pressed)
 	wave_selection_panel.right_pressed.connect(_right_button_pressed)
 
-# Called whenever a new enemy wave is set (level start). Safe to call repeatedly:
-# discards the player's previous waves and resets selection, plots, displays and score.
-func setup(enemy_wave: CompositeWave) -> void:
-	total_wave = CompositeWave.new(enemy_wave.wave_count())
+func setup() -> void:
+	total_wave = CompositeWave.new()
 	selected_wave_id = 0
-	_target_reached = false
 	wave_plotter_user.set_wave(total_wave)
 	_refresh_plots()
 	_update_displays()
@@ -88,19 +86,24 @@ func _refresh_selected_plot() -> void:
 		sub_plotters[selected_wave_id].redraw_plot()
 
 func _score() -> void:
+	if !enemy.total_wave:
+		progress_bar.set_score(0.0)
+		return
+	if is_locked:
+		return
+
 	# Adjusted score calculation for the main window screen space
 	var score : float = total_wave.get_accuracy(enemy.total_wave, wave_plotter_user.t_min, wave_plotter_user.t_max, wave_plotter_user.dt)
 	progress_bar.set_score(score)
-	print("SCORE: " ,score )
-	if not _target_reached and score >= TARGET_SCORE:
-		_target_reached = true
+	# print("SCORE: " ,score )
+	if score >= TARGET_SCORE:
 		target_reached.emit()
 
 #TODO! adjust the ranges of freq and phase to be sensible
 # Signals to modify selected wave
 # Amplitude of waves goes from 0-1
 func _on_amplitude_knob_value_changed(delta_value: float) -> void:
-	if !total_wave: return
+	if !total_wave or is_locked: return
 	var selected_wave = total_wave.get_wave(selected_wave_id)
 	if selected_wave:
 		selected_wave.set_amplitude(selected_wave.get_amplitude() + delta_value)
@@ -109,7 +112,7 @@ func _on_amplitude_knob_value_changed(delta_value: float) -> void:
 		_update_displays() 
 
 func _on_freq_knob_value_changed(delta_value: float) -> void:
-	if !total_wave: return
+	if !total_wave or is_locked: return
 	var selected_wave = total_wave.get_wave(selected_wave_id)
 	if selected_wave:
 		selected_wave.set_frequency(selected_wave.get_frequency() + delta_value)
@@ -118,7 +121,7 @@ func _on_freq_knob_value_changed(delta_value: float) -> void:
 		_update_displays() 
 
 func _on_phase_knob_value_changed(delta_value: float) -> void:
-	if !total_wave: return
+	if !total_wave or is_locked: return
 	var selected_wave = total_wave.get_wave(selected_wave_id)
 	if selected_wave:
 		selected_wave.set_phase(selected_wave.get_phase() + delta_value)
@@ -136,3 +139,21 @@ func _update_displays() -> void:
 	display_amp.set_value(selected_wave.get_amplitude())
 	display_freq.set_value(selected_wave.get_frequency())
 	display_phase.set_value(selected_wave.get_phase())
+
+
+func play_validation_flash() -> void:
+	is_locked = true
+	var plotter: WavePlotter = wave_plotter_user
+	var orig_width: float = plotter.line_thickness
+	var orig_color: Color = plotter.wave_color
+	
+	# Flash 3 times
+	var tween := create_tween()
+	for i in range(3):
+		tween.tween_property(plotter, "width", orig_width * 3.0, 0.12)
+		tween.parallel().tween_property(plotter, "default_color", Color(1.8, 2.2, 1.8, 1.0), 0.12)
+		tween.tween_property(plotter, "width", orig_width, 0.12)
+		tween.parallel().tween_property(plotter, "default_color", orig_color, 0.12)
+	
+	await tween.finished
+	is_locked = false
