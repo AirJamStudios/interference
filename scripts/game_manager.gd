@@ -84,7 +84,6 @@ func _load_level(index: int) -> void:
 	for attack: Attack in active_attacks:
 		radar.add_blip(deg_to_rad(attack.angle_deg), attack.start_distance)
 
-	# TODO: change this, Load first wave for now
 	if not active_attacks.is_empty():
 		oscilloscope.set_enemy_wave(active_attacks[radar.selected_index].enemy_wave)
 

@@ -59,7 +59,7 @@ func get_accuracy(other_wave: CompositeWave, t_min: float, t_max: float, dt: flo
 	# Root mean square error (0 identical, 1 is wrong)
 	var rmse: float = sqrt(squared_error_sum / sample_count)
 	
-	# RMSE to percentage (!TODO: more forigving?)
+	# RMSE to percentage
 	var raw_accuracy: float =  clampf((1.0 - rmse) * 100.0, 0.0, 100.0)
 
 	# Remap 30.0..95.0 to 0.0..100.0 
