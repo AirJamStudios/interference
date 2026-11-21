@@ -1,7 +1,7 @@
 extends Control
 
 const MAIN_MENU_SCENE_PATH := "res://scenes/main_menu.tscn"
-const OPTIONS_MENU_SCENE_PATH := "res://scenes/ui/options_menu.tscn"
+const OPTIONS_MENU_SCENE := preload("res://scenes/ui/options_menu.tscn")
 const MAIN_GAME_SCENE_PATH := "res://scenes/main.tscn"
 
 @export_group("References")
@@ -31,7 +31,14 @@ func _on_play_button_pressed() -> void:
 		await SceneManager.change_scene(MAIN_GAME_SCENE_PATH, SceneManager.TransitionType.FADE)
 
 func _on_options_button_pressed() -> void:
-	await SceneManager.change_scene(OPTIONS_MENU_SCENE_PATH, SceneManager.TransitionType.FADE)
+	var options_menu := OPTIONS_MENU_SCENE.instantiate()
+	options_menu.closed.connect(_on_options_menu_closed)
+	add_sibling(options_menu)
+	hide()
+
+func _on_options_menu_closed() -> void:
+	show()
+	options_button.grab_focus()
 
 func _on_quit_button_pressed() -> void:
 	# If paused return to main menu

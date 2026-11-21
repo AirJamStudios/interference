@@ -1,7 +1,6 @@
 extends Control
 
-const MAIN_MENU_SCENE_PATH := "res://scenes/main_menu.tscn"
-const MAIN_GAME_SCENE_PATH := "res://scenes/main.tscn"
+signal closed
 
 const AUDIO_SAVE_DELAY := 0.25
 const RESOLUTION_OPTIONS: Array[Vector2i] = [
@@ -111,10 +110,8 @@ func _on_music_volume_changed(volume: float) -> void:
 
 func _on_back_button_pressed() -> void:
 	_save_pending_audio_settings()
-	if get_tree().paused:
-		await SceneManager.change_scene(MAIN_GAME_SCENE_PATH, SceneManager.TransitionType.FADE)
-	else:
-		await SceneManager.change_scene(MAIN_MENU_SCENE_PATH, SceneManager.TransitionType.FADE)
+	closed.emit()
+	queue_free()
 
 
 func _queue_audio_settings_save() -> void:
