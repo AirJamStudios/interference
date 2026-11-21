@@ -30,6 +30,10 @@ GameManager="*uid://brf7iktp2hbsg"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 
+[gui]
+
+theme/custom="uid://d1n7fwi4457wf"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
