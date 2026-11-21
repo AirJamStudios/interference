@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="3_32ph5"]
 [ext_resource type="Material" uid="uid://dyei8dy30eemy" path="res://assets/textures/black_plastic.tres" id="3_aydle"]
 [ext_resource type="PackedScene" uid="uid://d3axqiks5lqtr" path="res://scenes/numeric_display.tscn" id="4_w04ya"]
+[ext_resource type="Script" uid="uid://d2jt5uxxw4h71" path="res://scripts/button_3d.gd" id="8_r2n4w"]
 [ext_resource type="PackedScene" uid="uid://d31js5jkqq3vi" path="res://scenes/progress_bar.tscn" id="9_w04ya"]
 [ext_resource type="PackedScene" uid="uid://dfmnkgavu0r4j" path="res://scenes/sub_wave_panel.tscn" id="10_subwv"]
 [ext_resource type="Texture2D" uid="uid://dilwr4jqo51y8" path="res://assets/models/radio/textures/vintage_radio_transceiver_accessories_diff_4k.jpg" id="12_6uxni"]
@@ -36,6 +37,18 @@ resource_local_to_scene = true
 [sub_resource type="QuadMesh" id="QuadMesh_anpke"]
 material = SubResource("StandardMaterial3D_7hroh")
 size = Vector2(1.4, 0.95)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jhj5q"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.10657959
+radial_segments = 32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6sx2"]
+albedo_color = Color(0.9428228, 0.94282264, 0.94282264, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_thmfj"]
+size = Vector3(0.023797989, 0.07229996, 0.07713318)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yeat3"]
 bg_color = Color(0.019607844, 0.078431375, 0.03137255, 1)
@@ -127,7 +140,7 @@ transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1
 transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 1.5019726, 0.22926074, -0.9078979)
 
 [node name="wave_selection_panel" parent="mesh" unique_id=195832394 instance=ExtResource("2_k27eh")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 1.5073744, -0.1685831, -0.77660847)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 1.5074965, -0.1685831, -0.7775698)
 
 [node name="displays" type="Node3D" parent="mesh" unique_id=1286373436]
 
@@ -142,6 +155,28 @@ user_wave = NodePath("../../../sub_viewport/plotter_panel/user_wave")
 [node name="numeric_display3" parent="mesh/displays" unique_id=180259506 node_paths=PackedStringArray("user_wave") instance=ExtResource("4_w04ya")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5009313, 0.2361021, -0.74116254)
 user_wave = NodePath("../../../sub_viewport/plotter_panel/user_wave")
+
+[node name="wave_display" parent="mesh/displays" unique_id=1366145625 node_paths=PackedStringArray("user_wave") instance=ExtResource("4_w04ya")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5009313, -0.39734745, -0.74116254)
+user_wave = NodePath("../../../sub_viewport/plotter_panel/user_wave")
+
+[node name="wave_type_btn" type="Node3D" parent="mesh" unique_id=2041602213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5390625, -0.38755167, -0.4293077)
+
+[node name="circle" type="MeshInstance3D" parent="mesh/wave_type_btn" unique_id=33224394 node_paths=PackedStringArray("body")]
+transform = Transform3D(-8.742278e-09, -0.2, 0, 0.2, -8.742278e-09, 0, 0, 0, 0.2, -0.030177593, -0.012763381, -0.42841434)
+mesh = SubResource("CylinderMesh_jhj5q")
+surface_material_override/0 = SubResource("StandardMaterial3D_s6sx2")
+script = ExtResource("8_r2n4w")
+body = NodePath("../static_body")
+press_offset = Vector3(-0.015, 0, 0)
+
+[node name="static_body" type="StaticBody3D" parent="mesh/wave_type_btn" unique_id=1661540747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0055236816)
+
+[node name="collision_shape" type="CollisionShape3D" parent="mesh/wave_type_btn/static_body" unique_id=785894515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02829504, -0.010509908, -0.4291948)
+shape = SubResource("BoxShape3D_thmfj")
 
 [node name="sub_viewport" type="SubViewport" parent="." unique_id=599071737]
 size = Vector2i(681, 512)
@@ -170,7 +205,7 @@ wave_plotter_enemy = NodePath("../enemy_wave_plotter")
 script = ExtResource("3_32ph5")
 wave_color = Color(1, 0, 0, 1)
 
-[node name="user_wave" type="Node2D" parent="sub_viewport/plotter_panel" unique_id=501270090 node_paths=PackedStringArray("wave_plotter_user", "enemy", "progress_bar", "wave_selection_panel", "sub_plotters", "display_amp", "display_freq", "display_phase")]
+[node name="user_wave" type="Node2D" parent="sub_viewport/plotter_panel" unique_id=501270090 node_paths=PackedStringArray("wave_plotter_user", "enemy", "progress_bar", "wave_selection_panel", "sub_plotters", "display_amp", "display_freq", "display_phase", "display_wave_type")]
 script = ExtResource("2_7hroh")
 wave_plotter_user = NodePath("../user_wave_plotter")
 enemy = NodePath("../enemy_wave")
@@ -180,6 +215,7 @@ sub_plotters = [NodePath("../../sub_plots/sub_wave_panel_0/plotter"), NodePath("
 display_amp = NodePath("../../../mesh/displays/numeric_display")
 display_freq = NodePath("../../../mesh/displays/numeric_display2")
 display_phase = NodePath("../../../mesh/displays/numeric_display3")
+display_wave_type = NodePath("../../../mesh/displays/wave_display")
 
 [node name="user_wave_plotter" type="Line2D" parent="sub_viewport/plotter_panel" unique_id=40412895]
 script = ExtResource("3_32ph5")
@@ -222,3 +258,4 @@ mesh = SubResource("ArrayMesh_r2n4w")
 [connection signal="value_changed" from="mesh/knobs/freq_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_freq_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/phase_knob" to="mesh/displays/numeric_display3" method="_on_phase_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/phase_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_phase_knob_value_changed"]
+[connection signal="pressed" from="mesh/wave_type_btn/circle" to="sub_viewport/plotter_panel/user_wave" method="_on_wave_type_button_pressed"]

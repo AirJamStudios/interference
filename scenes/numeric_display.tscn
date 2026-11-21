@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://d3axqiks5lqtr"]
 
+[ext_resource type="Texture2D" uid="uid://c0b6v7a3mkuvf" path="res://assets/icons/sine_168x68.png" id="2_bsjp2"]
 [ext_resource type="FontFile" uid="uid://df0kcg5xpkoc0" path="res://assets/fonts/digital_7/digital-7 (mono).ttf" id="2_xaxe4"]
+[ext_resource type="Texture2D" uid="uid://cvw64jvurow0n" path="res://assets/icons/square_168x68.png" id="3_sdi14"]
 [ext_resource type="Script" uid="uid://7vpr62ui3au5" path="res://scripts/numeric_display.gd" id="3_sychk"]
+[ext_resource type="Texture2D" uid="uid://75rhmo2pa2u7" path="res://assets/icons/triangle_168x68.png" id="4_rjhk5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_jhj5q"]
 resource_local_to_scene = true
@@ -23,11 +26,15 @@ size = Vector3(0.021728698, 0.006359375, 0.11560802)
 [sub_resource type="BoxMesh" id="BoxMesh_cq21m"]
 size = Vector3(0.021496093, 0.006359375, 0.071947634)
 
-[node name="numeric_display" type="Node3D" unique_id=1757733746 node_paths=PackedStringArray("sub_viewport", "mesh", "label")]
+[node name="numeric_display" type="Node3D" unique_id=1757733746 node_paths=PackedStringArray("sub_viewport", "mesh", "label", "icon_rect")]
 script = ExtResource("3_sychk")
 sub_viewport = NodePath("mesh/sub_viewport")
 mesh = NodePath("mesh")
 label = NodePath("mesh/sub_viewport/Control/Panel1/digit_display")
+icon_rect = NodePath("mesh/sub_viewport/Control/Panel1/icon_display")
+sine_texture = ExtResource("2_bsjp2")
+square_texture = ExtResource("3_sdi14")
+triangle_texture = ExtResource("4_rjhk5")
 
 [node name="mesh" type="MeshInstance3D" parent="." unique_id=834958230]
 mesh = SubResource("BoxMesh_jhj5q")
@@ -66,6 +73,20 @@ theme_override_fonts/font = SubResource("FontVariation_cq21m")
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="icon_display" type="TextureRect" parent="mesh/sub_viewport/Control/Panel1" unique_id=1335186817]
+custom_minimum_size = Vector2(168, 68)
+custom_maximum_size = Vector2(168, 68)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.4)
+pivot_offset = Vector2(84, 5)
+expand_mode = 1
+stretch_mode = 5
 
 [node name="frame" type="Node3D" parent="mesh" unique_id=2087355898]
 

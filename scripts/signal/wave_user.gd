@@ -13,6 +13,7 @@ signal target_reached
 @export var display_amp : NumericDisplay
 @export var display_freq : NumericDisplay
 @export var display_phase : NumericDisplay
+@export var display_wave_type : NumericDisplay
 
 # For animation and level completion
 var is_locked: bool = false
@@ -62,6 +63,12 @@ func _minus_button_pressed() -> void:
 		return
 	total_wave.remove_wave(total_wave.waves[selected_wave_id])
 	_select_wave(selected_wave_id - 1)
+	_score()
+
+func _on_wave_type_button_pressed() -> void:
+	if !total_wave or total_wave.waves.is_empty():
+		return
+	display_wave_type.cycle_wave_type()
 	_score()
 
 func _select_wave(id: int) -> void:
@@ -139,7 +146,21 @@ func _update_displays() -> void:
 	display_amp.set_value(selected_wave.get_amplitude())
 	display_freq.set_value(selected_wave.get_frequency())
 	display_phase.set_value(selected_wave.get_phase())
+	display_wave_type.set_wave_type(selected_wave.get_wave_type())
 
+func get_wave_type() -> SingleWave.WaveType:
+	if !total_wave or total_wave.waves.is_empty():
+		return SingleWave.WaveType.SINE
+	return total_wave.get_wave(selected_wave_id).get_wave_type()
+
+func set_wave_type(type: SingleWave.WaveType) -> void:
+	if !total_wave or is_locked or total_wave.waves.is_empty():
+		return
+	var selected_wave = total_wave.get_wave(selected_wave_id)
+	if selected_wave:
+		selected_wave.set_wave_type(type)
+		_refresh_selected_plot()
+		_score()
 
 func play_validation_flash() -> void:
 	is_locked = true
