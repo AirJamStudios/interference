@@ -26,8 +26,20 @@ extends Node3D
 
 signal target_changed(index: int)
 
-# x, y position from -1 to 1
-var blips: Array[Vector2] = []
+class Blip:
+	var start_pos: Vector2
+	var start_eta: float = 0
+	var pos: Vector2
+	var eta: float = 0
+
+	func _init(p_start_pos: Vector2, p_start_eta: float = 0.0) -> void:
+		start_pos = p_start_pos
+		start_eta = p_start_eta
+		pos = p_start_pos
+		eta = p_start_eta
+
+# x, y position from -1 to 1,  remaing time until impact in sec
+var blips: Array[Blip] = []
 var selected_index: int = 0
 var _knob_accumulator: float = 0.0
 
@@ -87,11 +99,11 @@ func _draw_radar() -> void:
 	
 	# Enemy blips
 	for i in range(blips.size()):
-		var blip: Vector2 = blips[i]
-		var pos: Vector2 = center + blip * r
+		var blip: Blip = blips[i]
+		var pos: Vector2 = center + blip.pos * r
 		var is_selected: bool = (i == selected_index)
 		
-		var angle_since_scan: float = fposmod(_angle - blip.angle(), TAU)
+		var angle_since_scan: float = fposmod(_angle - blip.pos.angle(), TAU)
 		var time_since_scan: float = angle_since_scan / TAU
 		var brightness: float = clampf(1.0 - time_since_scan * 1.3, 0.15, 1.0)
 		var outer_glow := Color(sweep_color, brightness * 0.35)
@@ -102,7 +114,7 @@ func _draw_radar() -> void:
 		
 		# Red targeting thing on the selected blip
 		if is_selected:
-			var circle_r: float = 30.0
+			var circle_r: float = 20.0
 			var tick_len: float = 20.0
 			canvas.draw_arc(pos, circle_r, 0.0, TAU, 32, target_color, line_width * 2.2, true)
 			canvas.draw_line(pos - Vector2(circle_r + tick_len, 0), pos - Vector2(circle_r - 3.0, 0), target_color, line_width * 2.2, true)
@@ -110,8 +122,32 @@ func _draw_radar() -> void:
 			canvas.draw_line(pos - Vector2(0, circle_r + tick_len), pos - Vector2(0, circle_r - 3.0), target_color, line_width * 2.2, true)
 			canvas.draw_line(pos + Vector2(0, circle_r - 3.0), pos + Vector2(0, circle_r + tick_len), target_color, line_width * 2.2, true)
 
-func add_blip(angle_rad: float, start_distance: float = 1.0) -> void:
-	var new_blip: Vector2 = Vector2.from_angle(angle_rad) * clampf(start_distance, 0.0, 1.0)
+			var remaining_sec: float = blip.eta
+			if blip.start_eta <= 0.0:
+				var ring_width: float = 1.0 / float(rings)
+				var speed: float = ring_width / (minutes_per_ring * 60.0)
+				remaining_sec = blip.pos.length() / speed
+
+			var mins: int = int(remaining_sec) / 60
+			var secs: int = int(remaining_sec) % 60
+			var eta_text: String = "ETA %02d:%02d" % [mins, secs]
+
+			var font: Font = ThemeDB.fallback_font
+			var font_size: int = 25
+			var text_size: Vector2 = font.get_string_size(eta_text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
+			var offset: float = circle_r + 8.0
+
+			# Always place the label to the cnter to see it properly
+			var on_right: bool = pos.x >= center.x
+			var on_bottom: bool = pos.y >= center.y
+			var text_x: float = pos.x - offset - text_size.x if on_right else pos.x + offset
+			var text_y: float = pos.y - offset if on_bottom else pos.y + offset + font.get_ascent(font_size)
+			canvas.draw_string(font, Vector2(text_x, text_y), eta_text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, target_color)
+
+
+func add_blip(angle_rad: float, start_distance: float = 1.0, start_eta: float = 0) -> void:
+	var pos: Vector2 = Vector2.from_angle(angle_rad) * clampf(start_distance, 0.0, 1.0)
+	var new_blip: Blip = Blip.new(pos, start_eta)
 	blips.append(new_blip)
 
 func remove_blip_at(index: int) -> void:
@@ -128,13 +164,22 @@ func _advance_blips(dt: float) -> void:
 	var ring_width: float = 1.0 / float(rings)
 	var step: float = dt * ring_width / (minutes_per_ring * 60.0)
 	
-	var reached_blips: Array[Vector2] = []
+	var reached_blips: Array[Blip] = []
 	for i in range(blips.size()):
-		var dist: float = blips[i].length()
-		if dist <= step:
-			reached_blips.append(blips[i])
+		if (blips[i].start_eta == 0):
+			var dist: float = blips[i].pos.length()
+			if dist <= step:
+				reached_blips.append(blips[i])
+			else:
+				blips[i].pos = blips[i].pos.normalized() * (dist - step)
 		else:
-			blips[i] = blips[i].normalized() * (dist - step)
+			blips[i].eta -= dt
+			if blips[i].eta <= 0.0:
+				blips[i].eta = 0.0
+				reached_blips.append(blips[i])
+			else:
+				blips[i].pos = blips[i].start_pos * (blips[i].eta / blips[i].start_eta)
+
 	
 	for reached in reached_blips:
 		var idx: int = blips.find(reached)

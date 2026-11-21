@@ -157,3 +157,8 @@ func play_validation_flash() -> void:
 	
 	await tween.finished
 	is_locked = false
+
+# If enemy wave is drifint trigger score recalc
+func _process(delta: float) -> void:
+	if enemy.total_wave != null and enemy.total_wave.is_drifting():
+		_score()

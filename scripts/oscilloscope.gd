@@ -23,6 +23,8 @@ func _on_user_target_reached() -> void:
 	if _completing_attack:
 		return
 	_completing_attack = true
+	enemy_wave.is_locked = true
 	await user_wave.play_validation_flash()
+	enemy_wave.is_locked = false
 	_completing_attack = false
 	attack_completed.emit()

@@ -7,6 +7,7 @@ signal value_changed(value: float)
 @export var sensitivity := 0.25
 @export var rotation_axis := Vector3(0, -1, 0)
 @export var start_angle_deg := 0.0
+@export var blocked := false
 
 @export_group("References")
 @export var pivot: Node3D
@@ -30,6 +31,8 @@ func _ready() -> void:
 	set_angle(start_angle_deg)
 
 func _on_body_input_event(_camera, event, _pos, _normal, _shape_idx) -> void:
+	if blocked:
+		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		_dragging = true
 		_saved_mouse_pos = get_viewport().get_mouse_position()
@@ -37,7 +40,7 @@ func _on_body_input_event(_camera, event, _pos, _normal, _shape_idx) -> void:
 		get_viewport().set_input_as_handled()
 
 func _input(event: InputEvent) -> void:
-	if not _dragging:
+	if not _dragging or blocked:
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 		_dragging = false
