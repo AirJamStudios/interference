@@ -28,7 +28,7 @@ func _on_play_button_pressed() -> void:
 	# If not load a new game
 	else:
 		GameManager.start_new_game()
-		await SceneManager.change_scene(MAIN_GAME_SCENE_PATH, SceneManager.TransitionType.FADE)
+		await SceneManager.change_scene(MAIN_GAME_SCENE_PATH, SceneManager.TransitionType.CRT)
 
 func _on_options_button_pressed() -> void:
 	var options_menu := OPTIONS_MENU_SCENE.instantiate()
@@ -44,6 +44,6 @@ func _on_quit_button_pressed() -> void:
 	# If paused return to main menu
 	if get_tree().paused:
 		GameManager.exit_to_main_menu()
-		await SceneManager.change_scene(MAIN_MENU_SCENE_PATH, SceneManager.TransitionType.FADE)
+		await SceneManager.change_scene(MAIN_MENU_SCENE_PATH, SceneManager.TransitionType.CRT)
 	else:
 		get_tree().quit()
