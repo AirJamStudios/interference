@@ -25,6 +25,7 @@ extends Node3D
 @export var knob_step_threshold: float = 0.2
 
 signal target_changed(index: int)
+signal attack_missed
 
 class Blip:
 	var start_pos: Vector2
@@ -154,6 +155,7 @@ func remove_blip_at(index: int) -> void:
 	if index < 0 or index >= blips.size():
 		return
 	blips.remove_at(index)
+	attack_missed.emit()
 	if blips.is_empty():
 		selected_index = 0
 	else:

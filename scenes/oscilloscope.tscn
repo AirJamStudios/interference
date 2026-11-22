@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://bkw0tnek4hnjl"]
 
-[ext_resource type="Script" uid="uid://djt7tbfodhc6v" path="res://scripts/oscilloscope.gd" id="1_1aqsl"]
 [ext_resource type="Script" uid="uid://b288yb0c4nrb8" path="res://scripts/screen.gd" id="1_7hroh"]
 [ext_resource type="PackedScene" uid="uid://bgpo85ywxp7vy" path="res://scenes/knob.tscn" id="1_ncd6b"]
+[ext_resource type="Script" uid="uid://c6p3j25guj1lj" path="res://scripts/signal/oscilloscope.gd" id="1_r2n4w"]
 [ext_resource type="Script" uid="uid://4fgxuwm2kadt" path="res://scripts/signal/grid.gd" id="1_yeat3"]
 [ext_resource type="Script" uid="uid://by32vt4jcgtey" path="res://scripts/signal/wave_enemy.gd" id="2_2wiel"]
 [ext_resource type="Script" uid="uid://b7sydhpcego0" path="res://scripts/signal/wave_user.gd" id="2_7hroh"]
@@ -107,7 +107,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_hpv6d")
 
 [node name="oscilloscope" type="Node3D" unique_id=1586478783 node_paths=PackedStringArray("enemy_wave", "user_wave")]
-script = ExtResource("1_1aqsl")
+script = ExtResource("1_r2n4w")
 enemy_wave = NodePath("sub_viewport/plotter_panel/enemy_wave")
 user_wave = NodePath("sub_viewport/plotter_panel/user_wave")
 

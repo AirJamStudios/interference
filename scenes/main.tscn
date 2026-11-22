@@ -10,7 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://sh047oh48vna" path="res://assets/models/radio/vintage_radio_transceiver_4k.gltf" id="6_tipki"]
 [ext_resource type="Script" uid="uid://cy42yyfxg0hem" path="res://scripts/scene_fx.gd" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://exwhtkkfgdde" path="res://assets/models/wall_lamp/industrial_wall_lamp_4k.gltf" id="8_85g3d"]
-[ext_resource type="Script" uid="uid://t76emut12m7e" path="res://scripts/game_manager.gd" id="10_choun"]
+[ext_resource type="Script" uid="uid://40s2wdo238r6" path="res://scripts/level_manager.gd" id="11_eb6dy"]
+[ext_resource type="Script" uid="uid://bsjcl0ljatr48" path="res://scripts/ui/level_selector.gd" id="12_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://njkdic5glcp0" path="res://scenes/ui/level_box.tscn" id="13_trceg"]
 
 [sub_resource type="Environment" id="Environment_anpke"]
 ambient_light_source = 3
@@ -40,8 +42,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.20458138)
 transform = Transform3D(0.85752267, 0, 0.51444614, 0, 1, 0, -0.51444614, 0, 0.85752267, 0.99031734, 0, 1.8144172)
 radius_scale = 0.948
 
-[node name="camera_3d" type="Camera3D" parent="." unique_id=893420369]
+[node name="desk_camera" type="Camera3D" parent="." unique_id=893420369]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.071017, 0.23964113, 0)
+
+[node name="overview_camera" type="Camera3D" parent="." unique_id=1869346386]
+transform = Transform3D(0.605341, -0.43939003, 0.6637008, 0.07633412, 0.8620335, 0.5010703, -0.7922976, -0.2526554, 0.5553646, 4.0641303, 2.2514992, 1.8503273)
 
 [node name="world_environment" type="WorldEnvironment" parent="." unique_id=1766253352]
 environment = SubResource("Environment_anpke")
@@ -87,12 +92,63 @@ mesh = SubResource("QuadMesh_21xpk")
 
 [node name="scene_fx" type="Node" parent="." unique_id=100556952 node_paths=PackedStringArray("camera", "light")]
 script = ExtResource("7_o6xl0")
-camera = NodePath("../camera_3d")
+camera = NodePath("../desk_camera")
 light = NodePath("../room/lamp_light")
 
-[node name="game_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogueManage", "oscilloscope", "scene_fx", "radar")]
-script = ExtResource("10_choun")
-dialogueManage = NodePath("../dialogue")
+[node name="level_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogue_manager", "oscilloscope", "scene_fx", "radar", "overview_camera", "desk_camera", "level_select_ui")]
+script = ExtResource("11_eb6dy")
+dialogue_manager = NodePath("../dialogue")
 oscilloscope = NodePath("../oscilloscope")
 scene_fx = NodePath("../scene_fx")
 radar = NodePath("../radar")
+overview_camera = NodePath("../overview_camera")
+desk_camera = NodePath("../desk_camera")
+level_select_ui = NodePath("../ui_level_layer/level_selector")
+
+[node name="ui_level_layer" type="CanvasLayer" parent="." unique_id=1291320804]
+
+[node name="level_selector" type="Control" parent="ui_level_layer" unique_id=1953737024 node_paths=PackedStringArray("grid", "level_manager")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_eb6dy")
+card_scene = ExtResource("13_trceg")
+grid = NodePath("CenterContainer/VBoxContainer/GridContainer")
+level_manager = NodePath("../../level_manager")
+
+[node name="CenterContainer" type="CenterContainer" parent="ui_level_layer/level_selector" unique_id=890349893]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_level_layer/level_selector/CenterContainer" unique_id=168431508]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="ui_level_layer/level_selector/CenterContainer/VBoxContainer" unique_id=1212394954]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ui_level_layer/level_selector/CenterContainer/VBoxContainer/PanelContainer" unique_id=1612029388]
+layout_mode = 2
+text = "LEVELS"
+
+[node name="GridContainer" type="GridContainer" parent="ui_level_layer/level_selector/CenterContainer/VBoxContainer" unique_id=1912385453]
+layout_mode = 2
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 24
+columns = 3
+
+[node name="Button" type="Button" parent="ui_level_layer/level_selector" unique_id=1002102645]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -57.0
+offset_right = 106.0
+grow_vertical = 0
+text = "BACK"

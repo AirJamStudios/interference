@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://njkdic5glcp0"]
+
+[ext_resource type="Script" uid="uid://bdfruh6pt156r" path="res://scripts/ui/level_box.gd" id="1_6hlp7"]
+[ext_resource type="Texture2D" uid="uid://cr1ggfdnya7e8" path="res://assets/icons/gold_star.jpg" id="2_4enrx"]
+[ext_resource type="Texture2D" uid="uid://dqtfjw1ownxyg" path="res://assets/icons/grey_star.jpg" id="3_b83n2"]
+
+[node name="LevelBox" type="PanelContainer" unique_id=471759442 node_paths=PackedStringArray("number_label", "unlocked_box", "lock_icon", "time_label", "button", "stars")]
+custom_minimum_size = Vector2(180, 200)
+offset_right = 20.0
+offset_bottom = 20.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_6hlp7")
+gold_star = ExtResource("2_4enrx")
+gray_star = ExtResource("3_b83n2")
+number_label = NodePath("VBox/NumberLabel")
+unlocked_box = NodePath("VBox/UnlockedBox")
+lock_icon = NodePath("VBox/LockIcon")
+time_label = NodePath("VBox/UnlockedBox/TimeLabel")
+button = NodePath("VBox/Button")
+stars = [NodePath("VBox/UnlockedBox/Stars/Star1"), NodePath("VBox/UnlockedBox/Stars/Star2"), NodePath("VBox/UnlockedBox/Stars/Star3")]
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=188231191]
+layout_mode = 2
+
+[node name="NumberLabel" type="Label" parent="VBox" unique_id=1608745726]
+layout_mode = 2
+
+[node name="UnlockedBox" type="VBoxContainer" parent="VBox" unique_id=258600821]
+layout_mode = 2
+
+[node name="Stars" type="HBoxContainer" parent="VBox/UnlockedBox" unique_id=305709635]
+layout_mode = 2
+
+[node name="Star1" type="TextureRect" parent="VBox/UnlockedBox/Stars" unique_id=57233078]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star2" type="TextureRect" parent="VBox/UnlockedBox/Stars" unique_id=545374230]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star3" type="TextureRect" parent="VBox/UnlockedBox/Stars" unique_id=1222599762]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TimeLabel" type="Label" parent="VBox/UnlockedBox" unique_id=1718262456]
+layout_mode = 2
+
+[node name="LockIcon" type="TextureRect" parent="VBox" unique_id=756759921]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="VBox" unique_id=573585849]
+layout_mode = 2
+flat = true
+
+[connection signal="pressed" from="VBox/Button" to="." method="_on_button_pressed"]
