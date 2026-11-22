@@ -46,7 +46,8 @@ func save_data() -> void:
 
 
 func load_data() -> void:
-	reset_all_data()
+	# For debug to reset data everytime
+	# reset_all_data() 
 	var cfg := ConfigFile.new()
 	if cfg.load(SAVE_PATH) == OK and cfg.has_section("levels"):
 		for key in cfg.get_section_keys("levels"):
