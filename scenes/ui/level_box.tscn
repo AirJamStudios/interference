@@ -5,68 +5,95 @@
 [ext_resource type="Texture2D" uid="uid://bfyf4p6jk150h" path="res://assets/icons/grey_star.png" id="3_b83n2"]
 [ext_resource type="Texture2D" uid="uid://babgc1h3g8tym" path="res://assets/icons/lock.png" id="4_b83n2"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b83n2"]
+bg_color = Color(0.0196, 0.0784, 0.0314, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.098, 0.3686, 0.149, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="LevelBox" type="PanelContainer" unique_id=471759442 node_paths=PackedStringArray("number_label", "unlocked_box", "lock_icon", "time_label", "button", "stars")]
 custom_minimum_size = Vector2(180, 180)
 offset_right = 180.0
 offset_bottom = 274.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_b83n2")
 script = ExtResource("1_6hlp7")
 gold_star = ExtResource("2_4enrx")
 gray_star = ExtResource("3_b83n2")
-number_label = NodePath("VBox/NumberLabel")
-unlocked_box = NodePath("VBox/UnlockedBox")
-lock_icon = NodePath("VBox/LockIcon")
-time_label = NodePath("VBox/UnlockedBox/TimeLabel")
+number_label = NodePath("MarginContainer/VBox/NumberLabel")
+unlocked_box = NodePath("MarginContainer/VBox/UnlockedBox")
+lock_icon = NodePath("MarginContainer/VBox/LockIcon")
+time_label = NodePath("MarginContainer/VBox/UnlockedBox/TimeLabel")
 button = NodePath("Button")
-stars = [NodePath("VBox/UnlockedBox/Stars/Star1"), NodePath("VBox/UnlockedBox/Stars/Star2"), NodePath("VBox/UnlockedBox/Stars/Star3")]
+stars = [NodePath("MarginContainer/VBox/UnlockedBox/Stars/Star1"), NodePath("MarginContainer/VBox/UnlockedBox/Stars/Star2"), NodePath("MarginContainer/VBox/UnlockedBox/Stars/Star3")]
 
-[node name="VBox" type="VBoxContainer" parent="." unique_id=188231191]
+[node name="Button" type="Button" parent="." unique_id=573585849]
 layout_mode = 2
 
-[node name="NumberLabel" type="Label" parent="VBox" unique_id=1608745726]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1032300899]
 layout_mode = 2
-horizontal_alignment = 1
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="UnlockedBox" type="VBoxContainer" parent="VBox" unique_id=258600821]
+[node name="VBox" type="VBoxContainer" parent="MarginContainer" unique_id=188231191]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="Stars" type="HBoxContainer" parent="VBox/UnlockedBox" unique_id=305709635]
-layout_mode = 2
-
-[node name="Star1" type="TextureRect" parent="VBox/UnlockedBox/Stars" unique_id=57233078]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Star2" type="TextureRect" parent="VBox/UnlockedBox/Stars" unique_id=545374230]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Star3" type="TextureRect" parent="VBox/UnlockedBox/Stars" unique_id=1222599762]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="TimeLabel" type="Label" parent="VBox/UnlockedBox" unique_id=1718262456]
+[node name="NumberLabel" type="Label" parent="MarginContainer/VBox" unique_id=1608745726]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="LockIcon" type="TextureRect" parent="VBox" unique_id=756759921]
+[node name="UnlockedBox" type="VBoxContainer" parent="MarginContainer/VBox" unique_id=258600821]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Stars" type="HBoxContainer" parent="MarginContainer/VBox/UnlockedBox" unique_id=305709635]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Star1" type="TextureRect" parent="MarginContainer/VBox/UnlockedBox/Stars" unique_id=57233078]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star2" type="TextureRect" parent="MarginContainer/VBox/UnlockedBox/Stars" unique_id=545374230]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star3" type="TextureRect" parent="MarginContainer/VBox/UnlockedBox/Stars" unique_id=1222599762]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TimeLabel" type="Label" parent="MarginContainer/VBox/UnlockedBox" unique_id=1718262456]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="LockIcon" type="TextureRect" parent="MarginContainer/VBox" unique_id=756759921]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("4_b83n2")
 expand_mode = 1
 stretch_mode = 5
-
-[node name="Button" type="Button" parent="." unique_id=573585849]
-layout_mode = 2
-flat = true
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

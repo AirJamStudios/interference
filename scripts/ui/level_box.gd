@@ -6,9 +6,6 @@ signal selected(index: int)
 @export var gold_star: Texture2D
 @export var gray_star: Texture2D
 
-#TODO the lock icon and logic
-
-
 @export_group("UI References")
 @export var number_label: Label
 @export var unlocked_box: VBoxContainer
@@ -28,7 +25,6 @@ func setup(index: int, info: Dictionary) -> void:
 	lock_icon.visible = not unlocked
 	button.disabled = not unlocked
 	
-	#TODO: display the time of the level with best stars
 	if unlocked:
 		var earned: int = info.get("stars", 0)
 		for i in range(3):
@@ -36,7 +32,7 @@ func setup(index: int, info: Dictionary) -> void:
 			
 		var t: float = info.get("best_time", -1.0)
 		if t >= 0.0:
-			time_label.text = "%d:%02d" % [int(t) / 60, int(t) % 60]
+			time_label.text = "%d:%02d" % [floori(t / 60.0), int(t) % 60]
 		else:
 			time_label.text = "--:--"
 

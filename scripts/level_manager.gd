@@ -111,7 +111,6 @@ var _hits_saved: int = 0
 var _elapsed_time: float = 0.0
 var is_playing: bool = false
 var _is_transitioning: bool = false
-var _changing_level : bool = false
 
 func _ready() -> void:
 	_build_levels()
@@ -122,7 +121,8 @@ func _ready() -> void:
 	level_select_ui.level_chosen.connect(start_level)
 	level_select_ui.back_pressed.connect(_on_back_to_menu)
 	
-	open_level_select()
+	# Give the level manager time to initialze cards ( in the ready function)
+	open_level_select.call_deferred()
 
 func _process(delta: float) -> void:
 	if not is_playing or _is_transitioning:

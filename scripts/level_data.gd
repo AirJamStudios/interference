@@ -164,5 +164,233 @@ func _build_levels() ->void:
 			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
 				LevelAction.dialogue([{"speaker": "Soldier", "text": "Cruise missile impact!"}])
 			], false)
-		])
+		]),
+
+		# DUMMY LEVEL FILLERS BELLOW FOR UI
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+		Level.new([
+			LevelEvent.new(TriggerType.LEVEL_START, null, [
+				LevelAction.dialogue([
+					{"speaker": "Soldier", "text": "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!"},
+					{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
+				]),
+				LevelAction.spawn(Attack.new("bomber_1", 130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 50, CompositeWave.DriftMode.AMPLITUDE)),
+			]),
+			LevelEvent.new(TriggerType.ATTACK_REACHED, null, [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "It's direcely over us we are doomed..."}])
+			], false),
+			LevelEvent.new(TriggerType.ATTACK_DEFEATED, "bomber_1", [
+				LevelAction.dialogue([{"speaker": "Soldier", "text": "Good job! Area clear... for now."}])
+			]),
+		]),
+
 	]

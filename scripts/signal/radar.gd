@@ -130,8 +130,9 @@ func _draw_radar() -> void:
 				var speed: float = ring_width / (minutes_per_ring * 60.0)
 				remaining_sec = blip.pos.length() / speed
 
-			var mins: int = int(remaining_sec) / 60
-			var secs: int = int(remaining_sec) % 60
+			var total_secs := int(remaining_sec)
+			var mins := int(total_secs / 60.0)
+			var secs := total_secs % 60
 			var eta_text: String = "ETA %02d:%02d" % [mins, secs]
 
 			var font: Font = ThemeDB.fallback_font

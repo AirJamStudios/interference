@@ -109,8 +109,14 @@ mesh = SubResource("QuadMesh_21xpk")
 [node name="wall_lamp" parent="room/walls/wall" unique_id=1657567979 instance=ExtResource("10_a8y0u")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.4896393, 8.353498, 0.010782242)
 
+[node name="mesh" parent="room/walls/wall/wall_lamp" index="0" unique_id=1369905835]
+surface_material_override/1 = null
+
 [node name="wall_lamp2" parent="room/walls/wall" unique_id=444449942 instance=ExtResource("10_a8y0u")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -8.864346, 8.353498, 0.0107831955)
+
+[node name="mesh" parent="room/walls/wall/wall_lamp2" index="0" unique_id=1369905835]
+surface_material_override/1 = null
 
 [node name="wall_lamp_light" type="OmniLight3D" parent="room/walls/wall" unique_id=418273645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4896398, 8.353498, 0.85110474)
@@ -140,14 +146,6 @@ omni_range = 25.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94864, 0, -15.008734)
 mesh = SubResource("QuadMesh_21xpk")
 
-[node name="scene_fx" type="Node" parent="." unique_id=100556952 node_paths=PackedStringArray("camera", "light", "radar", "hit_flicker_lights", "hit_flicker_meshes")]
-script = ExtResource("7_o6xl0")
-camera = NodePath("../desk_camera")
-light = NodePath("../room/lamp_light")
-radar = NodePath("../radar")
-hit_flicker_lights = [NodePath("../room/walls/wall/wall_lamp_light"), NodePath("../room/walls/wall/wall_lamp_light2")]
-hit_flicker_meshes = [NodePath(""), NodePath("")]
-
 [node name="level_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogue_manager", "oscilloscope", "scene_fx", "radar", "overview_camera", "desk_camera", "level_select_ui")]
 script = ExtResource("11_eb6dy")
 dialogue_manager = NodePath("../dialogue")
@@ -158,9 +156,17 @@ overview_camera = NodePath("../overview_camera")
 desk_camera = NodePath("../desk_camera")
 level_select_ui = NodePath("../ui_level_layer/level_selector")
 
+[node name="scene_fx" type="Node" parent="." unique_id=100556952 node_paths=PackedStringArray("camera", "light", "radar", "hit_flicker_lights", "hit_flicker_meshes")]
+script = ExtResource("7_o6xl0")
+camera = NodePath("../desk_camera")
+light = NodePath("../room/lamp_light")
+radar = NodePath("../radar")
+hit_flicker_lights = [NodePath("../room/walls/wall/wall_lamp_light"), NodePath("../room/walls/wall/wall_lamp_light2")]
+hit_flicker_meshes = [NodePath("../room/walls/wall/wall_lamp/mesh"), NodePath("../room/walls/wall/wall_lamp2/mesh")]
+
 [node name="ui_level_layer" type="CanvasLayer" parent="." unique_id=1291320804]
 
-[node name="level_selector" type="Control" parent="ui_level_layer" unique_id=1953737024 node_paths=PackedStringArray("grid", "level_manager")]
+[node name="level_selector" type="Control" parent="ui_level_layer" unique_id=1953737024 node_paths=PackedStringArray("grid", "level_manager", "prev_button", "next_button", "page_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -171,6 +177,9 @@ script = ExtResource("12_eb6dy")
 card_scene = ExtResource("13_trceg")
 grid = NodePath("CenterContainer/VBoxContainer/GridContainer")
 level_manager = NodePath("../../level_manager")
+prev_button = NodePath("CenterContainer/VBoxContainer/PaginationContainer/PrevButton")
+next_button = NodePath("CenterContainer/VBoxContainer/PaginationContainer/NextButton")
+page_label = NodePath("CenterContainer/VBoxContainer/PaginationContainer/PageLabel")
 
 [node name="CenterContainer" type="CenterContainer" parent="ui_level_layer/level_selector" unique_id=890349893]
 layout_mode = 1
@@ -197,6 +206,22 @@ theme_override_constants/h_separation = 24
 theme_override_constants/v_separation = 24
 columns = 3
 
+[node name="PaginationContainer" type="HBoxContainer" parent="ui_level_layer/level_selector/CenterContainer/VBoxContainer" unique_id=233290830]
+layout_mode = 2
+alignment = 1
+
+[node name="PrevButton" type="Button" parent="ui_level_layer/level_selector/CenterContainer/VBoxContainer/PaginationContainer" unique_id=1377034233]
+layout_mode = 2
+text = "<"
+
+[node name="PageLabel" type="Label" parent="ui_level_layer/level_selector/CenterContainer/VBoxContainer/PaginationContainer" unique_id=269866934]
+layout_mode = 2
+text = "1"
+
+[node name="NextButton" type="Button" parent="ui_level_layer/level_selector/CenterContainer/VBoxContainer/PaginationContainer" unique_id=1300033285]
+layout_mode = 2
+text = ">"
+
 [node name="back_button" type="Button" parent="ui_level_layer/level_selector" unique_id=1002102645]
 layout_mode = 1
 anchors_preset = 2
@@ -208,3 +233,6 @@ grow_vertical = 0
 text = "BACK"
 
 [connection signal="pressed" from="ui_level_layer/level_selector/back_button" to="level_manager" method="_on_back_to_menu"]
+
+[editable path="room/walls/wall/wall_lamp"]
+[editable path="room/walls/wall/wall_lamp2"]
