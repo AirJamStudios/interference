@@ -19,13 +19,32 @@ const MAIN_MENU_SCENE_PATH := "res://scenes/main_menu.tscn"
 @export var next_level_delay : float = 1.5
 @export var camera_transition_time: float = 0.8
 
+enum TriggerType {
+	LEVEL_START,
+	TIMER_COMPLETED,
+	ATTACK_DEFEATED,
+	ATTACK_REACHED,
+	DIALOGUE_COMPLETED,
+}
+
+enum ActionType {
+	DIALOGUE,
+	SPAWN_ATTACK,
+	START_TIMER,
+	CANCEL_TIMER,
+	DISABLE_EVENT,
+	SCENE_FX
+}
+
 class Attack:
+	var id : String
 	var angle_deg : float
 	var start_distance : float
 	var start_eta : float
 	var enemy_wave : CompositeWave
 
-	func _init(p_angle_deg: float, waves: Array, p_distance: float = 1.0, p_start_eta: float = 0.0, drift: CompositeWave.DriftMode = CompositeWave.DriftMode.NONE) -> void:
+	func _init(p_id: String, p_angle_deg: float, waves: Array, p_distance: float = 1.0, p_start_eta: float = 0.0, drift: CompositeWave.DriftMode = CompositeWave.DriftMode.NONE) -> void:
+		id = p_id
 		angle_deg = p_angle_deg
 		start_distance = p_distance
 		start_eta = p_start_eta
@@ -33,24 +52,58 @@ class Attack:
 		for wave: SingleWave in waves:
 			enemy_wave.add_wave(wave)
 		
-		if drift!=CompositeWave.DriftMode.NONE:
+		if drift != CompositeWave.DriftMode.NONE:
 			enemy_wave.set_drift(drift)
 
-class Level:
-	var dialogue_lines : Array[Dictionary] = []
-	var attacks : Array[Attack] = []
+class LevelAction:
+	var type : ActionType
+	var data : Variant
 
-	func _init(lines: Array, p_attacks: Array[Attack]) -> void:
-		dialogue_lines.assign(lines)
-		attacks = p_attacks.duplicate()
-		# Make sure they are reversed ordered for dial to make sense
-		attacks.sort_custom(func(a: Attack, b: Attack) -> bool:
-			return fposmod(a.angle_deg, 360.0) > fposmod(b.angle_deg, 360.0)
-		)
+	func _init(p_type: ActionType, p_data: Variant) -> void:
+		type = p_type
+		data = p_data
+
+	static func dialogue(lines: Array, id: String = "") -> LevelAction:
+		return LevelAction.new(ActionType.DIALOGUE, {"id": id, "lines": lines})
+
+	static func spawn(attack: Attack) -> LevelAction:
+		return LevelAction.new(ActionType.SPAWN_ATTACK, attack)
+
+	static func start_timer(id: String, duration: float) -> LevelAction:
+		return LevelAction.new(ActionType.START_TIMER, {"id": id, "duration": duration})
+
+	static func cancel_timer(id: String) -> LevelAction:
+		return LevelAction.new(ActionType.CANCEL_TIMER, id)
+
+	static func disable_event(event_id: String) -> LevelAction:
+		return LevelAction.new(ActionType.DISABLE_EVENT, event_id)
+
+class LevelEvent:
+	var id : String
+	var trigger : TriggerType
+	var trigger_param : Variant
+	var actions : Array[LevelAction] = []
+	var one_shot : bool = true
+	var _fired : bool = false
+
+	func _init(p_trig: TriggerType, p_param: Variant, p_actions: Array, p_one_shot: bool = true, p_id: String = "") -> void:
+		trigger = p_trig
+		trigger_param = p_param
+		actions.assign(p_actions)
+		one_shot = p_one_shot
+		id = p_id
+
+class Level:
+	var events : Array[LevelEvent] = []
+	
+	func _init(p_events: Array) -> void:
+		events.assign(p_events)
 
 # State variables for tracking level progress
 var level_list : Array[Level] = []
 var active_attacks : Array[Attack] = []
+var current_level_events : Array[LevelEvent] = []
+var active_timers : Dictionary = {} # { timer_id (String): remaining_time (float) }
 
 var _current_level_id : int = 0
 var _hits_taken: int = 0
@@ -58,6 +111,7 @@ var _hits_saved: int = 0
 var _elapsed_time: float = 0.0
 var is_playing: bool = false
 var _is_transitioning: bool = false
+var _changing_level : bool = false
 
 func _ready() -> void:
 	_build_levels()
@@ -71,8 +125,22 @@ func _ready() -> void:
 	open_level_select()
 
 func _process(delta: float) -> void:
-	if is_playing and not _is_transitioning:
-		_elapsed_time += delta
+	if not is_playing or _is_transitioning:
+		return
+
+	_elapsed_time += delta
+
+	if not active_timers.is_empty():
+		var expired: Array[String] = []
+		for timer_id: String in active_timers.keys():
+			active_timers[timer_id] -= delta
+			if active_timers[timer_id] <= 0.0:
+				expired.append(timer_id)
+
+		for timer_id: String in expired:
+			active_timers.erase(timer_id)
+			_fire_trigger(TriggerType.TIMER_COMPLETED, timer_id)
+			_evaluate_level_state()
 
 func open_level_select() -> void:
 	dialogue_manager.hide()
@@ -94,57 +162,84 @@ func start_level(index: int) -> void:
 
 func _load_level(index: int) -> void:
 	var level : Level = level_list[index]
-	dialogue_manager.start_dialogue(level.dialogue_lines)
-
-	active_attacks = level.attacks.duplicate()
 	_elapsed_time = 0.0
 	is_playing = true
 	_hits_taken = 0
 	_hits_saved = 0
 
-
-	#Spawn blips
+	active_timers.clear()
+	active_attacks.clear()
 	radar.blips.clear()
-	for attack: Attack in active_attacks:
-		radar.add_blip(deg_to_rad(attack.angle_deg), attack.start_distance, attack.start_eta)
-
-	if not active_attacks.is_empty():
-		oscilloscope.set_enemy_wave(active_attacks[radar.selected_index].enemy_wave)
-
+	
+	current_level_events = level.events
+	for ev: LevelEvent in current_level_events:
+		ev._fired = false
+		
+	_fire_trigger(TriggerType.LEVEL_START)
 
 #! COMBAT EVENTS  - attack compelted or missed
 func _on_attack_completed() -> void:
-	if _is_transitioning  or not is_playing:
+	if _is_transitioning or not is_playing or active_attacks.is_empty():
 		return
 
-	# Attack jammed successfully
 	var target_idx: int = radar.selected_index
+	var defeated_attack: Attack = active_attacks[target_idx]
+
 	active_attacks.remove_at(target_idx)
 	radar.remove_blip_at(target_idx)
-	_hits_saved+= 1
+	_hits_saved += 1
+
+	_fire_trigger(TriggerType.ATTACK_DEFEATED, defeated_attack.id)
 	_evaluate_level_state()
 
 func _on_attack_missed(id: int) -> void:
-	if _is_transitioning or not is_playing:
+	if _is_transitioning or not is_playing or id < 0 or id >= active_attacks.size():
 		return
+
+	var missed_attack: Attack = active_attacks[id]
 	active_attacks.remove_at(id)
 	_hits_taken += 1
+
+	_fire_trigger(TriggerType.ATTACK_REACHED, missed_attack.id)
+	_evaluate_level_state()
+
+func _on_dialogue_completed(dialogue_id: String = "") -> void:
+	if _is_transitioning or not is_playing:
+		return
+
+	_fire_trigger(TriggerType.DIALOGUE_COMPLETED, dialogue_id)
 	_evaluate_level_state()
 
 func _evaluate_level_state() -> void:
+	# 1. Immediate fail check
 	if _hits_taken >= max_hits_allowed:
 		_fail_level()
-	elif active_attacks.is_empty():
-		if _hits_saved >= 1:
-			_complete_level()
-		else:
-			_fail_level()
-	else:
+		return
+
+	# 2. If attacks are still active, keep fighting and sync oscilloscope
+	if not active_attacks.is_empty():
 		_sync_oscilloscope_to_radar()
+		return
+
+	# 3. Wait if timers or future wave spawns are still pending
+	if not active_timers.is_empty():
+		return
+
+	for ev: LevelEvent in current_level_events:
+		if not ev._fired:
+			for act: LevelAction in ev.actions:
+				if act.type == ActionType.SPAWN_ATTACK:
+					return
+
+	# 4. Everything is cleared—evaluate win vs fail
+	if _hits_saved >= 1:
+		_complete_level()
+	else:
+		_fail_level()
 
 #! LEVEL EVENTS  - level completed or failed
 func _complete_level() -> void:
-	_is_transitioning  = true
+	_is_transitioning = true
 	is_playing = false
 	GameManager.set_game_state_active(false)
 
@@ -155,19 +250,18 @@ func _complete_level() -> void:
 	await get_tree().create_timer(next_level_delay).timeout
 	await _tween_camera(desk_camera, overview_camera, camera_transition_time)
 	open_level_select()
-	
+
 	_is_transitioning = false
 
 func _fail_level() -> void:
 	_is_transitioning = true
 	is_playing = false
-	
+
 	await get_tree().create_timer(next_level_delay).timeout
 	await _tween_camera(desk_camera, overview_camera, camera_transition_time)
-	
+
 	open_level_select()
 	_is_transitioning = false
-
 
 func _on_target_changed(index: int) -> void:
 	if index >= 0 and index < active_attacks.size():
@@ -211,56 +305,48 @@ func _tween_camera(from_cam: Camera3D, to_cam: Camera3D, duration: float) -> voi
 	temp_cam.queue_free()
 
 func _build_levels() -> void:
-	level_list = [
-		#! TUTORIAL LEVEL: TEACHES KNOBS
-		Level.new(
-			[
-				{"speaker": "Soldier", "text": "OH MY GOD, WE'RE UNDER ATTACK!"},
-				{"speaker": "Soldier", "text": "Look at the rada, contacts are popping up everywhere! They're closing in fast!"},
-				{"speaker": "Soldier", "text": "[SYSTEM ALERT: Automated Electronic Warfare offline. Manual Antenna & Radar arrays operational.]"},
-				{"speaker": "Soldier", "text": "Our auto-jammers are fried! We have to manually match their signal frequencies to cancel them out!"},
-				{"speaker": "Soldier", "text": "Recon drones approaching from the South! Jam them before they lock our coordinates!"},
-				{"speaker": "Soldier", "text": "Twist the FREQUENCY, AMPLITUDE, and PHASE knobs until the two waves match up! Just keep turning them till it works!"}
-			],
-			[
-				Attack.new(90.0, [SingleWave.new(0.2, 0.4, 0.0)], 1.0, 90),
-				Attack.new(95.0, [SingleWave.new(0.6, 0.4, 0.0)], 1.0, 90),
-				Attack.new(85.0, [SingleWave.new(1.0, 0.4, 0.0)], 1.0, 90),
+	var data = preload("res://scripts/level_data.gd").new()
+	data._build_levels()
+	level_list = data.level_list
 
-				Attack.new(120.0, [SingleWave.new(1.0, 0.2, 0.0)], 1.0, 120),
-				Attack.new(130.0, [SingleWave.new(1.0, 0.8, 0.0)], 1.0, 120),
-				Attack.new(125.0, [SingleWave.new(1.0, 0.05, 0.0)], 1.0, 120),
+func _fire_trigger(type: TriggerType, param: Variant = null) -> void:
+	for ev: LevelEvent in current_level_events:
+		if ev._fired and ev.one_shot:
+			continue
+		if ev.trigger != type:
+			continue
+		if ev.trigger_param != null and ev.trigger_param != param:
+			continue
+			
+		ev._fired = true
+		for act: LevelAction in ev.actions:
+			_execute_action(act)
 
-				Attack.new(40.0, [SingleWave.new(1.0, 0.05, 0.5)], 1.0, 150),
-				Attack.new(50.0, [SingleWave.new(1.0, 0.05, 0.2)], 1.0, 150),
-				Attack.new(45.0, [SingleWave.new(1.0, 0.05, 0.8)], 1.0, 150),
-			]
-		),
-		#! TUTORIAL LEVEL: TEACHES TIME CHANGE
-		Level.new(
-			[
-				{"speaker": "Soldier", "text": "Wow! Their signal is shifting on its own!"},
-				{"speaker": "Soldier", "text": "Don't let it slip away, keep twisting the knobs to track its movement"},
-			],
-			[
-				#TODO: make the time shift mode more configurable form here right now all default
-				Attack.new(130.0, [SingleWave.new(1.0, 0.1, 0.5)], 1.0, 0.0, CompositeWave.DriftMode.AMPLITUDE),			
-			]
-		),
-		#! TUTORIAL LEVEL: TEACHES TWO WAVES
-		Level.new(
-			[
-				{"speaker": "Soldier", "text": "YES! It's jammed! Wait, a heavy bomber's on the radar, and its signal is double layered!"},
-				{"speaker": "Soldier", "text": "One wave won't be enough!"},
-			],
-			[
-				Attack.new(20.0, [SingleWave.new(1.0, 0.05, 0.0), SingleWave.new(0.25, 0.9, 0.0)], 1.0),
-			]
-		),
-		
-	]
+func _execute_action(act: LevelAction) -> void:
+	match act.type:
+		ActionType.DIALOGUE:
+			dialogue_manager.start_dialogue(act.data["lines"])
+		ActionType.SPAWN_ATTACK:
+			_spawn_attack(act.data)
+		ActionType.START_TIMER:
+			active_timers[act.data["id"]] = float(act.data["duration"])
+		ActionType.CANCEL_TIMER:
+			active_timers.erase(act.data)
+		ActionType.DISABLE_EVENT:
+			for ev: LevelEvent in current_level_events:
+				if ev.id == act.data:
+					ev._fired = true
+		ActionType.SCENE_FX:
+			# scene_fx.play(act.data)
+			pass
 
-#Debug only skip attacks
+func _spawn_attack(new_attack: Attack) -> void:
+	active_attacks.append(new_attack)
+	radar.add_blip(deg_to_rad(new_attack.angle_deg), new_attack.start_distance, new_attack.start_eta)
+	
+	if active_attacks.size() == 1:
+		oscilloscope.set_enemy_wave(active_attacks[0].enemy_wave)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not OS.is_debug_build():
 		return

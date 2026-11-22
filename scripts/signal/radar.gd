@@ -186,8 +186,9 @@ func _advance_blips(dt: float) -> void:
 	for reached in reached_blips:
 		var idx: int = blips.find(reached)
 		if idx != -1:
-			attack_missed.emit(idx)
 			remove_blip_at(idx)
+			attack_missed.emit(idx)
+
 
 func _on_knob_value_changed(value: float) -> void:
 	if blips.is_empty():

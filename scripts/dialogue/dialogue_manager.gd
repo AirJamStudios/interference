@@ -14,6 +14,8 @@ var current_index: int = 0
 var is_typing: bool = false
 var tween: Tween
 
+signal dialogue_completed(index: int)
+
 func _ready() -> void:
 	hide()
 
@@ -66,3 +68,4 @@ func _input(event: InputEvent) -> void:
 
 func end_dialogue() -> void:
 	hide()
+	dialogue_completed.emit(null)
