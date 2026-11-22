@@ -124,7 +124,7 @@ light_color = Color(0.86, 0.92, 0.8, 1)
 light_energy = 5.0
 light_indirect_energy = 1.5
 light_volumetric_fog_energy = 1.5
-light_size = 0.12
+light_size = 0.4
 shadow_enabled = true
 shadow_bias = 0.03
 shadow_normal_bias = 0.6
@@ -136,7 +136,7 @@ light_color = Color(0.86, 0.92, 0.8, 1)
 light_energy = 5.0
 light_indirect_energy = 1.5
 light_volumetric_fog_energy = 1.5
-light_size = 0.12
+light_size = 0.4
 shadow_enabled = true
 shadow_bias = 0.03
 shadow_normal_bias = 0.6
@@ -146,10 +146,13 @@ omni_range = 25.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94864, 0, -15.008734)
 mesh = SubResource("QuadMesh_21xpk")
 
-[node name="scene_fx" type="Node" parent="." unique_id=100556952 node_paths=PackedStringArray("camera", "light")]
+[node name="scene_fx" type="Node" parent="." unique_id=100556952 node_paths=PackedStringArray("camera", "light", "radar", "hit_flicker_lights", "hit_flicker_meshes")]
 script = ExtResource("7_o6xl0")
 camera = NodePath("../desk_camera")
 light = NodePath("../room/lamp_light")
+radar = NodePath("../radar")
+hit_flicker_lights = [NodePath("../room/walls/wall/wall_lamp_light"), NodePath("../room/walls/wall/wall_lamp_light2")]
+hit_flicker_meshes = [NodePath("../room/walls/wall/wall_lamp/industrial_wall_lamp"), NodePath("../room/walls/wall/wall_lamp2/industrial_wall_lamp")]
 
 [node name="level_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogue_manager", "oscilloscope", "scene_fx", "radar", "overview_camera", "desk_camera", "level_select_ui")]
 script = ExtResource("11_eb6dy")
