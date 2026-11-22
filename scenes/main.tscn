@@ -9,7 +9,7 @@
 [ext_resource type="Material" uid="uid://gnfj577sevo6" path="res://resources/concrete_material.tres" id="5_tefeu"]
 [ext_resource type="PackedScene" uid="uid://sh047oh48vna" path="res://assets/models/radio/vintage_radio_transceiver_4k.gltf" id="6_tipki"]
 [ext_resource type="Script" uid="uid://cy42yyfxg0hem" path="res://scripts/scene_fx.gd" id="7_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://exwhtkkfgdde" path="res://assets/models/wall_lamp/industrial_wall_lamp_4k.gltf" id="8_85g3d"]
+[ext_resource type="PackedScene" uid="uid://b5umxmradv13d" path="res://scenes/wall_lamp.tscn" id="10_a8y0u"]
 [ext_resource type="Script" uid="uid://40s2wdo238r6" path="res://scripts/level_manager.gd" id="11_eb6dy"]
 [ext_resource type="Script" uid="uid://bsjcl0ljatr48" path="res://scripts/ui/level_selector.gd" id="12_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://njkdic5glcp0" path="res://scenes/ui/level_box.tscn" id="13_trceg"]
@@ -106,20 +106,14 @@ mesh = SubResource("QuadMesh_21xpk")
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -9.036854, 0, 0)
 mesh = SubResource("QuadMesh_21xpk")
 
-[node name="wall_lamp" parent="room/walls/wall" unique_id=1017129926 instance=ExtResource("8_85g3d")]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.4896398, 8.353498, 0.0107831955)
+[node name="wall_lamp" parent="room/walls/wall" unique_id=1657567979 instance=ExtResource("10_a8y0u")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.4896393, 8.353498, 0.010782242)
 
-[node name="wall_lamp2" parent="room/walls/wall" unique_id=1403489555 instance=ExtResource("8_85g3d")]
+[node name="wall_lamp2" parent="room/walls/wall" unique_id=444449942 instance=ExtResource("10_a8y0u")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -8.864346, 8.353498, 0.0107831955)
 
-[node name="industrial_wall_lamp" parent="room/walls/wall/wall_lamp" index="0"]
-cast_shadow = 0
-
-[node name="industrial_wall_lamp" parent="room/walls/wall/wall_lamp2" index="0"]
-cast_shadow = 0
-
 [node name="wall_lamp_light" type="OmniLight3D" parent="room/walls/wall" unique_id=418273645]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4896398, 8.353498, 0.31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4896398, 8.353498, 0.85110474)
 light_color = Color(0.86, 0.92, 0.8, 1)
 light_energy = 5.0
 light_indirect_energy = 1.5
@@ -131,7 +125,7 @@ shadow_normal_bias = 0.6
 omni_range = 25.0
 
 [node name="wall_lamp_light2" type="OmniLight3D" parent="room/walls/wall" unique_id=731552904]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.864346, 8.353498, 0.31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.864346, 8.353498, 0.48407745)
 light_color = Color(0.86, 0.92, 0.8, 1)
 light_energy = 5.0
 light_indirect_energy = 1.5
@@ -152,7 +146,7 @@ camera = NodePath("../desk_camera")
 light = NodePath("../room/lamp_light")
 radar = NodePath("../radar")
 hit_flicker_lights = [NodePath("../room/walls/wall/wall_lamp_light"), NodePath("../room/walls/wall/wall_lamp_light2")]
-hit_flicker_meshes = [NodePath("../room/walls/wall/wall_lamp/industrial_wall_lamp"), NodePath("../room/walls/wall/wall_lamp2/industrial_wall_lamp")]
+hit_flicker_meshes = [NodePath(""), NodePath("")]
 
 [node name="level_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogue_manager", "oscilloscope", "scene_fx", "radar", "overview_camera", "desk_camera", "level_select_ui")]
 script = ExtResource("11_eb6dy")
