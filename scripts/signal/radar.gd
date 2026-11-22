@@ -156,7 +156,7 @@ func remove_blip_at(index: int) -> void:
 	if index < 0 or index >= blips.size():
 		return
 	blips.remove_at(index)
-	attack_missed.emit()
+	attack_missed.emit(index)
 	if blips.is_empty():
 		selected_index = 0
 	else:

@@ -1,6 +1,8 @@
 class_name LevelManager
 extends Node
 
+const MAIN_MENU_SCENE_PATH := "res://scenes/main_menu.tscn"
+
 @export_group("References")
 @export var dialogue_manager : DialogueManager
 @export var oscilloscope : Oscilloscope
@@ -52,8 +54,9 @@ var active_attacks : Array[Attack] = []
 
 var _current_level_id : int = 0
 var _hits_taken: int = 0
+var _hits_saved: int = 0
 var _elapsed_time: float = 0.0
-var _is_playing: bool = false
+var is_playing: bool = false
 var _is_transitioning: bool = false
 
 func _ready() -> void:
@@ -68,14 +71,15 @@ func _ready() -> void:
 	open_level_select()
 
 func _process(delta: float) -> void:
-	if _is_playing and not _is_transitioning:
+	if is_playing and not _is_transitioning:
 		_elapsed_time += delta
 
 func open_level_select() -> void:
-	_is_playing = false
+	dialogue_manager.hide()
+	GameManager.set_game_state_active(false)
+	is_playing = false
 	active_attacks.clear()
 	radar.blips.clear()
-	
 	overview_camera.make_current()
 	level_select_ui.refresh_cards(level_list.size())
 	level_select_ui.visible = true
@@ -86,6 +90,7 @@ func start_level(index: int) -> void:
 	
 	await _tween_camera(overview_camera, desk_camera, camera_transition_time)
 	_load_level(_current_level_id)
+	GameManager.set_game_state_active(true)
 
 func _load_level(index: int) -> void:
 	var level : Level = level_list[index]
@@ -93,8 +98,10 @@ func _load_level(index: int) -> void:
 
 	active_attacks = level.attacks.duplicate()
 	_elapsed_time = 0.0
-	_is_playing = true
+	is_playing = true
 	_hits_taken = 0
+	_hits_saved = 0
+
 
 	#Spawn blips
 	radar.blips.clear()
@@ -107,54 +114,53 @@ func _load_level(index: int) -> void:
 
 #! COMBAT EVENTS  - attack compelted or missed
 func _on_attack_completed() -> void:
-	if _is_transitioning  or not _is_playing:
+	if _is_transitioning  or not is_playing:
 		return
 
 	# Attack jammed successfully
 	var target_idx: int = radar.selected_index
 	active_attacks.remove_at(target_idx)
 	radar.remove_blip_at(target_idx)
+	_hits_saved+= 1
+	_evaluate_level_state()
 
-	# Check if any attacks remain
-	if active_attacks.is_empty():
-		_complete_level()
-
-func _on_attack_missed(hit_idx: int) -> void:
-	if _is_transitioning or not _is_playing:
+func _on_attack_missed(id: int) -> void:
+	if _is_transitioning or not is_playing:
 		return
-
+	active_attacks.remove_at(id)
 	_hits_taken += 1
-	_remove_attack_at(hit_idx)
+	_evaluate_level_state()
 
+func _evaluate_level_state() -> void:
 	if _hits_taken >= max_hits_allowed:
 		_fail_level()
 	elif active_attacks.is_empty():
-		_complete_level()
+		if _hits_saved >= 1:
+			_complete_level()
+		else:
+			_fail_level()
 	else:
 		_sync_oscilloscope_to_radar()
 
 #! LEVEL EVENTS  - level completed or failed
 func _complete_level() -> void:
 	_is_transitioning  = true
-	_is_playing = false
-	
+	is_playing = false
+	GameManager.set_game_state_active(false)
+
 	# hits to stars
 	var stars: int = clampi(3 - _hits_taken, 1, 3)
-	# TODO: save data here in storage
-	print("Level ", _current_level_id + 1, " passed! Stars: ", stars, " | Time: %.1fs" % _elapsed_time)
+	SaveLevelData.save_level_result(_current_level_id, _elapsed_time, stars)
 
 	await get_tree().create_timer(next_level_delay).timeout
-
-	_current_level_id += 1
-	if _current_level_id >= level_list.size():
-		_on_game_completed()
-	else:
-		_load_level(_current_level_id)
-	_is_transitioning  = false
+	await _tween_camera(desk_camera, overview_camera, camera_transition_time)
+	open_level_select()
+	
+	_is_transitioning = false
 
 func _fail_level() -> void:
 	_is_transitioning = true
-	_is_playing = false
+	is_playing = false
 	
 	await get_tree().create_timer(next_level_delay).timeout
 	await _tween_camera(desk_camera, overview_camera, camera_transition_time)
@@ -173,13 +179,17 @@ func _on_game_completed() -> void:
 	open_level_select()
 
 func _on_back_to_menu() -> void:
-	#TODO connect still
-	print("Back button pressed")
+	await SceneManager.change_scene(MAIN_MENU_SCENE_PATH, SceneManager.TransitionType.CRT)
 
-func _remove_attack_at(index: int) -> void:
-	if index >= 0 and index < active_attacks.size():
-		active_attacks.remove_at(index)
-		radar.remove_blip_at(index)
+func go_to_level_select() -> void:
+	is_playing = false
+	_is_transitioning = true
+	active_attacks.clear()
+	radar.blips.clear()
+	
+	await _tween_camera(desk_camera, overview_camera, camera_transition_time)
+	open_level_select()
+	_is_transitioning = false
 
 func _sync_oscilloscope_to_radar() -> void:
 	if not active_attacks.is_empty():
@@ -224,7 +234,6 @@ func _build_levels() -> void:
 				Attack.new(40.0, [SingleWave.new(1.0, 0.05, 0.5)], 1.0, 150),
 				Attack.new(50.0, [SingleWave.new(1.0, 0.05, 0.2)], 1.0, 150),
 				Attack.new(45.0, [SingleWave.new(1.0, 0.05, 0.8)], 1.0, 150),
-
 			]
 		),
 		#! TUTORIAL LEVEL: TEACHES TIME CHANGE
@@ -260,11 +269,3 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.keycode == KEY_S:
 			if not active_attacks.is_empty() and not _is_transitioning:
 				_on_attack_completed()
-
-func get_level_info(index: int) -> Dictionary:
-	#TODO use local saved data
-	return {
-		"unlocked": index == 0,
-		"stars": 2,
-		"best_time": 35.2
-	}

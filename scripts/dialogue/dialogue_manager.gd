@@ -48,6 +48,8 @@ func _show_line() -> void:
 func _input(event: InputEvent) -> void:
 	if not visible:
 		return
+	if get_tree().paused: 
+		return
 	
 	# To skip forward
 	var is_left_click = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed

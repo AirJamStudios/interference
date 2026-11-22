@@ -37,7 +37,6 @@ volumetric_fog_density = 0.012
 volumetric_fog_albedo = Color(0.85, 0.85, 0.9, 1)
 volumetric_fog_anisotropy = 0.45
 volumetric_fog_length = 40.0
-volumetric_fog_ambient_inject = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_anpke"]
 material = ExtResource("5_tbgi4")
@@ -47,8 +46,9 @@ size = Vector2(15, 15)
 material = ExtResource("5_tefeu")
 size = Vector2(30, 30)
 
-[node name="main" type="Node3D" unique_id=367742630]
+[node name="main" type="Node3D" unique_id=367742630 node_paths=PackedStringArray("level_manager")]
 script = ExtResource("1_o5qli")
+level_manager = NodePath("level_manager")
 
 [node name="sound_fx_players" type="Node2D" parent="." unique_id=1855332851]
 
@@ -89,11 +89,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2795105, 12.008829, 0)
 light_color = Color(1, 1, 0.9607843, 1)
 light_energy = 3.0
 light_indirect_energy = 2.0
+light_size = 0.15
 light_specular = 2.0
 shadow_enabled = true
 shadow_bias = 0.02
 shadow_normal_bias = 0.8
-light_size = 0.15
 omni_range = 36.28999
 
 [node name="walls" type="Node3D" parent="room" unique_id=1121277163]
@@ -111,12 +111,6 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.4896398, 8.353498, 0.010783
 
 [node name="wall_lamp2" parent="room/walls/wall" unique_id=1403489555 instance=ExtResource("8_85g3d")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -8.864346, 8.353498, 0.0107831955)
-
-[node name="industrial_wall_lamp" parent="room/walls/wall/wall_lamp" index="0"]
-cast_shadow = 0
-
-[node name="industrial_wall_lamp" parent="room/walls/wall/wall_lamp2" index="0"]
-cast_shadow = 0
 
 [node name="wall_lamp_light" type="OmniLight3D" parent="room/walls/wall" unique_id=418273645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4896398, 8.353498, 0.31)
@@ -146,13 +140,11 @@ omni_range = 25.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94864, 0, -15.008734)
 mesh = SubResource("QuadMesh_21xpk")
 
-[node name="scene_fx" type="Node" parent="." unique_id=100556952 node_paths=PackedStringArray("camera", "light", "radar", "hit_flicker_lights", "hit_flicker_meshes")]
+[node name="scene_fx" type="Node" parent="." unique_id=100556952 node_paths=PackedStringArray("camera", "light", "radar")]
 script = ExtResource("7_o6xl0")
 camera = NodePath("../desk_camera")
 light = NodePath("../room/lamp_light")
 radar = NodePath("../radar")
-hit_flicker_lights = [NodePath("../room/walls/wall/wall_lamp_light"), NodePath("../room/walls/wall/wall_lamp_light2")]
-hit_flicker_meshes = [NodePath("../room/walls/wall/wall_lamp/industrial_wall_lamp"), NodePath("../room/walls/wall/wall_lamp2/industrial_wall_lamp")]
 
 [node name="level_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogue_manager", "oscilloscope", "scene_fx", "radar", "overview_camera", "desk_camera", "level_select_ui")]
 script = ExtResource("11_eb6dy")
@@ -195,6 +187,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="ui_level_layer/level_selector/CenterContainer/VBoxContainer/PanelContainer" unique_id=1612029388]
 layout_mode = 2
 text = "LEVELS"
+horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="ui_level_layer/level_selector/CenterContainer/VBoxContainer" unique_id=1912385453]
 layout_mode = 2
@@ -202,7 +195,7 @@ theme_override_constants/h_separation = 24
 theme_override_constants/v_separation = 24
 columns = 3
 
-[node name="Button" type="Button" parent="ui_level_layer/level_selector" unique_id=1002102645]
+[node name="back_button" type="Button" parent="ui_level_layer/level_selector" unique_id=1002102645]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -211,3 +204,5 @@ offset_top = -57.0
 offset_right = 106.0
 grow_vertical = 0
 text = "BACK"
+
+[connection signal="pressed" from="ui_level_layer/level_selector/back_button" to="level_manager" method="_on_back_to_menu"]

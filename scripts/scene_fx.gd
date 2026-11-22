@@ -36,10 +36,6 @@ var _hit_light_base : Array[float] = []
 var _hit_mats : Array[BaseMaterial3D] = []
 var _hit_mat_base : Array[float] = []
 
-var _prev_blips : Array = []
-var _prev_at_center : Dictionary = {}
-
-
 func _ready() -> void:
 	_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	_noise.frequency = 1.0
@@ -54,11 +50,11 @@ func _ready() -> void:
 	for m in hit_flicker_meshes:
 		_setup_emissive_mesh(m)
 
+	radar.attack_missed.connect(_on_radar_attack_missed)
+
 
 func _process(delta: float) -> void:
 	_update_shake(delta)
-	_watch_radar_hits(delta)
-
 
 func _update_shake(delta: float) -> void:
 	if not camera or _shake_time_left <= 0.0:
@@ -147,29 +143,12 @@ func _setup_emissive_mesh(m: MeshInstance3D) -> void:
 			_hit_mat_base.append(dup.emission_energy_multiplier)
 
 
-func _watch_radar_hits(delta: float) -> void:
-	if not radar:
-		return
-
-	var current : Array = radar.blips
-	for b in _prev_blips:
-		if not current.has(b) and _prev_at_center.get(b, false):
-			hit_flicker()
-			break
-
-	var step : float = delta * (1.0 / float(radar.rings)) / (radar.minutes_per_ring * 60.0) * 3.0
-	_prev_at_center.clear()
-	for b in current:
-		var at_center : bool
-		if b.start_eta == 0:
-			at_center = b.pos.length() <= step
-		else:
-			at_center = b.eta <= delta * 3.0
-		_prev_at_center[b] = at_center
-	_prev_blips = current.duplicate()
-
-
 func _reset_camera() -> void:
 	camera.h_offset = 0.0
 	camera.v_offset = 0.0
 	camera.rotation.z = _cam_base_roll
+
+func _on_radar_attack_missed(_id: int) -> void:
+	hit_flicker()
+	camera_shake()
+	light_flicker()

@@ -15,7 +15,7 @@ func refresh_cards(total_levels: int) -> void:
 	for i in range(total_levels):
 		var card: LevelBox = card_scene.instantiate()
 		grid.add_child(card)
-		card.setup(i, level_manager.get_level_info(i))
+		card.setup(i, SaveLevelData.get_level_info(i))
 		card.selected.connect(func(idx: int): level_chosen.emit(idx))
 
 func _on_back_button_pressed() -> void:

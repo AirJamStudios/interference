@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr1ggfdnya7e8"
-path="res://.godot/imported/gold_star.jpg-470f394989d20ef7d1926ac7fd9b36bb.ctex"
+uid="uid://babgc1h3g8tym"
+path="res://.godot/imported/lock.png-8b5781e292369a8e02e29f0128fda63f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/gold_star.jpg"
-dest_files=["res://.godot/imported/gold_star.jpg-470f394989d20ef7d1926ac7fd9b36bb.ctex"]
+source_file="res://assets/icons/lock.png"
+dest_files=["res://.godot/imported/lock.png-8b5781e292369a8e02e29f0128fda63f.ctex"]
 
 [params]
 

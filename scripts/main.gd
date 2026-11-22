@@ -1,5 +1,7 @@
 extends Node3D
 
+@export var level_manager : LevelManager
+
 const MAIN_MENU_SCENE = preload("res://scenes/main_menu.tscn")
 var pause_menu_overlay: Node = null
 
@@ -8,8 +10,8 @@ var pause_menu_overlay: Node = null
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	GameManager.pause_state_changed.connect(_on_pause_state_changed)
-	if get_tree().paused:
-		create_pause_menu()
+	GameManager.stop_level.connect(_on_stop_level_requested)
+
 		
 func _on_pause_state_changed(is_paused: bool) -> void:
 	if is_paused:
@@ -28,3 +30,7 @@ func remove_pause_menu() -> void:
 	if is_instance_valid(pause_menu_overlay):
 		pause_menu_overlay.queue_free()
 		pause_menu_overlay = null
+
+func _on_stop_level_requested() -> void:
+	remove_pause_menu()
+	level_manager.go_to_level_select()

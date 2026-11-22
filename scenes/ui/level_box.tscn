@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://njkdic5glcp0"]
 
 [ext_resource type="Script" uid="uid://bdfruh6pt156r" path="res://scripts/ui/level_box.gd" id="1_6hlp7"]
-[ext_resource type="Texture2D" uid="uid://cr1ggfdnya7e8" path="res://assets/icons/gold_star.jpg" id="2_4enrx"]
-[ext_resource type="Texture2D" uid="uid://dqtfjw1ownxyg" path="res://assets/icons/grey_star.jpg" id="3_b83n2"]
+[ext_resource type="Texture2D" uid="uid://ddwk8o4pt2s8c" path="res://assets/icons/gold_star.png" id="2_4enrx"]
+[ext_resource type="Texture2D" uid="uid://bfyf4p6jk150h" path="res://assets/icons/grey_star.png" id="3_b83n2"]
+[ext_resource type="Texture2D" uid="uid://babgc1h3g8tym" path="res://assets/icons/lock.png" id="4_b83n2"]
 
 [node name="LevelBox" type="PanelContainer" unique_id=471759442 node_paths=PackedStringArray("number_label", "unlocked_box", "lock_icon", "time_label", "button", "stars")]
-custom_minimum_size = Vector2(180, 200)
-offset_right = 20.0
-offset_bottom = 20.0
+custom_minimum_size = Vector2(180, 180)
+offset_right = 180.0
+offset_bottom = 274.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_6hlp7")
@@ -17,7 +18,7 @@ number_label = NodePath("VBox/NumberLabel")
 unlocked_box = NodePath("VBox/UnlockedBox")
 lock_icon = NodePath("VBox/LockIcon")
 time_label = NodePath("VBox/UnlockedBox/TimeLabel")
-button = NodePath("VBox/Button")
+button = NodePath("Button")
 stars = [NodePath("VBox/UnlockedBox/Stars/Star1"), NodePath("VBox/UnlockedBox/Stars/Star2"), NodePath("VBox/UnlockedBox/Stars/Star3")]
 
 [node name="VBox" type="VBoxContainer" parent="." unique_id=188231191]
@@ -25,6 +26,7 @@ layout_mode = 2
 
 [node name="NumberLabel" type="Label" parent="VBox" unique_id=1608745726]
 layout_mode = 2
+horizontal_alignment = 1
 
 [node name="UnlockedBox" type="VBoxContainer" parent="VBox" unique_id=258600821]
 layout_mode = 2
@@ -52,17 +54,19 @@ stretch_mode = 5
 
 [node name="TimeLabel" type="Label" parent="VBox/UnlockedBox" unique_id=1718262456]
 layout_mode = 2
+horizontal_alignment = 1
 
 [node name="LockIcon" type="TextureRect" parent="VBox" unique_id=756759921]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+texture = ExtResource("4_b83n2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Button" type="Button" parent="VBox" unique_id=573585849]
+[node name="Button" type="Button" parent="." unique_id=573585849]
 layout_mode = 2
 flat = true
 
-[connection signal="pressed" from="VBox/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
