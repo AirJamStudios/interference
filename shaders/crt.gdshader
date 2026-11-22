@@ -8,6 +8,8 @@ uniform sampler2D screen_tex : source_color, filter_linear, repeat_disable;
 // Display settings
 uniform vec2 resolution = vec2(681.0, 512.0);
 uniform float brightness = 1.4;
+// HDR boost applied after all effects so the screen reads as a light source (feeds glow/bloom).
+uniform float emission_boost : hint_range(1.0, 4.0) = 1.6;
 
 // Scanline settings
 uniform float scanlines_opacity : hint_range(0.0, 1.0) = 0.4;
@@ -75,7 +77,8 @@ float border(vec2 uv) {
 
 float vignette(vec2 uv) {
 	uv *= 1.0 - uv.xy;
-	float vig = uv.x * uv.y * 15.0;
+	// Warped UVs can leave [0,1] at the edges -> negative base -> pow() = NaN, which glow smears into a white halo.
+	float vig = max(uv.x * uv.y * 15.0, 0.0);
 	return pow(vig, vignette_intensity * vignette_opacity);
 }
 
@@ -144,5 +147,5 @@ void fragment() {
 		text = (text - vec3(midpoint)) * 1.2 + midpoint;
 	}
 
-	ALBEDO = text;
+	ALBEDO = clamp(text, vec3(0.0), vec3(1.0)) * emission_boost;
 }

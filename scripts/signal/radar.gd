@@ -54,6 +54,7 @@ func _ready() -> void:
 	mat.albedo_texture = sub_viewport.get_texture()
 	mat.emission_enabled = true
 	mat.emission_texture = mat.albedo_texture
+	mat.emission_energy_multiplier = 1.6
 	mat.roughness = 0.25
 	# Center because of cylindrical mesh
 	mat.uv1_scale = Vector3(2.0, 2.0, 1.0)

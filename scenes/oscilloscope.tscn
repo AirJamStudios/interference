@@ -128,6 +128,18 @@ mesh = SubResource("QuadMesh_anpke")
 script = ExtResource("1_7hroh")
 sub_viewport = NodePath("../../../sub_viewport")
 
+[node name="screen_glow" type="SpotLight3D" parent="mesh/screen_body" unique_id=902318774]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0.07, 0, 0)
+light_color = Color(0.45, 1, 0.6, 1)
+light_energy = 0.6
+light_indirect_energy = 0.5
+light_specular = 0.3
+light_volumetric_fog_energy = 0.0
+spot_range = 3.0
+spot_attenuation = 0.6
+spot_angle = 70.0
+spot_angle_attenuation = 1.5
+
 [node name="knobs" type="Node3D" parent="mesh" unique_id=1281705064]
 
 [node name="amplitude_knob" parent="mesh/knobs" unique_id=1453220056 instance=ExtResource("1_ncd6b")]
