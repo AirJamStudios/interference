@@ -156,7 +156,6 @@ func remove_blip_at(index: int) -> void:
 	if index < 0 or index >= blips.size():
 		return
 	blips.remove_at(index)
-	attack_missed.emit(index)
 	if blips.is_empty():
 		selected_index = 0
 	else:
@@ -183,10 +182,11 @@ func _advance_blips(dt: float) -> void:
 			else:
 				blips[i].pos = blips[i].start_pos * (blips[i].eta / blips[i].start_eta)
 
-	
+	# These are the ones that reached the center so it means they missed
 	for reached in reached_blips:
 		var idx: int = blips.find(reached)
 		if idx != -1:
+			attack_missed.emit(idx)
 			remove_blip_at(idx)
 
 func _on_knob_value_changed(value: float) -> void:
