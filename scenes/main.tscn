@@ -114,7 +114,7 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -8.864346, 8.353498, 0.010783
 
 [node name="wall_lamp_light" type="OmniLight3D" parent="room/walls/wall" unique_id=418273645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4896398, 8.353498, 0.85110474)
-light_color = Color(0.86, 0.92, 0.8, 1)
+light_color = Color(0.9411765, 0.8980392, 0.7137255, 1)
 light_energy = 5.0
 light_indirect_energy = 1.5
 light_volumetric_fog_energy = 1.5
@@ -126,7 +126,7 @@ omni_range = 25.0
 
 [node name="wall_lamp_light2" type="OmniLight3D" parent="room/walls/wall" unique_id=731552904]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.864346, 8.353498, 0.48407745)
-light_color = Color(0.86, 0.92, 0.8, 1)
+light_color = Color(0.9406701, 0.89995915, 0.7125584, 1)
 light_energy = 5.0
 light_indirect_energy = 1.5
 light_volumetric_fog_energy = 1.5
