@@ -5,5 +5,18 @@
 [node name="main_menu" type="Node2D" unique_id=1679435999]
 
 [node name="ui_canvas_layer" type="CanvasLayer" parent="." unique_id=573305088]
+layer = 3
 
 [node name="main_menu_ui" parent="ui_canvas_layer" unique_id=212842020 instance=ExtResource("1_l6cm7")]
+
+[node name="bg_canvas_layer" type="CanvasLayer" parent="." unique_id=354316992]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="bg_canvas_layer" unique_id=1561117731]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+color = Color(0.15686275, 0.15686275, 0.15686275, 0.5568628)
