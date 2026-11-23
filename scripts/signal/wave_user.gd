@@ -20,9 +20,6 @@ var is_locked: bool = false
 
 const MAX_WAVES: int = 3
 
-# Score needed to complete the level, maybe make it configurable per level instead of hardcoded
-const TARGET_SCORE: float = 95.0
-
 var selected_wave_id: int = 0
 var total_wave: CompositeWave
 
@@ -38,7 +35,7 @@ func setup() -> void:
 	wave_plotter_user.set_wave(total_wave)
 	_refresh_plots()
 	_update_displays()
-	_score()
+	calc_score()
 
 func _plus_button_pressed() -> void:
 	if !total_wave: return
@@ -47,7 +44,7 @@ func _plus_button_pressed() -> void:
 	# TODO: I left this default wave, maybe is not the best default one i dunno
 	total_wave.add_wave(SingleWave.new(1.0, 0.4, 0.0))
 	_select_wave(total_wave.waves.size() - 1)
-	_score()
+	calc_score()
 
 func _left_button_pressed() -> void:
 	if !total_wave: return
@@ -63,13 +60,13 @@ func _minus_button_pressed() -> void:
 		return
 	total_wave.remove_wave(total_wave.waves[selected_wave_id])
 	_select_wave(selected_wave_id - 1)
-	_score()
+	calc_score()
 
 func _on_wave_type_button_pressed() -> void:
 	if !total_wave or total_wave.waves.is_empty():
 		return
 	display_wave_type.cycle_wave_type()
-	_score()
+	calc_score()
 
 func _select_wave(id: int) -> void:
 	var last_id: int = maxi(total_wave.waves.size() - 1, 0)
@@ -92,7 +89,7 @@ func _refresh_selected_plot() -> void:
 	if selected_wave_id < sub_plotters.size():
 		sub_plotters[selected_wave_id].redraw_plot()
 
-func _score() -> void:
+func calc_score() -> void:
 	if !enemy.total_wave:
 		progress_bar.set_score(0.0)
 		return
@@ -103,7 +100,7 @@ func _score() -> void:
 	var score : float = total_wave.get_accuracy(enemy.total_wave, wave_plotter_user.t_min, wave_plotter_user.t_max, wave_plotter_user.dt)
 	progress_bar.set_score(score)
 	# print("SCORE: " ,score )
-	if score >= TARGET_SCORE:
+	if score >= 100.0:
 		target_reached.emit()
 
 #TODO! adjust the ranges of freq and phase to be sensible
@@ -115,7 +112,7 @@ func _on_amplitude_knob_value_changed(delta_value: float) -> void:
 	if selected_wave:
 		selected_wave.set_amplitude(selected_wave.get_amplitude() + delta_value)
 		_refresh_selected_plot()
-		_score()
+		calc_score()
 		_update_displays() 
 
 func _on_freq_knob_value_changed(delta_value: float) -> void:
@@ -124,7 +121,7 @@ func _on_freq_knob_value_changed(delta_value: float) -> void:
 	if selected_wave:
 		selected_wave.set_frequency(selected_wave.get_frequency() + delta_value)
 		_refresh_selected_plot()
-		_score()
+		calc_score()
 		_update_displays() 
 
 func _on_phase_knob_value_changed(delta_value: float) -> void:
@@ -133,7 +130,7 @@ func _on_phase_knob_value_changed(delta_value: float) -> void:
 	if selected_wave:
 		selected_wave.set_phase(selected_wave.get_phase() + delta_value)
 		_refresh_selected_plot()
-		_score()
+		calc_score()
 		_update_displays() 
 
 func _update_displays() -> void:
@@ -160,7 +157,7 @@ func set_wave_type(type: SingleWave.WaveType) -> void:
 	if selected_wave:
 		selected_wave.set_wave_type(type)
 		_refresh_selected_plot()
-		_score()
+		calc_score()
 
 func play_validation_flash() -> void:
 	is_locked = true
@@ -182,4 +179,4 @@ func play_validation_flash() -> void:
 # If enemy wave is drifint trigger score recalc
 func _process(_delta: float) -> void:
 	if enemy.total_wave != null and enemy.total_wave.is_drifting():
-		_score()
+		calc_score()

@@ -9,10 +9,10 @@
           "id": "start_dia",
           "lines": [
             "OH MY GOD, WE'RE UNDER ATTACK!",
-            "Look at the radar, contacts are popping up everywhere! They're closing in fast!",
             "[SYSTEM ALERT: Automated Electronic Warfare offline. Manual Antenna & Radar arrays operational.]",
             "Our auto-jammers are fried! We have to manually match their signal frequencies to cancel them out!",
-            "Recon drones approaching from the South! Jam them before they lock our coordinates!",
+            "Look at the radar, contacts are popping up everywhere! They're closing in fast!",
+            "Use the PLUS sign to add a wave, hurry!",
             "Twist the AMPLITUDE knob until the two waves match up! Just keep turning them till it works!"
           ]
         }

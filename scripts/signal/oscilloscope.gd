@@ -16,6 +16,9 @@ func _ready() -> void:
 
 func set_enemy_wave(wave : CompositeWave) -> void:
 	enemy_wave.set_wave(wave)
+	# Update score also when new enemy wave
+	user_wave.calc_score()
+
 
 # User and enemy wave overlap higher than score!
 # Plays animation of 3 flashes

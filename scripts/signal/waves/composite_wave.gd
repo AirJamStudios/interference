@@ -45,6 +45,7 @@ func get_wave(i: int) -> SingleWave:
 		return null
 
 #0-100 score
+const TARGET_SCORE: float = 95.0
 func get_accuracy(other_wave: CompositeWave, t_min: float, t_max: float, dt: float) -> float:
 		
 	var squared_error_sum: float = 0.0
@@ -69,8 +70,8 @@ func get_accuracy(other_wave: CompositeWave, t_min: float, t_max: float, dt: flo
 	# RMSE to percentage
 	var raw_accuracy: float =  clampf((1.0 - rmse) * 100.0, 0.0, 100.0)
 
-	# Remap 30.0..100.0 to 0.0..100.0 
-	var accuracy: float = remap(raw_accuracy, 45.0, 100.0, 0.0, 100.0)
+	# Remap 30.0..95.0 to 0.0..100.0 
+	var accuracy: float = remap(raw_accuracy, 45.0, TARGET_SCORE, 0.0, 100.0)
 
 	return clampf(accuracy, 0.0, 100.0)
 

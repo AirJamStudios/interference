@@ -81,6 +81,38 @@ width = 4.0
 default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
 joint_mode = 1
 
+[node name="knob_drag_hint" type="Control" parent="." unique_id=1982736451]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1224.0
+offset_top = 115.0
+offset_right = 1224.0
+offset_bottom = 115.0
+
+[node name="PanelContainer" type="PanelContainer" parent="knob_drag_hint" unique_id=1982736452]
+layout_mode = 0
+offset_left = 157.0
+offset_top = -27.0
+offset_right = 392.0
+offset_bottom = 151.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
+
+[node name="Label" type="Label" parent="knob_drag_hint/PanelContainer" unique_id=1982736453]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "CLICK & DRAG
+LEFT / RIGHT
+TO TURN KNOBS"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="knob_drag_hint" unique_id=1982736454]
+position = Vector2(111, 29)
+points = PackedVector2Array(125, 72, 105, 84, 125, 96, 105, 84, 161.42218, 84, 225, 84, 205, 72, 225, 84, 205, 96)
+width = 4.0
+default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+joint_mode = 1
+
 [node name="amplitude" type="Control" parent="." unique_id=812285144]
 layout_mode = 3
 anchors_preset = 0

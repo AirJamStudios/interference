@@ -44,7 +44,9 @@ func _ready() -> void:
 
 # Input score between 0-100
 func set_score(score: float) -> void:
-	var active_leds: int = roundi(  led_materials.size() * score / 100.0)
+	# last light lights up at 100
+	var clamped_score: float = clampf(score, 0.0, 100.0)
+	var active_leds: int = floori(led_materials.size() * clamped_score / 100.0)
 	
 	for i in range(led_materials.size()):
 		var mat: StandardMaterial3D = led_materials[i]
