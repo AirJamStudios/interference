@@ -1,0 +1,75 @@
+{
+  "name": "Ambush",
+  "events": [
+    {
+      "trigger": "LEVEL_START",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Recon drone inbound! Jam it!"
+          ]
+        },
+        { "type": "SPAWN", "id": "drone_1", "angle": 90.0, "distance": 1.0, "eta": 90.0, "waves": [[0.2, 0.4, 0.0]] },
+        { "type": "START_TIMER", "id": "hurry_warning", "duration": 15.0 }
+      ]
+    },
+    {
+      "trigger": "TIMER_COMPLETED",
+      "target": "hurry_warning",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Hurry up, it's getting close!"
+          ]
+        }
+      ]
+    },
+    {
+      "trigger": "ATTACK_DEFEATED",
+      "target": "drone_1",
+      "actions": [
+        { "type": "CANCEL_TIMER", "id": "hurry_warning" },
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Good job! Area clear... for now."
+          ]
+        },
+        { "type": "START_TIMER", "id": "ambush_timer", "duration": 5.0 }
+      ]
+    },
+    {
+      "trigger": "ATTACK_REACHED",
+      "target": "drone_1",
+      "actions": [
+        { "type": "CANCEL_TIMER", "id": "hurry_warning" },
+        { "type": "DISABLE_EVENT", "id": "ambush_event" },
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "We took a hit! Falling back to defensive scan."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ambush_event",
+      "trigger": "TIMER_COMPLETED",
+      "target": "ambush_timer",
+      "one_shot": true,
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Ambush! Two signals just popped up!",
+            "Quick, switch to the one that's closing in fast using the radar dial!"
+          ]
+        },
+        { "type": "SPAWN", "id": "drone_2", "angle": 120.0, "distance": 1.0, "eta": 80.0, "waves": [[0.5, 0.2, 0.0]] },
+        { "type": "SPAWN", "id": "drone_3", "angle": 130.0, "distance": 1.0, "eta": 30.0, "waves": [[1.0, 0.1, 0.5]] }
+      ]
+    }
+  ]
+}

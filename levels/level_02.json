@@ -1,0 +1,42 @@
+{
+  "name": "Tutorial: Signal Drift",
+  "events": [
+    {
+      "trigger": "LEVEL_START",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!",
+            "Don't let it slip away, keep twisting the knobs to track its movement."
+          ]
+        },
+        { "type": "SPAWN", "id": "bomber_1", "angle": 130.0, "distance": 1.0, "eta": 50.0, "drift": "AMPLITUDE", "waves": [[1.0, 0.1, 0.5]] }
+      ]
+    },
+    {
+      "trigger": "ATTACK_REACHED",
+      "one_shot": false,
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "It's directly over us, we are doomed..."
+          ]
+        }
+      ]
+    },
+    {
+      "trigger": "ATTACK_DEFEATED",
+      "target": "bomber_1",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Good job! Area clear... for now."
+          ]
+        }
+      ]
+    }
+  ]
+}

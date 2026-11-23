@@ -30,10 +30,8 @@ func _show_line() -> void:
 		end_dialogue()
 		return
 	
-	#TODO: encode in map the character or character animatoin and change between soldier sprites
-	var line_data = current_lines[current_index]
 	portrait_rect.texture = soldier_portrait
-	text_label.text = line_data["text"]
+	text_label.text = current_lines[current_index]
 	
 	text_label.visible_characters = 0
 	is_typing = true

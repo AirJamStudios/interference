@@ -109,14 +109,8 @@ mesh = SubResource("QuadMesh_21xpk")
 [node name="wall_lamp" parent="room/walls/wall" unique_id=1657567979 instance=ExtResource("10_a8y0u")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.4896393, 8.353498, 0.010782242)
 
-[node name="mesh" parent="room/walls/wall/wall_lamp" index="0" unique_id=1369905835]
-surface_material_override/1 = null
-
 [node name="wall_lamp2" parent="room/walls/wall" unique_id=444449942 instance=ExtResource("10_a8y0u")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -8.864346, 8.353498, 0.0107831955)
-
-[node name="mesh" parent="room/walls/wall/wall_lamp2" index="0" unique_id=1369905835]
-surface_material_override/1 = null
 
 [node name="wall_lamp_light" type="OmniLight3D" parent="room/walls/wall" unique_id=418273645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4896398, 8.353498, 0.85110474)

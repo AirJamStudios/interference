@@ -1,0 +1,52 @@
+{
+  "name": "Tutorial: Layered Waves",
+  "events": [
+    {
+      "trigger": "LEVEL_START",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Wait, a heavy bomber's on the radar, and its signal is double layered!",
+            "One wave won't be enough!"
+          ]
+        },
+        {
+          "type": "SPAWN",
+          "id": "bomber_2",
+          "angle": 20.0,
+          "distance": 1.0,
+          "eta": 90.0,
+          "waves": [
+            [1.0, 0.05, 0.0],
+            [0.25, 0.9, 0.0]
+          ]
+        }
+      ]
+    },
+    {
+      "trigger": "ATTACK_REACHED",
+      "one_shot": false,
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "It's directly over us, we are doomed..."
+          ]
+        }
+      ]
+    },
+    {
+      "trigger": "ATTACK_DEFEATED",
+      "target": "bomber_2",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Good job! Area clear... for now."
+          ]
+        }
+      ]
+    }
+  ]
+}

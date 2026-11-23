@@ -41,22 +41,27 @@ func refresh_cards(total_levels: int) -> void:
 
 func _update_page() -> void:
 	var start_index: int = _current_page * items_per_page
-	
+	var total_pages := _get_total_pages()
+
 	for i in range(items_per_page):
 		var level_index := start_index + i
 		var card := _cards[i]
 		
 		if level_index < _total_levels:
+			card.visible = true
 			card.modulate.a = 1.0
 			card.mouse_filter = Control.MOUSE_FILTER_STOP
 			card.setup(level_index, SaveLevelData.get_level_info(level_index))
-		else:
-			# keep the slot
+		elif total_pages > 1:
+			#many pages, freeze the position as if there is always 12
+			card.visible = true
 			card.modulate.a = 0.0
 			card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			card.button.disabled = true
+		else:
+			# Only really used if less than 12 levels
+			card.visible = false
 			
-	var total_pages := _get_total_pages()
 	if page_label:
 		page_label.text = "%d / %d" % [_current_page + 1, total_pages]
 	if prev_button:

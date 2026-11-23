@@ -33,7 +33,6 @@ enum ActionType {
 	START_TIMER,
 	CANCEL_TIMER,
 	DISABLE_EVENT,
-	SCENE_FX
 }
 
 class Attack:
@@ -336,9 +335,6 @@ func _execute_action(act: LevelAction) -> void:
 			for ev: LevelEvent in current_level_events:
 				if ev.id == act.data:
 					ev._fired = true
-		ActionType.SCENE_FX:
-			# scene_fx.play(act.data)
-			pass
 
 func _spawn_attack(new_attack: Attack) -> void:
 	active_attacks.append(new_attack)
