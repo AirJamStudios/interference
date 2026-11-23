@@ -6,6 +6,7 @@
       "actions": [
         {
           "type": "DIALOGUE",
+          "id": "start_dia",
           "lines": [
             "OH MY GOD, WE'RE UNDER ATTACK!",
             "Look at the radar, contacts are popping up everywhere! They're closing in fast!",
@@ -14,7 +15,13 @@
             "Recon drones approaching from the South! Jam them before they lock our coordinates!",
             "Twist the AMPLITUDE knob until the two waves match up! Just keep turning them till it works!"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "trigger": "DIALOGUE_COMPLETED",
+      "target": "start_dia",
+      "actions": [
         { "type": "SPAWN", "id": "drone_1", "angle": 90.0, "distance": 1.0, "eta": 90.0, "waves": [[0.2, 0.4, 0.0]] },
         { "type": "SPAWN", "id": "drone_2", "angle": 80.0, "distance": 1.0, "eta": 90.0, "waves": [[0.6, 0.4, 0.0]] },
         { "type": "SPAWN", "id": "drone_3", "angle": 105.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.4, 0.0]] },

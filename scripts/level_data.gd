@@ -2,6 +2,9 @@ extends LevelManager
 
 const LEVELS_DIR := "res://levels"
 
+#level specific counterfor misising ids (helps debug)
+var event_cnt: int = 0
+
 func _build_levels() -> void:
 	level_list.clear()
 	
@@ -32,6 +35,7 @@ func _parse_level(lvl_dict: Dictionary) -> Level:
 		var trigger: TriggerType = TriggerType.get(trigger_name, TriggerType.LEVEL_START)
 		var target: Variant = ev_dict.get("target", null)
 		var one_shot: bool = ev_dict.get("one_shot", true)
+		var id: String = ev_dict.get("id", "event_" + str(event_cnt))
 		
 		var actions: Array[LevelAction] = []
 		for act_dict in ev_dict.get("actions", []):
@@ -39,7 +43,8 @@ func _parse_level(lvl_dict: Dictionary) -> Level:
 			if parsed_act:
 				actions.append(parsed_act)
 				
-		events.append(LevelEvent.new(trigger, target, actions, one_shot))
+		events.append(LevelEvent.new(trigger, target, actions, one_shot, id))
+		event_cnt += 1
 		
 	return Level.new(events)
 
@@ -50,7 +55,20 @@ func _parse_action(d: Dictionary) -> LevelAction:
 		"SPAWN":
 			var waves: Array[SingleWave] = []
 			for w in d.get("waves", []):
-				waves.append(SingleWave.new(w[0], w[1], w[2]))
+				var wave_type := SingleWave.WaveType.SINE
+
+				if w.size() == 4:
+					match str(w[3]).to_upper():
+						"TRI": 
+							wave_type = SingleWave.WaveType.TRIANGLE
+						"SQR": 
+							wave_type = SingleWave.WaveType.SQUARE
+						_:
+							print("Wrong wave Type:", w[3])
+				elif w.size() != 3:
+					print("Wrong amount of wave parameters, must be 3 or 4 not: ", w.size())
+				
+				waves.append(SingleWave.new(w[0], w[1], w[2], wave_type))
 				
 			var drift_name: String = d.get("drift", "NONE")
 			var drift: CompositeWave.DriftMode = CompositeWave.DriftMode.get(drift_name, CompositeWave.DriftMode.NONE)

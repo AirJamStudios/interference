@@ -119,6 +119,7 @@ func _ready() -> void:
 	oscilloscope.attack_completed.connect(_on_attack_completed)
 	radar.attack_missed.connect(_on_attack_missed)
 	radar.target_changed.connect(_on_target_changed)
+	dialogue_manager.dialogue_completed.connect(_on_dialogue_completed)
 	level_select_ui.level_chosen.connect(start_level)
 	level_select_ui.back_pressed.connect(_on_back_to_menu)
 	
@@ -230,6 +231,7 @@ func _evaluate_level_state() -> void:
 		if not ev._fired:
 			for act: LevelAction in ev.actions:
 				if act.type == ActionType.SPAWN_ATTACK:
+					print("actions")
 					return
 
 	# 4. Everything is cleared—evaluate win vs fail
@@ -326,7 +328,7 @@ func _fire_trigger(type: TriggerType, param: Variant = null) -> void:
 func _execute_action(act: LevelAction) -> void:
 	match act.type:
 		ActionType.DIALOGUE:
-			dialogue_manager.start_dialogue(act.data["lines"])
+			dialogue_manager.start_dialogue(act.data["lines"], act.data["id"])
 		ActionType.SPAWN_ATTACK:
 			_spawn_attack(act.data)
 		ActionType.START_TIMER:

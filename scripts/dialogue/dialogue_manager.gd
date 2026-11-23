@@ -13,13 +13,15 @@ var current_lines: Array = []
 var current_index: int = 0
 var is_typing: bool = false
 var tween: Tween
+var id: String = ""
 
-signal dialogue_completed(index: int)
+signal dialogue_completed(id: String)
 
 func _ready() -> void:
 	hide()
 
-func start_dialogue(lines: Array) -> void:
+func start_dialogue(lines: Array, p_id: String = "") -> void:
+	id = p_id
 	current_lines = lines
 	current_index = 0
 	show()
@@ -66,4 +68,4 @@ func _input(event: InputEvent) -> void:
 
 func end_dialogue() -> void:
 	hide()
-	dialogue_completed.emit(null)
+	dialogue_completed.emit(id)

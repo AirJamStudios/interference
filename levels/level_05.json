@@ -6,11 +6,19 @@
       "actions": [
         {
           "type": "DIALOGUE",
+          "id": "start_dia",
           "lines": [
             "Heavy carrier drone on a suicide run—ETA 3 minutes!",
             "It's launching cruise missiles! Jam the missiles or take down the carrier to stop the launches!"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "trigger": "DIALOGUE_COMPLETED",
+      "target": "start_dia",
+      "one_shot": true,
+      "actions": [
         {
           "type": "SPAWN",
           "id": "carrier",
@@ -18,8 +26,8 @@
           "distance": 1.0,
           "eta": 180.0,
           "waves": [
-            [1.0, 0.05, 0.2],
-            [0.25, 0.7, 0.5]
+            [1.0, 0.05, 0.2, "SQR"],
+            [0.3, 0.7, 0.5]
           ]
         },
         { "type": "START_TIMER", "id": "m1_timer", "duration": 2.0 }
@@ -102,7 +110,7 @@
       "trigger": "ATTACK_REACHED",
       "one_shot": false,
       "actions": [
-        { "type": "DIALOGUE", "lines": ["Cruise missile impact!"] }
+        { "type": "DIALOGUE", "lines": ["Impact!"] }
       ]
     }
   ]
