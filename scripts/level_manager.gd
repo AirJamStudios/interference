@@ -108,8 +108,10 @@ var _current_level_id : int = 0
 var _hits_taken: int = 0
 var _hits_saved: int = 0
 var _elapsed_time: float = 0.0
-var is_playing: bool = false
 var _is_transitioning: bool = false
+
+var is_simulation_paused: bool = false # paused or unpaused
+var is_playing: bool = false #in level manager or in level
 
 func _ready() -> void:
 	_build_levels()
@@ -124,7 +126,7 @@ func _ready() -> void:
 	open_level_select.call_deferred()
 
 func _process(delta: float) -> void:
-	if not is_playing or _is_transitioning:
+	if not is_playing or _is_transitioning or is_simulation_paused:
 		return
 
 	_elapsed_time += delta
@@ -173,7 +175,7 @@ func _load_level(index: int) -> void:
 	current_level_events = level.events
 	for ev: LevelEvent in current_level_events:
 		ev._fired = false
-		
+
 	_fire_trigger(TriggerType.LEVEL_START)
 
 #! COMBAT EVENTS  - attack compelted or missed
@@ -342,6 +344,10 @@ func _spawn_attack(new_attack: Attack) -> void:
 	
 	if active_attacks.size() == 1:
 		oscilloscope.set_enemy_wave(active_attacks[0].enemy_wave)
+
+func set_simulation_paused(paused: bool) -> void:
+	is_simulation_paused = paused
+	radar.paused = paused
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not OS.is_debug_build():

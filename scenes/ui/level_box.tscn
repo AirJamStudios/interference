@@ -60,6 +60,7 @@ mouse_filter = 2
 [node name="Stars" type="HBoxContainer" parent="MarginContainer/VBox/UnlockedBox" unique_id=305709635]
 layout_mode = 2
 mouse_filter = 2
+alignment = 1
 
 [node name="Star1" type="TextureRect" parent="MarginContainer/VBox/UnlockedBox/Stars" unique_id=57233078]
 custom_minimum_size = Vector2(36, 36)

@@ -27,6 +27,8 @@ extends Node3D
 signal target_changed(index: int)
 signal attack_missed
 
+var paused: bool = false
+
 class Blip:
 	var start_pos: Vector2
 	var start_eta: float = 0
@@ -64,6 +66,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_angle = wrapf(_angle + sweep_speed * delta, 0.0, TAU)
 	canvas.queue_redraw()
+	if paused:
+		return
+		
 	_advance_blips(delta)
 
 func _draw_radar() -> void:

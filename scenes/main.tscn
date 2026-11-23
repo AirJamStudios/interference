@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://40s2wdo238r6" path="res://scripts/level_manager.gd" id="11_eb6dy"]
 [ext_resource type="Script" uid="uid://bsjcl0ljatr48" path="res://scripts/ui/level_selector.gd" id="12_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://njkdic5glcp0" path="res://scenes/ui/level_box.tscn" id="13_trceg"]
+[ext_resource type="PackedScene" uid="uid://e1ttnyj52eyr" path="res://scenes/ui/tutorial_overlay.tscn" id="14_a8y0u"]
 
 [sub_resource type="Environment" id="Environment_anpke"]
 background_mode = 1
@@ -46,9 +47,10 @@ size = Vector2(15, 15)
 material = ExtResource("5_tefeu")
 size = Vector2(30, 30)
 
-[node name="main" type="Node3D" unique_id=367742630 node_paths=PackedStringArray("level_manager")]
+[node name="main" type="Node3D" unique_id=367742630 node_paths=PackedStringArray("level_manager", "tutorial")]
 script = ExtResource("1_o5qli")
 level_manager = NodePath("level_manager")
+tutorial = NodePath("tutorial_overlay")
 
 [node name="sound_fx_players" type="Node2D" parent="." unique_id=1855332851]
 
@@ -225,6 +227,8 @@ offset_top = -57.0
 offset_right = 106.0
 grow_vertical = 0
 text = "BACK"
+
+[node name="tutorial_overlay" parent="." unique_id=1558519252 instance=ExtResource("14_a8y0u")]
 
 [connection signal="pressed" from="ui_level_layer/level_selector/back_button" to="level_manager" method="_on_back_to_menu"]
 

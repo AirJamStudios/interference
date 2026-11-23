@@ -1,0 +1,264 @@
+[gd_scene format=3 uid="uid://e1ttnyj52eyr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_crt_box"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.02, 0.08, 0.03, 0.9)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+
+[node name="tutorial_overlay" type="CanvasLayer" unique_id=120468222]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=890648025]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.35000002)
+
+[node name="header" type="PanelContainer" parent="." unique_id=1493643326]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -260.0
+offset_top = 28.0
+offset_right = 260.0
+offset_bottom = 78.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
+
+[node name="Label" type="Label" parent="header" unique_id=277682876]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "OPERATOR CONSOLE CONTROLS"
+horizontal_alignment = 1
+
+[node name="exit_hint" type="Label" parent="." unique_id=994114726]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -54.0
+offset_right = 150.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "[H] TO OPEN / CLOSE HELP"
+horizontal_alignment = 1
+
+[node name="select_target" type="Control" parent="." unique_id=575441154]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 54.0
+offset_top = 563.0
+offset_right = 54.0
+offset_bottom = 563.0
+
+[node name="PanelContainer" type="PanelContainer" parent="select_target" unique_id=1544299448]
+layout_mode = 0
+offset_right = 210.0
+offset_bottom = 50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
+
+[node name="Label" type="Label" parent="select_target/PanelContainer" unique_id=703882852]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "SELECT TARGET"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="select_target" unique_id=2086304577]
+points = PackedVector2Array(105, 50, 105, 165, 92, 145, 105, 165, 118, 145)
+width = 4.0
+default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+joint_mode = 1
+
+[node name="amplitude" type="Control" parent="." unique_id=812285144]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1635.0
+offset_top = 328.0
+offset_right = 1635.0
+offset_bottom = 328.0
+
+[node name="PanelContainer" type="PanelContainer" parent="amplitude" unique_id=889231480]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
+
+[node name="Label" type="Label" parent="amplitude/PanelContainer" unique_id=1612140638]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "AMPLITUDE"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="amplitude" unique_id=1733718025]
+points = PackedVector2Array(0, 25, -115, 25, -95, 12, -115, 25, -95, 38)
+width = 4.0
+default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+joint_mode = 1
+
+[node name="frequency" type="Control" parent="." unique_id=1642673272]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1635.0
+offset_top = 424.0
+offset_right = 1635.0
+offset_bottom = 424.0
+
+[node name="PanelContainer" type="PanelContainer" parent="frequency" unique_id=941176228]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
+
+[node name="Label" type="Label" parent="frequency/PanelContainer" unique_id=2050332273]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "FREQUENCY"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="frequency" unique_id=54612787]
+points = PackedVector2Array(0, 25, -115, 25, -95, 12, -115, 25, -95, 38)
+width = 4.0
+default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+joint_mode = 1
+
+[node name="phase" type="Control" parent="." unique_id=655392140]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1635.0
+offset_top = 518.0
+offset_right = 1635.0
+offset_bottom = 518.0
+
+[node name="PanelContainer" type="PanelContainer" parent="phase" unique_id=1853223550]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
+
+[node name="Label" type="Label" parent="phase/PanelContainer" unique_id=2084491742]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "PHASE"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="phase" unique_id=2026097099]
+points = PackedVector2Array(0, 25, -115, 25, -95, 12, -115, 25, -95, 38)
+width = 4.0
+default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+joint_mode = 1
+
+[node name="add_wave" type="Control" parent="." unique_id=1762701070]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1635.0
+offset_top = 605.0
+offset_right = 1635.0
+offset_bottom = 605.0
+
+[node name="PanelContainer" type="PanelContainer" parent="add_wave" unique_id=113220373]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
+
+[node name="Label" type="Label" parent="add_wave/PanelContainer" unique_id=1889825022]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "ADD WAVE"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="add_wave" unique_id=1902951728]
+points = PackedVector2Array(0, 25, -115, 25, -95, 12, -115, 25, -95, 38)
+width = 4.0
+default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+joint_mode = 1
+
+[node name="remove_wave" type="Control" parent="." unique_id=1602049448]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1635.0
+offset_top = 695.0
+offset_right = 1635.0
+offset_bottom = 695.0
+
+[node name="PanelContainer" type="PanelContainer" parent="remove_wave" unique_id=301959371]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
+
+[node name="Label" type="Label" parent="remove_wave/PanelContainer" unique_id=1133299566]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "REMOVE WAVE"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="remove_wave/PanelContainer" unique_id=406721920]
+points = PackedVector2Array(0, 25, -115, 25, -95, 12, -115, 25, -95, 38)
+width = 4.0
+default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+joint_mode = 1
+
+[node name="select_wave" type="Control" parent="." unique_id=1097610596]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1055.0
+offset_top = 659.0
+offset_right = 1055.0
+offset_bottom = 659.0
+
+[node name="PanelContainer" type="PanelContainer" parent="select_wave" unique_id=1185001856]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
+
+[node name="Label" type="Label" parent="select_wave/PanelContainer" unique_id=942256076]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "SELECT WAVE"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="select_wave" unique_id=2008300453]
+points = PackedVector2Array(220, 25, 275, 25, 275, -35, 263, -17, 275, -35, 287, -17, 275, -35, 275, 85, 263, 67, 275, 85, 287, 67)
+width = 4.0
+default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+joint_mode = 1
+
+[node name="change_wave_shape" type="Control" parent="." unique_id=9884801]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1497.0
+offset_top = 915.0
+offset_right = 1497.0
+offset_bottom = 915.0
+
+[node name="PanelContainer" type="PanelContainer" parent="change_wave_shape" unique_id=490918782]
+layout_mode = 0
+offset_right = 270.0
+offset_bottom = 50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
+
+[node name="Label" type="Label" parent="change_wave_shape/PanelContainer" unique_id=1605391600]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "CHANGE WAVE SHAPE"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="change_wave_shape" unique_id=2122826931]
+points = PackedVector2Array(0, 25, -45, 25, -45, -45, -58, -26, -45, -45, -32, -26)
+width = 4.0
+default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+joint_mode = 1
