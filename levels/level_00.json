@@ -22,8 +22,7 @@
       "trigger": "DIALOGUE_COMPLETED",
       "target": "start_dia",
       "actions": [
-        { "type": "SPAWN", "id": "drone_1", "angle": 90.0, "distance": 1.0, "eta": 90.0, "waves": [[0.2, 0.4, 0.0]] },
-        { "type": "START_TIMER", "id": "hurry_warning", "duration": 45.0 }
+        { "type": "SPAWN", "id": "drone_1", "angle": 90.0, "distance": 1.0, "eta": 90.0, "waves": [[0.2, 0.4, 0.0]] }
       ]
     },
     {

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dh803rr0nstv0" path="res://scripts/ui/options_menu.gd" id="1_ta2k2"]
 
-[node name="options_menu" type="Control" unique_id=1220031915 node_paths=PackedStringArray("window_resolution_option_button", "vsync_enabled_check_button", "sound_fx_volume_slider", "music_volume_slider", "back_button")]
+[node name="options_menu" type="Control" unique_id=1220031915 node_paths=PackedStringArray("window_resolution_option_button", "vsync_enabled_check_button", "sound_fx_volume_slider", "music_volume_slider", "delete_progress_button", "back_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +14,7 @@ window_resolution_option_button = NodePath("center_container/vertical_container/
 vsync_enabled_check_button = NodePath("center_container/vertical_container/vsync_checkbox")
 sound_fx_volume_slider = NodePath("center_container/vertical_container/sound_fx_slider")
 music_volume_slider = NodePath("center_container/vertical_container/music_slider")
+delete_progress_button = NodePath("center_container/vertical_container/delete_cache_button")
 back_button = NodePath("center_container/vertical_container/back_button")
 
 [node name="center_container" type="CenterContainer" parent="." unique_id=690145118]
@@ -67,6 +68,10 @@ horizontal_alignment = 1
 
 [node name="music_slider" type="HSlider" parent="center_container/vertical_container" unique_id=1452851369]
 layout_mode = 2
+
+[node name="delete_cache_button" type="Button" parent="center_container/vertical_container" unique_id=826840258]
+layout_mode = 2
+text = "DELETE SAVES"
 
 [node name="back_button" type="Button" parent="center_container/vertical_container" unique_id=1104228324]
 layout_mode = 2

@@ -16,10 +16,12 @@ const RESOLUTION_OPTIONS: Array[Vector2i] = [
 @export var vsync_enabled_check_button: CheckBox
 @export var sound_fx_volume_slider: HSlider
 @export var music_volume_slider: HSlider
+@export var delete_progress_button: Button
 @export var back_button: Button
 
 var _audio_save_timer: Timer
-
+var _confirm_delete: bool = false
+var _delete_reset_timer: SceneTreeTimer
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -35,7 +37,7 @@ func _ready() -> void:
 	sound_fx_volume_slider.value_changed.connect(_on_sound_fx_volume_changed)
 	music_volume_slider.value_changed.connect(_on_music_volume_changed)
 	back_button.pressed.connect(_on_back_button_pressed)
-
+	delete_progress_button.pressed.connect(_on_delete_progress_pressed)
 
 func _exit_tree() -> void:
 	_save_pending_audio_settings()
@@ -106,6 +108,26 @@ func _on_sound_fx_volume_changed(volume: float) -> void:
 func _on_music_volume_changed(volume: float) -> void:
 	OptionsManager.set_music_volume(volume, false)
 	_queue_audio_settings_save()
+
+func _on_delete_progress_pressed() -> void:
+	if not _confirm_delete:
+		_confirm_delete = true
+		delete_progress_button.text = "CONFIRM?"
+		
+		# Cancel after 3 sec
+		var timer := get_tree().create_timer(3.0, true)
+		_delete_reset_timer = timer
+		timer.timeout.connect(func():
+			if _delete_reset_timer == timer and _confirm_delete:
+				_confirm_delete = false
+				delete_progress_button.text = "DELETE SAVES"
+		)
+	else:
+		_confirm_delete = false
+		SaveLevelData.reset_all_data()
+		delete_progress_button.text = "DELETED"
+		delete_progress_button.disabled = true
+
 
 
 func _on_back_button_pressed() -> void:
