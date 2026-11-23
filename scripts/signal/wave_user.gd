@@ -90,7 +90,7 @@ func _refresh_selected_plot() -> void:
 		sub_plotters[selected_wave_id].redraw_plot()
 
 func calc_score() -> void:
-	if !enemy.total_wave:
+	if !enemy.total_wave or total_wave.wave_count() == 0:
 		progress_bar.set_score(0.0)
 		return
 	if is_locked:
