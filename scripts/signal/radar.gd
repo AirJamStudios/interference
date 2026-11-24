@@ -23,6 +23,7 @@ extends Node3D
 @export var sweep_trail: float = 0.65
 @export var minutes_per_ring: int = 1
 @export var knob_step_threshold: float = 0.2
+@export var alarm_eta_threshold: int = 5
 
 signal target_changed(index: int)
 signal attack_missed
@@ -34,6 +35,7 @@ class Blip:
 	var start_eta: float = 0
 	var pos: Vector2
 	var eta: float = 0
+	var alarm_played: bool = false
 
 	func _init(p_start_pos: Vector2, p_start_eta: float = 0.0) -> void:
 		start_pos = p_start_pos
@@ -129,11 +131,7 @@ func _draw_radar() -> void:
 			canvas.draw_line(pos - Vector2(0, circle_r + tick_len), pos - Vector2(0, circle_r - 3.0), target_color, line_width * 2.2, true)
 			canvas.draw_line(pos + Vector2(0, circle_r - 3.0), pos + Vector2(0, circle_r + tick_len), target_color, line_width * 2.2, true)
 
-			var remaining_sec: float = blip.eta
-			if blip.start_eta <= 0.0:
-				var ring_width: float = 1.0 / float(rings)
-				var speed: float = ring_width / (minutes_per_ring * 60.0)
-				remaining_sec = blip.pos.length() / speed
+			var remaining_sec: float = _get_remaining_time(blip)
 
 			var total_secs := int(remaining_sec)
 			var mins := int(total_secs / 60.0)
@@ -188,12 +186,24 @@ func _advance_blips(dt: float) -> void:
 			else:
 				blips[i].pos = blips[i].start_pos * (blips[i].eta / blips[i].start_eta)
 
+		if not blips[i].alarm_played and int(_get_remaining_time(blips[i])) <= alarm_eta_threshold:
+			blips[i].alarm_played = true
+			GameManager.play_sfx(GameManager.Sfx.ALARM)
+
 	# These are the ones that reached the center so it means they missed
 	for reached in reached_blips:
 		var idx: int = blips.find(reached)
 		if idx != -1:
 			remove_blip_at(idx)
 			attack_missed.emit(idx)
+
+
+func _get_remaining_time(blip: Blip) -> float:
+	if blip.start_eta > 0.0:
+		return blip.eta
+	var ring_width: float = 1.0 / float(rings)
+	var speed: float = ring_width / (minutes_per_ring * 60.0)
+	return blip.pos.length() / speed
 
 
 func _on_knob_value_changed(value: float) -> void:
