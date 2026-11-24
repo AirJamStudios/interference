@@ -16,8 +16,14 @@ const MAIN_MENU_SCENE_PATH := "res://scenes/main_menu.tscn"
 
 @export_group("Settings")
 @export var max_hits_allowed: int = 3
-@export var next_level_delay : float = 1.5
+@export var next_level_delay : float = 1.0
 @export var camera_transition_time: float = 0.8
+
+@export_group("Lights")
+@export var wall_light_1: OmniLight3D
+@export var wall_light_2 : OmniLight3D
+@export var ceiling_light: OmniLight3D
+@export var alarm: Alarm
 
 enum LevelOutcome {
 	NONE,
@@ -243,7 +249,9 @@ func _on_attack_missed(id: int) -> void:
 	var missed_attack: Attack = active_attacks[id]
 	active_attacks.remove_at(id)
 	_hits_taken += 1
-	
+	if(_hits_taken >= 2):
+		_alarm_lights_on(true)
+
 	_fire_trigger(TriggerType.ATTACK_REACHED, missed_attack.id)
 	_fire_trigger(TriggerType.CNT_ATTACK_REACHED, _hits_taken)
 	_fire_trigger(TriggerType.CNT_ATTACK_GONE, _hits_saved + _hits_taken)
@@ -303,53 +311,42 @@ func _evaluate_level_state() -> void:
 func _complete_level() -> void:
 	if _is_transitioning or dialogue_manager.is_dialogue_active():
 		return
-	_is_transitioning = true
-	is_playing = false
+	
 	GameManager.set_game_state_active(false)
-
-	# hits to stars
 	var stars: int = clampi(3 - _hits_taken, 1, 3)
 	SaveLevelData.save_level_result(_current_level_id, _elapsed_time, stars)
-
-	await get_tree().create_timer(next_level_delay).timeout
-	await _tween_camera(desk_camera, overview_camera, camera_transition_time)
-	open_level_select()
-
-	_is_transitioning = false
+	await go_to_level_select(next_level_delay)
 
 func _fail_level() -> void:
 	if _is_transitioning or dialogue_manager.is_dialogue_active():
 		return
+	await go_to_level_select(next_level_delay)
+
+func _on_game_completed() -> void:
+	await go_to_level_select()
+
+func go_to_level_select(delay: float = 0.0) -> void:
+	if _is_transitioning:
+		return
+	
 	_is_transitioning = true
 	is_playing = false
-
-	await get_tree().create_timer(next_level_delay).timeout
+	
+	if delay > 0.0:
+		await get_tree().create_timer(delay).timeout
+	
+	_alarm_lights_on(false)
 	await _tween_camera(desk_camera, overview_camera, camera_transition_time)
-
 	open_level_select()
+	
 	_is_transitioning = false
 
 func _on_target_changed(index: int) -> void:
 	if index >= 0 and index < active_attacks.size():
 		oscilloscope.set_enemy_wave(active_attacks[index].enemy_wave)
 
-# Whole game done
-func _on_game_completed() -> void:
-	await _tween_camera(desk_camera, overview_camera, camera_transition_time)
-	open_level_select()
-
 func _on_back_to_menu() -> void:
 	await SceneManager.change_scene(MAIN_MENU_SCENE_PATH, SceneManager.TransitionType.CRT)
-
-func go_to_level_select() -> void:
-	is_playing = false
-	_is_transitioning = true
-	active_attacks.clear()
-	radar.blips.clear()
-	
-	await _tween_camera(desk_camera, overview_camera, camera_transition_time)
-	open_level_select()
-	_is_transitioning = false
 
 func _sync_oscilloscope_to_radar() -> void:
 	if not active_attacks.is_empty():
@@ -430,3 +427,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.keycode == KEY_S:
 			if not active_attacks.is_empty() and not _is_transitioning:
 				_on_attack_completed()
+
+func _alarm_lights_on(is_alarm_active: bool) -> void:
+	wall_light_1.visible = not is_alarm_active
+	wall_light_2.visible = not is_alarm_active
+	ceiling_light.visible = not is_alarm_active
+	
+	if is_alarm_active:
+		alarm.activate()
+	else:
+		alarm.deactivate()

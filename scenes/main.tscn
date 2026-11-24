@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://sh047oh48vna" path="res://assets/models/radio/vintage_radio_transceiver_4k.gltf" id="6_tipki"]
 [ext_resource type="Script" uid="uid://cy42yyfxg0hem" path="res://scripts/scene_fx.gd" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b5umxmradv13d" path="res://scenes/wall_lamp.tscn" id="10_a8y0u"]
+[ext_resource type="PackedScene" uid="uid://dc1l1a4df4dyp" path="res://scenes/alarm.tscn" id="10_jkv2x"]
 [ext_resource type="Script" uid="uid://40s2wdo238r6" path="res://scripts/level_manager.gd" id="11_eb6dy"]
 [ext_resource type="Script" uid="uid://bsjcl0ljatr48" path="res://scripts/ui/level_selector.gd" id="12_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://njkdic5glcp0" path="res://scenes/ui/level_box.tscn" id="13_trceg"]
@@ -111,8 +112,14 @@ mesh = SubResource("QuadMesh_21xpk")
 [node name="wall_lamp" parent="room/walls/wall" unique_id=1657567979 instance=ExtResource("10_a8y0u")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.4896393, 8.353498, 0.010782242)
 
+[node name="mesh" parent="room/walls/wall/wall_lamp" index="0" unique_id=1369905835]
+surface_material_override/1 = null
+
 [node name="wall_lamp2" parent="room/walls/wall" unique_id=444449942 instance=ExtResource("10_a8y0u")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -8.864346, 8.353498, 0.0107831955)
+
+[node name="mesh" parent="room/walls/wall/wall_lamp2" index="0" unique_id=1369905835]
+surface_material_override/1 = null
 
 [node name="wall_lamp_light" type="OmniLight3D" parent="room/walls/wall" unique_id=418273645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4896398, 8.353498, 0.85110474)
@@ -142,7 +149,10 @@ omni_range = 25.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94864, 0, -15.008734)
 mesh = SubResource("QuadMesh_21xpk")
 
-[node name="level_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogue_manager", "oscilloscope", "scene_fx", "radar", "overview_camera", "desk_camera", "level_select_ui")]
+[node name="alarm" parent="room" unique_id=697734002 instance=ExtResource("10_jkv2x")]
+transform = Transform3D(-1.9999499, -0.01415163, 0, 0.014149862, -1.9997001, 0.031611133, -0.00022367453, 0.031610344, 1.9997501, 2.7666564, 4.0827675, 0)
+
+[node name="level_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogue_manager", "oscilloscope", "scene_fx", "radar", "overview_camera", "desk_camera", "level_select_ui", "wall_light_1", "wall_light_2", "ceiling_light", "alarm")]
 script = ExtResource("11_eb6dy")
 dialogue_manager = NodePath("../dialogue")
 oscilloscope = NodePath("../oscilloscope")
@@ -151,6 +161,10 @@ radar = NodePath("../radar")
 overview_camera = NodePath("../overview_camera")
 desk_camera = NodePath("../desk_camera")
 level_select_ui = NodePath("../ui_level_layer/level_selector")
+wall_light_1 = NodePath("../room/walls/wall/wall_lamp_light")
+wall_light_2 = NodePath("../room/walls/wall/wall_lamp_light2")
+ceiling_light = NodePath("../room/lamp_light")
+alarm = NodePath("../room/alarm")
 
 [node name="scene_fx" type="Node" parent="." unique_id=100556952 node_paths=PackedStringArray("camera", "light", "radar", "hit_flicker_lights", "hit_flicker_meshes")]
 script = ExtResource("7_o6xl0")
