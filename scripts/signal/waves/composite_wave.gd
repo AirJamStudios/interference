@@ -56,7 +56,9 @@ func get_accuracy(other_wave: CompositeWave, t_min: float, t_max: float, dt: flo
 		var y1: float = sample(t)
 		var y2: float = other_wave.sample(t)
 		
-		var diff: float = y1 - y2
+		# var diff: float = y1 - y2
+		# Cap on phase caused huge errors per point
+		var diff: float = minf(absf(y1 - y2), 0.35)
 		squared_error_sum += diff * diff
 		sample_count += 1
 		t += dt
