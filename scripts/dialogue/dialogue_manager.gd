@@ -12,6 +12,7 @@ extends CanvasLayer
 var current_lines: Array = []
 var current_index: int = 0
 var is_typing: bool = false
+var _dialogue_active: bool = false
 var tween: Tween
 var id: String = ""
 
@@ -24,6 +25,7 @@ func start_dialogue(lines: Array, p_id: String = "") -> void:
 	id = p_id
 	current_lines = lines
 	current_index = 0
+	_dialogue_active = true
 	show()
 	_show_line()
 
@@ -68,4 +70,8 @@ func _input(event: InputEvent) -> void:
 
 func end_dialogue() -> void:
 	hide()
+	_dialogue_active = false
 	dialogue_completed.emit(id)
+
+func is_dialogue_active() -> bool:
+	return _dialogue_active

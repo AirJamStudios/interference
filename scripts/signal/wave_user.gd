@@ -37,6 +37,10 @@ func setup() -> void:
 	_update_displays()
 	calc_score()
 
+func clear() -> void:
+	for _i in range(MAX_WAVES):
+		_minus_button_pressed()
+
 func _plus_button_pressed() -> void:
 	if !total_wave: return
 	if total_wave.waves.size() >= MAX_WAVES:

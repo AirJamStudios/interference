@@ -19,12 +19,22 @@ const MAIN_MENU_SCENE_PATH := "res://scenes/main_menu.tscn"
 @export var next_level_delay : float = 1.5
 @export var camera_transition_time: float = 0.8
 
+enum LevelOutcome {
+	NONE,
+	PASS,
+	FAIL
+}
+var _pending_outcome: LevelOutcome = LevelOutcome.NONE
 enum TriggerType {
 	LEVEL_START,
 	TIMER_COMPLETED,
 	ATTACK_DEFEATED,
 	ATTACK_REACHED,
 	DIALOGUE_COMPLETED,
+	CNT_ATTACK_REACHED,		# check against total attacks that werend defeated and hit in current level
+	CNT_ATTACK_DEFEATED,	# check against total defeated attacks in current level
+	CNT_ATTACK_GONE,		# check against sum cnt CNT_ATTACK_REACHED and CNT_ATTACK_DEFEATED
+	CNT_ATTACK_INBOUND		# check against attacks that are currently inbound
 }
 
 enum ActionType {
@@ -33,6 +43,8 @@ enum ActionType {
 	START_TIMER,
 	CANCEL_TIMER,
 	DISABLE_EVENT,
+	FAIL_LEVEL, 	# override to fails level
+	PASS_LEVEL, 	# override to pass level, 1-3 stars
 }
 
 class Attack:
@@ -76,6 +88,12 @@ class LevelAction:
 
 	static func disable_event(event_id: String) -> LevelAction:
 		return LevelAction.new(ActionType.DISABLE_EVENT, event_id)
+	
+	static func pass_level() -> LevelAction:
+		return LevelAction.new(ActionType.PASS_LEVEL, null)
+
+	static func fail_level() -> LevelAction:
+		return LevelAction.new(ActionType.FAIL_LEVEL, null)
 
 class LevelEvent:
 	var id : String
@@ -155,14 +173,19 @@ func open_level_select() -> void:
 	level_select_ui.visible = true
 
 func start_level(index: int) -> void:
+	_pending_outcome = LevelOutcome.NONE
 	_current_level_id = index
 	level_select_ui.visible = false
-	
+
+	# clear all waves before level
+	oscilloscope.clear_waves()
+
 	await _tween_camera(overview_camera, desk_camera, camera_transition_time)
 	_load_level(_current_level_id)
 	GameManager.set_game_state_active(true)
 
 func _load_level(index: int) -> void:
+	
 	var level : Level = level_list[index]
 	_elapsed_time = 0.0
 	is_playing = true
@@ -171,9 +194,19 @@ func _load_level(index: int) -> void:
 
 	active_timers.clear()
 	active_attacks.clear()
+	current_level_events.clear()
 	radar.blips.clear()
 	
-	current_level_events = level.events
+	for ev: LevelEvent in level.events:
+		var new_event := LevelEvent.new(
+			ev.trigger,
+			ev.trigger_param,
+			ev.actions,
+			ev.one_shot,
+			ev.id
+		)
+		current_level_events.append(new_event)
+
 	for ev: LevelEvent in current_level_events:
 		ev._fired = false
 
@@ -185,6 +218,11 @@ func _on_attack_completed() -> void:
 		return
 
 	var target_idx: int = radar.selected_index
+
+	if target_idx < 0 or target_idx >= active_attacks.size():
+		push_warning("Invalid radar selection: %d" % target_idx)
+		return
+
 	var defeated_attack: Attack = active_attacks[target_idx]
 
 	active_attacks.remove_at(target_idx)
@@ -192,6 +230,10 @@ func _on_attack_completed() -> void:
 	_hits_saved += 1
 
 	_fire_trigger(TriggerType.ATTACK_DEFEATED, defeated_attack.id)
+	_fire_trigger(TriggerType.CNT_ATTACK_DEFEATED, _hits_saved)
+	_fire_trigger(TriggerType.CNT_ATTACK_GONE, _hits_saved + _hits_taken)
+	_fire_trigger(TriggerType.CNT_ATTACK_INBOUND, active_attacks.size())
+
 	_evaluate_level_state()
 
 func _on_attack_missed(id: int) -> void:
@@ -201,18 +243,36 @@ func _on_attack_missed(id: int) -> void:
 	var missed_attack: Attack = active_attacks[id]
 	active_attacks.remove_at(id)
 	_hits_taken += 1
-
+	
 	_fire_trigger(TriggerType.ATTACK_REACHED, missed_attack.id)
+	_fire_trigger(TriggerType.CNT_ATTACK_REACHED, _hits_taken)
+	_fire_trigger(TriggerType.CNT_ATTACK_GONE, _hits_saved + _hits_taken)
+	_fire_trigger(TriggerType.CNT_ATTACK_INBOUND, active_attacks.size())
+
 	_evaluate_level_state()
 
 func _on_dialogue_completed(dialogue_id: String = "") -> void:
 	if _is_transitioning or not is_playing:
 		return
-
+	
 	_fire_trigger(TriggerType.DIALOGUE_COMPLETED, dialogue_id)
-	_evaluate_level_state()
+
+	if _pending_outcome == LevelOutcome.PASS:
+		_complete_level()
+	elif _pending_outcome == LevelOutcome.FAIL:
+		_fail_level()
+	else:
+		_evaluate_level_state()
 
 func _evaluate_level_state() -> void:
+
+	if _pending_outcome == LevelOutcome.PASS:
+		_complete_level()
+		return
+	elif _pending_outcome == LevelOutcome.FAIL:
+		_fail_level()
+		return
+
 	# 1. Immediate fail check
 	if _hits_taken >= max_hits_allowed:
 		_fail_level()
@@ -231,7 +291,6 @@ func _evaluate_level_state() -> void:
 		if not ev._fired:
 			for act: LevelAction in ev.actions:
 				if act.type == ActionType.SPAWN_ATTACK:
-					print("actions")
 					return
 
 	# 4. Everything is cleared—evaluate win vs fail
@@ -242,6 +301,8 @@ func _evaluate_level_state() -> void:
 
 #! LEVEL EVENTS  - level completed or failed
 func _complete_level() -> void:
+	if _is_transitioning or dialogue_manager.is_dialogue_active():
+		return
 	_is_transitioning = true
 	is_playing = false
 	GameManager.set_game_state_active(false)
@@ -257,6 +318,8 @@ func _complete_level() -> void:
 	_is_transitioning = false
 
 func _fail_level() -> void:
+	if _is_transitioning or dialogue_manager.is_dialogue_active():
+		return
 	_is_transitioning = true
 	is_playing = false
 
@@ -339,11 +402,19 @@ func _execute_action(act: LevelAction) -> void:
 			for ev: LevelEvent in current_level_events:
 				if ev.id == act.data:
 					ev._fired = true
+		ActionType.PASS_LEVEL:
+			_pending_outcome = LevelOutcome.PASS
+			_complete_level()
+		ActionType.FAIL_LEVEL:
+			_pending_outcome = LevelOutcome.FAIL
+			_fail_level()
 
 func _spawn_attack(new_attack: Attack) -> void:
 	active_attacks.append(new_attack)
 	radar.add_blip(deg_to_rad(new_attack.angle_deg), new_attack.start_distance, new_attack.start_eta)
 	
+	_fire_trigger(TriggerType.CNT_ATTACK_INBOUND, active_attacks.size())
+
 	if active_attacks.size() == 1:
 		oscilloscope.set_enemy_wave(active_attacks[0].enemy_wave)
 

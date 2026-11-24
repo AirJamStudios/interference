@@ -4,6 +4,7 @@ const LEVELS_DIR := "res://levels"
 
 #level specific counterfor misising ids (helps debug)
 var event_cnt: int = 0
+var action_cnt: int = 0
 
 func _build_levels() -> void:
 	level_list.clear()
@@ -32,7 +33,13 @@ func _parse_level(lvl_dict: Dictionary) -> Level:
 	
 	for ev_dict in lvl_dict.get("events", []):
 		var trigger_name: String = ev_dict.get("trigger", "LEVEL_START")
-		var trigger: TriggerType = TriggerType.get(trigger_name, TriggerType.LEVEL_START)
+		if not TriggerType.has(trigger_name):
+			push_error("Unknown trigger '%s' in event '%s'" % [
+				trigger_name,
+				ev_dict.get("id", "event_" + str(event_cnt))
+			])
+			continue
+		var trigger: TriggerType = TriggerType.get(trigger_name)
 		var target: Variant = ev_dict.get("target", null)
 		var one_shot: bool = ev_dict.get("one_shot", true)
 		var id: String = ev_dict.get("id", "event_" + str(event_cnt))
@@ -67,6 +74,7 @@ func _parse_action(d: Dictionary) -> LevelAction:
 							print("Wrong wave Type:", w[3])
 				elif w.size() != 3:
 					print("Wrong amount of wave parameters, must be 3 or 4 not: ", w.size())
+					continue
 				
 				waves.append(SingleWave.new(w[0], w[1], w[2], wave_type))
 				
@@ -88,6 +96,10 @@ func _parse_action(d: Dictionary) -> LevelAction:
 			return LevelAction.cancel_timer(d["id"])
 		"DISABLE_EVENT":
 			return LevelAction.disable_event(d["id"])
+		"FAIL_LEVEL":
+			return LevelAction.fail_level()
+		"PASS_LEVEL":
+			return LevelAction.pass_level()
 			
 	push_warning("Unknown action type in JSON: " + str(d))
 	return null

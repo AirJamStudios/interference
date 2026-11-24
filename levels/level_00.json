@@ -22,14 +22,14 @@
       "trigger": "DIALOGUE_COMPLETED",
       "target": "start_dia",
       "actions": [
-        { "type": "SPAWN", "id": "drone_1", "angle": 90.0, "distance": 1.0, "eta": 90.0, "waves": [[0.2, 0.4, 0.0]] }
+        { "type": "SPAWN", "id": "drone_1", "angle": 90.0, "distance": 1.0, "eta": 90.0, "waves": [[0.6, 0.4, 0.0]] }
       ]
     },
     {
       "trigger": "ATTACK_DEFEATED",
       "target": "drone_1",
       "actions": [
-        { "type": "SPAWN", "id": "drone_2", "angle": 80.0, "distance": 1.0, "eta": 90.0, "waves": [[0.6, 0.4, 0.0]] }
+        { "type": "SPAWN", "id": "drone_2", "angle": 80.0, "distance": 1.0, "eta": 90.0, "waves": [[0.1, 0.4, 0.0]] }
       ]
     },
     {

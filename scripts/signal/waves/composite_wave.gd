@@ -100,7 +100,7 @@ func is_drifting() -> bool:
 
 func update(delta: float) -> void:
 	# No need to update static waves
-	if not is_drifting():
+	if not is_drifting() or wave_count() == 0:
 		return
 	_drift_time += delta * drift_speed
 	
