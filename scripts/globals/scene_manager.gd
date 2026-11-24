@@ -177,6 +177,7 @@ func _crt_power_off() -> void:
 
 func _crt_power_on() -> void:
 	_crt_material.set_shader_parameter("flicker", 0.0)
+	GameManager.play_sfx(GameManager.Sfx.FADE_IN)
 
 	var tween := create_tween()
 	tween.tween_method(_set_crt_progress, 1.0, 0.0, crt_on_duration)

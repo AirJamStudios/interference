@@ -36,6 +36,7 @@ func _on_user_target_reached() -> void:
 		return
 	_completing_attack = true
 	enemy_wave.is_locked = true
+	GameManager.play_sfx(GameManager.Sfx.WAVE_COMPLETE)
 	await user_wave.play_validation_flash()
 	enemy_wave.is_locked = false
 	_completing_attack = false
