@@ -22,6 +22,7 @@ const MAX_WAVES: int = 3
 
 var selected_wave_id: int = 0
 var total_wave: CompositeWave
+var wave_type: SingleWave.WaveType = SingleWave.WaveType.SINE
 
 func _ready() -> void:
 	wave_selection_panel.plus_pressed.connect(_plus_button_pressed)
@@ -46,7 +47,7 @@ func _plus_button_pressed() -> void:
 	if total_wave.waves.size() >= MAX_WAVES:
 		return
 	# TODO: I left this default wave, maybe is not the best default one i dunno
-	total_wave.add_wave(SingleWave.new(1.0, 0.4, 0.0))
+	total_wave.add_wave(SingleWave.new(1.0, 0.4, 0.0, wave_type))
 	_select_wave(total_wave.waves.size() - 1)
 	calc_score()
 
@@ -67,8 +68,8 @@ func _minus_button_pressed() -> void:
 	calc_score()
 
 func _on_wave_type_button_pressed() -> void:
-	if !total_wave or total_wave.waves.is_empty():
-		return
+	# if !total_wave or total_wave.waves.is_empty():
+	# 	return
 	display_wave_type.cycle_wave_type()
 	calc_score()
 
@@ -151,7 +152,7 @@ func _update_displays() -> void:
 
 func get_wave_type() -> SingleWave.WaveType:
 	if !total_wave or total_wave.waves.is_empty():
-		return SingleWave.WaveType.SINE
+		return wave_type
 	return total_wave.get_wave(selected_wave_id).get_wave_type()
 
 func set_wave_type(type: SingleWave.WaveType) -> void:

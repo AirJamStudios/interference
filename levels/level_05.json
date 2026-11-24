@@ -103,7 +103,8 @@
         { "type": "CANCEL_TIMER", "id": "m3_timer" },
         { "type": "DISABLE_EVENT", "id": "ev_m3" },
         { "type": "CANCEL_TIMER", "id": "m4_timer" },
-        { "type": "DISABLE_EVENT", "id": "ev_m4" }
+        { "type": "DISABLE_EVENT", "id": "ev_m4" },
+        {"type": "FAIL_LEVEL"}
       ]
     },
     {

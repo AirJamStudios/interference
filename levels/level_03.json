@@ -33,7 +33,8 @@
           "lines": [
             "It's directly over us, we are doomed..."
           ]
-        }
+        },
+        {"type": "FAIL_LEVEL"}
       ]
     },
     {

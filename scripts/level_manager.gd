@@ -31,26 +31,28 @@ enum LevelOutcome {
 	FAIL
 }
 var _pending_outcome: LevelOutcome = LevelOutcome.NONE
-enum TriggerType {
-	LEVEL_START,
-	TIMER_COMPLETED,
-	ATTACK_DEFEATED,
-	ATTACK_REACHED,
-	DIALOGUE_COMPLETED,
-	CNT_ATTACK_REACHED,		# check against total attacks that werend defeated and hit in current level
-	CNT_ATTACK_DEFEATED,	# check against total defeated attacks in current level
-	CNT_ATTACK_GONE,		# check against sum cnt CNT_ATTACK_REACHED and CNT_ATTACK_DEFEATED
-	CNT_ATTACK_INBOUND		# check against attacks that are currently inbound
+
+enum TriggerType {			# Parameter			Order 	Description
+	LEVEL_START,			# (none) 			-		Triggered when the level starts.
+	DIALOGUE_COMPLETED,		# (target: String) 	-		Triggered when the dialogue with the specified ID closes.
+	TIMER_COMPLETED,		# (target: String) 	-		Triggered when the timer with the specified ID finishes.
+	ATTACK_DEFEATED,		# (target: String) 	1		Triggered when the attack with the specified ID is defeated.
+	ATTACK_REACHED,			# (target: String) 	1		Triggered when the attack with the specified ID reaches its target.
+	ATTACK_GONE,			# (target: String) 	2		Triggered when the attack with the specified ID is either defeated or reaches its target.
+	CNT_ATTACK_REACHED,		# (target: int) 	3		Triggered when total hits taken (_hits_taken) reaches the specified count.
+	CNT_ATTACK_DEFEATED,	# (target: int) 	3		Triggered when total defeated attacks (_hits_saved) reaches the specified count.
+	CNT_ATTACK_GONE,		# (target: int) 	4		Triggered when total resolved attacks (_hits_taken + _hits_saved) reaches the specified count.
+	CNT_ATTACK_INBOUND		# (target: int) 	5		Triggered when currently active attacks (active_attacks.size()) matches the specified count.
 }
 
 enum ActionType {
-	DIALOGUE,
-	SPAWN_ATTACK,
-	START_TIMER,
-	CANCEL_TIMER,
-	DISABLE_EVENT,
-	FAIL_LEVEL, 	# override to fails level
-	PASS_LEVEL, 	# override to pass level, 1-3 stars
+	DIALOGUE,		# (id: String = "", lines: Array[String])															Opens and plays dialogue lines; optional ID allows tracking completion, blocks pass/fail.
+	SPAWN_ATTACK,	# (id: String, angle: float, distance: float, eta: float, waves: [[ampl, freq, phase, type], ...]) 	Spawns a new attack with the given parameters. This can trip further triggers.
+	START_TIMER,	# (id: String, duration: float) 																	Starts a timer with the specified ID and duration in seconds, running timer blocks normal evaluation.
+	CANCEL_TIMER,	# (id: String) 																						Stops and removes the active timer with the specified ID.
+	DISABLE_EVENT,	# (id: String) 																						Disables the event with the matching ID so it can no longer trigger or block level eval.
+	PASS_LEVEL,		# (none) 																							Immediately forces the current level to pass 1-3 stars.
+	FAIL_LEVEL		# (none) 																							Immediately forces the current level to fail.
 }
 
 class Attack:
@@ -235,7 +237,8 @@ func _on_attack_completed() -> void:
 	radar.remove_blip_at(target_idx)
 	_hits_saved += 1
 
-	_fire_trigger(TriggerType.ATTACK_DEFEATED, defeated_attack.id)
+	_fire_trigger(TriggerType.ATTACK_DEFEATED, defeated_attack.id)	# first defeated check so u can branch and then gone fallback deactivate 
+	_fire_trigger(TriggerType.ATTACK_GONE, defeated_attack.id)
 	_fire_trigger(TriggerType.CNT_ATTACK_DEFEATED, _hits_saved)
 	_fire_trigger(TriggerType.CNT_ATTACK_GONE, _hits_saved + _hits_taken)
 	_fire_trigger(TriggerType.CNT_ATTACK_INBOUND, active_attacks.size())
@@ -252,7 +255,8 @@ func _on_attack_missed(id: int) -> void:
 	if(_hits_taken >= 2):
 		_alarm_lights_on(true)
 
-	_fire_trigger(TriggerType.ATTACK_REACHED, missed_attack.id)
+	_fire_trigger(TriggerType.ATTACK_REACHED, missed_attack.id)	# first missed check so u can branch and then gone fallback deactivate 
+	_fire_trigger(TriggerType.ATTACK_GONE, missed_attack.id)
 	_fire_trigger(TriggerType.CNT_ATTACK_REACHED, _hits_taken)
 	_fire_trigger(TriggerType.CNT_ATTACK_GONE, _hits_saved + _hits_taken)
 	_fire_trigger(TriggerType.CNT_ATTACK_INBOUND, active_attacks.size())
@@ -309,6 +313,7 @@ func _evaluate_level_state() -> void:
 
 #! LEVEL EVENTS  - level completed or failed
 func _complete_level() -> void:
+	oscilloscope.clear_enemy_wave()
 	if _is_transitioning or dialogue_manager.is_dialogue_active():
 		return
 	

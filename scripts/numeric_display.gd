@@ -47,6 +47,7 @@ func cycle_wave_type() -> void:
 func set_wave_type(type: SingleWave.WaveType) -> void:
 	_show_icon_mode()
 	user_wave.set_wave_type(type)
+	user_wave.wave_type = type
 	match type:
 		SingleWave.WaveType.SINE:
 			icon_rect.texture = sine_texture

@@ -26,21 +26,21 @@
       ]
     },
     {
-      "trigger": "ATTACK_DEFEATED",
+      "trigger": "ATTACK_GONE",
       "target": "drone_1",
       "actions": [
         { "type": "SPAWN", "id": "drone_2", "angle": 80.0, "distance": 1.0, "eta": 90.0, "waves": [[0.1, 0.4, 0.0]] }
       ]
     },
     {
-      "trigger": "ATTACK_DEFEATED",
+      "trigger": "ATTACK_GONE",
       "target": "drone_2",
       "actions": [
         { "type": "SPAWN", "id": "drone_3", "angle": 105.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.4, 0.0]] }
       ]
     },
     {
-      "trigger": "ATTACK_DEFEATED",
+      "trigger": "ATTACK_GONE",
       "target": "drone_3",
       "actions": [
         {
@@ -54,21 +54,21 @@
       ]
     },
     {
-      "trigger": "ATTACK_DEFEATED",
+      "trigger": "ATTACK_GONE",
       "target": "drone_4",
       "actions": [
         { "type": "SPAWN", "id": "drone_5", "angle": 120.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.8, 0.0]] }
       ]
     },
     {
-      "trigger": "ATTACK_DEFEATED",
+      "trigger": "ATTACK_GONE",
       "target": "drone_5",
       "actions": [
         { "type": "SPAWN", "id": "drone_6", "angle": 130.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.05, 0.0]] }
       ]
     },
     {
-      "trigger": "ATTACK_DEFEATED",
+      "trigger": "ATTACK_GONE",
       "target": "drone_6",
       "actions": [
         {
@@ -82,14 +82,14 @@
       ]
     },
     {
-      "trigger": "ATTACK_DEFEATED",
+      "trigger": "ATTACK_GONE",
       "target": "drone_7",
       "actions": [
         { "type": "SPAWN", "id": "drone_8", "angle": 50.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.05, 0.2]] }
       ]
     },
     {
-      "trigger": "ATTACK_DEFEATED",
+      "trigger": "ATTACK_GONE",
       "target": "drone_8",
       "actions": [
         { "type": "SPAWN", "id": "drone_9", "angle": 60.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.05, 0.8]] }

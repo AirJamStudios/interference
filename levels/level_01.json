@@ -29,8 +29,8 @@
       ]
     },
     {
-      "trigger": "ATTACK_DEFEATED",
-      "target": "drone_3",
+      "trigger": "CNT_ATTACK_GONE",
+      "target": 3,
       "actions": [
         { "type": "CANCEL_TIMER", "id": "hurry_warning" },
         {
@@ -46,8 +46,8 @@
       ]
     },
     {
-      "trigger": "ATTACK_DEFEATED",
-      "target": "drone_6",
+      "trigger": "CNT_ATTACK_GONE",
+      "target": 6,
       "actions": [
         { "type": "CANCEL_TIMER", "id": "hurry_warning" },
         {

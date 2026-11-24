@@ -45,7 +45,6 @@
       "target": "drone_1",
       "actions": [
         { "type": "CANCEL_TIMER", "id": "hurry_warning" },
-        { "type": "DISABLE_EVENT", "id": "ambush_event" },
         {
           "type": "DIALOGUE",
           "lines": [
