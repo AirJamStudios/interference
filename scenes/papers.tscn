@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://c5i1kfe3rsn1q"]
+
+[ext_resource type="Texture2D" uid="uid://de3qqlqvc0pbc" path="res://assets/models/papers/old_papers_0.png" id="1_lup26"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8y7if"]
+resource_name = "papers"
+cull_mode = 2
+albedo_texture = ExtResource("1_lup26")
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_n3qvd"]
+_surfaces = [{
+"aabb": AABB(-0.07194482, -0.10767747, 0.0002320779, 0.14388937, 0.21535514, 1e-05),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 3, 0, 1, 0),
+"name": "papers",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_nmiis"]
+resource_name = "Sketchfab_Scene_paper_2_papers_0"
+_surfaces = [{
+"aabb": AABB(-0.07194482, -0.10767747, 0.0002320779, 0.14388937, 0.21535514, 1e-05),
+"attribute_data": PackedByteArray(255, 191, 0, 0, 255, 255, 255, 127, 255, 255, 0, 0, 255, 191, 255, 127),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 3, 0, 1, 0),
+"material": SubResource("StandardMaterial3D_8y7if"),
+"name": "papers",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 254, 127, 255, 255, 255, 255, 0, 0, 254, 127, 255, 255, 0, 0, 0, 0, 254, 127, 0, 0, 255, 255, 0, 0, 254, 127, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_n3qvd")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_d1xcd"]
+_surfaces = [{
+"aabb": AABB(-0.094035745, -0.0786189, 0.00023202167, 0.18807149, 0.13103129, 1e-05),
+"format": 34896613377,
+"index_count": 9,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 3, 0, 0, 0, 3, 0, 4, 0, 0, 0),
+"name": "papers",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 5,
+"vertex_data": PackedByteArray(255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 255, 127, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_b1pok"]
+resource_name = "Sketchfab_Scene_paper_3_papers_0"
+_surfaces = [{
+"aabb": AABB(-0.094035745, -0.0786189, 0.00023202167, 0.18807149, 0.13103129, 1e-05),
+"attribute_data": PackedByteArray(255, 191, 0, 0, 255, 63, 0, 0, 255, 63, 255, 127, 255, 127, 255, 127, 255, 191, 255, 127),
+"format": 34896613399,
+"index_count": 9,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 2, 0, 3, 0, 0, 0, 3, 0, 4, 0, 0, 0),
+"material": SubResource("StandardMaterial3D_8y7if"),
+"name": "papers",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 5,
+"vertex_data": PackedByteArray(255, 255, 0, 0, 0, 0, 254, 127, 0, 0, 0, 0, 0, 0, 254, 127, 0, 0, 255, 255, 0, 0, 254, 127, 255, 127, 255, 255, 0, 0, 254, 127, 255, 255, 255, 255, 0, 0, 254, 127, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_d1xcd")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_kc4re"]
+_surfaces = [{
+"aabb": AABB(-0.079603225, -0.12736528, 0.00023207403, 0.1592066, 0.25473055, 1e-05),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 3, 0, 1, 0),
+"name": "papers",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_04hii"]
+resource_name = "Sketchfab_Scene_paper_6_papers_0"
+_surfaces = [{
+"aabb": AABB(-0.079603225, -0.12736528, 0.00023207403, 0.1592066, 0.25473055, 1e-05),
+"attribute_data": PackedByteArray(255, 63, 255, 127, 255, 127, 255, 255, 255, 127, 255, 127, 255, 63, 255, 255),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 0, 0, 3, 0, 1, 0),
+"material": SubResource("StandardMaterial3D_8y7if"),
+"name": "papers",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 254, 127, 255, 255, 255, 255, 0, 0, 254, 127, 255, 255, 0, 0, 0, 0, 254, 127, 0, 0, 255, 255, 0, 0, 254, 127, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_kc4re")
+
+[node name="Sketchfab_Scene" type="Node3D" unique_id=32434982]
+
+[node name="Sketchfab_model" type="Node3D" parent="." unique_id=1532082286]
+transform = Transform3D(1, 0, 0, 0, 2.220446e-16, 1, 0, -1, 2.220446e-16, 0, 0, 0)
+
+[node name="old_papers_1_fbx" type="Node3D" parent="Sketchfab_model" unique_id=1899523007]
+transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
+
+[node name="RootNode" type="Node3D" parent="Sketchfab_model/old_papers_1_fbx" unique_id=1055268302]
+
+[node name="paper_1" type="Node3D" parent="Sketchfab_model/old_papers_1_fbx/RootNode" unique_id=624184380]
+transform = Transform3D(100, 0, 0, 0, -1.6292068e-05, 100, 0, -100, -1.6292068e-05, -26.082432, 0, -1.9646645)
+
+[node name="paper_2" type="Node3D" parent="Sketchfab_model/old_papers_1_fbx/RootNode" unique_id=1726281864]
+transform = Transform3D(100, 0, 0, 0, -1.6292068e-05, 100, 0, -100, -1.6292068e-05, 12.672168, 0, -1.9646645)
+
+[node name="paper_2_papers_0" type="MeshInstance3D" parent="Sketchfab_model/old_papers_1_fbx/RootNode/paper_2" unique_id=492908596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046893448, -0.035686, -5.8139875e-09)
+mesh = SubResource("ArrayMesh_nmiis")
+
+[node name="paper_3" type="Node3D" parent="Sketchfab_model/old_papers_1_fbx/RootNode" unique_id=1469621422]
+transform = Transform3D(100, 0, 0, 0, -1.6292068e-05, 100, 0, -100, -1.6292068e-05, -5.457115, 0, 23.568228)
+
+[node name="paper_3_papers_0" type="MeshInstance3D" parent="Sketchfab_model/old_papers_1_fbx/RootNode/paper_3" unique_id=295224906]
+transform = Transform3D(-0.9895276, -0.1443437, -2.3516556e-08, 0.1443437, -0.9895276, -3.2413516e-07, 2.3516566e-08, -3.2413516e-07, 1, 0.24625304, 0.31730217, 0.0006887015)
+mesh = SubResource("ArrayMesh_b1pok")
+
+[node name="paper_5" type="Node3D" parent="Sketchfab_model/old_papers_1_fbx/RootNode" unique_id=364391440]
+transform = Transform3D(100, 0, 0, 0, -1.6292068e-05, 100, 0, -100, -1.6292068e-05, -5.457115, 0, -32.414677)
+
+[node name="paper_6" type="Node3D" parent="Sketchfab_model/old_papers_1_fbx/RootNode" unique_id=2044930609]
+transform = Transform3D(100, 0, 0, 0, -1.6292068e-05, 100, 0, -100, -1.6292068e-05, -26.781195, 0, -32.36754)
+
+[node name="paper_6_papers_0" type="MeshInstance3D" parent="Sketchfab_model/old_papers_1_fbx/RootNode/paper_6" unique_id=1831320617]
+transform = Transform3D(0.900888, -0.43405148, -7.071597e-08, 0.43405148, 0.900888, -1.6147382e-08, 7.0715956e-08, -1.6147382e-08, 1, 0.19968635, -0.3716994, -6.055759e-08)
+mesh = SubResource("ArrayMesh_04hii")

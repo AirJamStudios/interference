@@ -12,7 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://b5umxmradv13d" path="res://scenes/wall_lamp.tscn" id="10_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://dc1l1a4df4dyp" path="res://scenes/alarm.tscn" id="10_jkv2x"]
 [ext_resource type="Script" uid="uid://40s2wdo238r6" path="res://scripts/level_manager.gd" id="11_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://na35pxoyddi8" path="res://assets/models/map/investigation_board.glb" id="11_jbj1t"]
 [ext_resource type="Script" uid="uid://bsjcl0ljatr48" path="res://scripts/ui/level_selector.gd" id="12_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://c5i1kfe3rsn1q" path="res://scenes/papers.tscn" id="12_muem4"]
+[ext_resource type="PackedScene" uid="uid://dubog1yiujydw" path="res://scenes/desk_lamp.tscn" id="13_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://njkdic5glcp0" path="res://scenes/ui/level_box.tscn" id="13_trceg"]
 [ext_resource type="PackedScene" uid="uid://e1ttnyj52eyr" path="res://scenes/ui/tutorial_overlay.tscn" id="14_a8y0u"]
 
@@ -64,14 +67,14 @@ bus = &"Music"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.20458138)
 
 [node name="radar" parent="." unique_id=2104920419 instance=ExtResource("4_ya4ey")]
-transform = Transform3D(0.85752267, 0, 0.51444614, 0, 1, 0, -0.51444614, 0, 0.85752267, 0.99031734, 0, 1.8144172)
+transform = Transform3D(0.85752267, 0, 0.51444614, 0, 1, 0, -0.51444614, 0, 0.85752267, 1.2875421, 0, 2.0561318)
 radius_scale = 0.948
 
 [node name="desk_camera" type="Camera3D" parent="." unique_id=893420369]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.071017, 0.23964113, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.0929868, 0.23964113, 0.45607448)
 
 [node name="overview_camera" type="Camera3D" parent="." unique_id=1869346386]
-transform = Transform3D(0.605341, -0.43939003, 0.6637008, 0.07633412, 0.8620335, 0.5010703, -0.7922976, -0.2526554, 0.5553646, 4.0641303, 2.2514992, 1.8503273)
+transform = Transform3D(0.6452642, -0.48568815, 0.5896958, 0.120969705, 0.82711345, 0.5488622, -0.7543212, -0.28282586, 0.5924602, 4.0641303, 2.2514992, 1.7618568)
 
 [node name="world_environment" type="WorldEnvironment" parent="." unique_id=1766253352]
 environment = SubResource("Environment_anpke")
@@ -151,6 +154,15 @@ mesh = SubResource("QuadMesh_21xpk")
 
 [node name="alarm" parent="room" unique_id=697734002 instance=ExtResource("10_jkv2x")]
 transform = Transform3D(-1.9999499, -0.01415163, 0, 0.014149862, -1.9997001, 0.031611133, -0.00022367453, 0.031610344, 1.9997501, 2.7666564, 4.0827675, 0)
+
+[node name="map" parent="room" unique_id=89492067 instance=ExtResource("11_jbj1t")]
+transform = Transform3D(-1.2960426e-07, 0, -2.965, 0, 2.965, 0, 2.965, 0, -1.2960426e-07, 3.884262, -0.7664633, -8.518608)
+
+[node name="papers" parent="room" unique_id=32434982 instance=ExtResource("12_muem4")]
+transform = Transform3D(6.734272, 0, 1.9103884, 0, 7, 0, -1.9103884, 0, 6.734272, 5.623633, -0.518477, -4.441207)
+
+[node name="desk_lamp" parent="room" unique_id=669070146 instance=ExtResource("13_dp3eg")]
+transform = Transform3D(1.476238, 0, 3.173441, 0, 3.5000002, 0, -3.173441, 0, 1.476238, -1.2580185, -0.4894941, 6.6147094)
 
 [node name="level_manager" type="Node" parent="." unique_id=72417280 node_paths=PackedStringArray("dialogue_manager", "oscilloscope", "scene_fx", "radar", "overview_camera", "desk_camera", "level_select_ui", "wall_light_1", "wall_light_2", "ceiling_light", "alarm")]
 script = ExtResource("11_eb6dy")
