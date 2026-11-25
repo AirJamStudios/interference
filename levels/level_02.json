@@ -1,5 +1,5 @@
 {
-  "name": "Tutorial: Signal Drift",
+  "name": "Tutorial: Radar",
   "events": [
     {
       "trigger": "LEVEL_START",
@@ -7,37 +7,45 @@
         {
           "type": "DIALOGUE",
           "lines": [
-            "Wait, a strike aircraft is on the radar, and its signal is shifting on its own!",
-            "Don't let it slip away, keep twisting the knobs to track its movement."
+            "[RADAR ALERT: Two hostile contacts detected!]",
+            "One recon drone and one cruise missile! We've got multiple targets incoming!",
+            "Look at the radar! You can switch between targets using the RADAR DIAL.",
+            "The missile is much faster than the drone. We need to deal with it FIRST!",
+            "Quick, turn the radar dial and select the cruise missile!"
           ]
         },
-        { "type": "SPAWN", "id": "bomber_1", "angle": 130.0, "distance": 1.0, "eta": 50.0, "drift": "AMPLITUDE", "waves": [[1.0, 0.1, 0.5]] }
+        { "type": "SPAWN", "id": "drone_1", "angle": 120.0, "distance": 1.0, "eta": 90.0, "waves": [[0.5, 0.4, 0.0]] },
+        { "type": "SPAWN", "id": "missel_1", "angle": 130.0, "distance": 1.0, "eta": 40.0, "waves":  [[1.0, 0.2, 0.0]] }
       ]
     },
-    {
-      "trigger": "ATTACK_REACHED",
-      "one_shot": false,
+     {
+      "trigger": "CNT_ATTACK_GONE",
+      "target": 1,
       "actions": [
         {
           "type": "DIALOGUE",
-          "lines": [
-            "It's directly over us, we are doomed..."
-          ]
-        },
-        {"type": "FAIL_LEVEL"}
-      ]
-    },
-    {
-      "trigger": "ATTACK_DEFEATED",
-      "target": "bomber_1",
-      "actions": [
-        {
-          "type": "DIALOGUE",
-          "lines": [
-            "Good job! Area clear... for now."
+          "lines": [ 
+            "Good work! Remember, you can remove your current wave with the MINUS button and add a fresh one with the PLUS button.",
+            "Don't waste time trying to fix a wave that's completely wrong. Sometimes it's faster to start over!"
           ]
         }
       ]
     }
+    ,
+     {
+      "trigger": "CNT_ATTACK_GONE",
+      "target": 2,
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [ 
+            "Did you see how quickly that missile approached?",
+            "Different threats have different speeds. Always keep an eye on your radar!",
+            "Prioritize the most dangerous incoming contacts before it's too late."
+          ]
+        }
+      ]
+    }
+
   ]
 }

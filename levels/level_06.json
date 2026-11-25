@@ -1,0 +1,52 @@
+{
+  "name": "My first rocket barrage medium",
+  "events": [
+    {
+      "trigger": "LEVEL_START",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Just one recon drone? Nothing we can't handle.",
+            "Go ahead, take it out!"
+          ]
+        },
+        { "type": "SPAWN", "id": "drone_1", "angle": 120.0, "distance": 1.0, "eta": 90.0, "waves": [[0.5, 0.05, 0.5]] },
+        { "type": "START_TIMER", "id": "rocket timer", "duration": 10}
+      ]
+    },
+    {
+      "trigger": "TIMER_COMPLETED",
+      "target": "rocket timer",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "WAIT... WHAT IS THAT?!",
+            "[RADAR WARNING: MULTIPLE HIGH-SPEED HOSTILE PROJECTILES DETECTED!]",
+            "ROCKET BARRAGE! We're being saturated!",
+            "Forget the recon drone! Prioritize the incoming rockets!",
+            "Four incoming! We can't afford to let these through!"
+          ]
+        },
+        { "type": "SPAWN", "id": "rocket_1", "angle": 120.0, "distance": 1.0, "eta": 30.0, "waves": [[1.0, 0.4, 0.5]] },
+        { "type": "SPAWN", "id": "rocket_2", "angle": 130.0, "distance": 1.0, "eta": 30.0, "waves": [[1.0, 0.4, 0.0]] },
+        { "type": "SPAWN", "id": "rocket_3", "angle": 140.0, "distance": 1.0, "eta": 30.0, "waves": [[0.2, 0.4, 0.0]] },
+        { "type": "SPAWN", "id": "rocket_4", "angle": 150.0, "distance": 1.0, "eta": 30.0, "waves": [[1.0, 1.0, 0.0]] }
+      ]
+    },
+    {
+      "trigger": "CNT_ATTACK_GONE",
+      "target": 5,
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Good grief... are we still in one piece?",
+            "That was way too close. Keep your eyes on the radar, operator. You never know what's coming next."
+          ]
+        }
+      ]
+    }
+  ]
+}

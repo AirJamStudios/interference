@@ -1,0 +1,236 @@
+{
+  "name": "6 TUFF Aircraft: medium",
+  "events": [
+    {
+      "id": "start",
+      "trigger": "LEVEL_START",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "id": "start_dia",
+          "lines": [
+            "Multiple hostile aircraft detected!",
+            "One heavy bomber escorted by two strike aircraft. More hostiles are expected!",
+            "The strike aircraft are fast! Prioritize them before they reach us!",
+            "Our automated AA batteries are still operational, but they need time to lock on. Hold them off!"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "initial_spawn",
+      "trigger": "DIALOGUE_COMPLETED",
+      "target": "start_dia",
+      "actions": [
+        {
+          "type": "DISABLE_EVENT",
+          "id": "reinforcements_1"
+        },
+         {
+          "type": "DISABLE_EVENT",
+          "id": "reinforcements_2"
+        },
+        {
+          "type": "SPAWN",
+          "id": "bomber_1",
+          "angle": 90.0,
+          "distance": 1.0,
+          "eta": 120.0,
+          "waves": [
+            [
+              0.9,
+              0.15,
+              0.2,
+              "SQR"
+            ],
+            [
+              0.3,
+              0.7,
+              0.5
+            ]
+          ]
+        },
+        {
+          "type": "SPAWN",
+          "id": "strike_1a",
+          "angle": 145.0,
+          "distance": 1.0,
+          "eta": 50.0,
+          "waves": [
+            [
+              0.3,
+              0.5,
+              0.0
+            ]
+          ],
+          "drift": "PHASE"
+        },
+        {
+          "type": "SPAWN",
+          "id": "strike_1b",
+          "angle": 215.0,
+          "distance": 1.0,
+          "eta": 50.0,
+          "waves": [
+            [
+              0.3,
+              0.6,
+              0.0
+            ]
+          ],
+         "drift": "AMPLITUDE"
+        },
+        {
+          "type": "ENABLE_EVENT",
+          "id": "reinforcements_1"
+        }
+      ]
+    },
+    {
+      "id": "no_more_spawns",
+      "trigger": "CNT_ATTACK_DEFEATED",
+      "target": 6,
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "That's six hostiles down! Excellent work!",
+            "Our Anti Air batteries have acquired the remaining targets. Stand by!",
+            "Let them handle the rest. Airspace is almost clear!"
+          ]
+        },
+        {
+          "type": "DISABLE_EVENT",
+          "id":  "reinforcements_1"
+        },
+        {
+          "type": "DISABLE_EVENT",
+          "id":  "reinforcements_2"
+        },
+        {
+          "type": "PASS_LEVEL"
+        }   
+      ]
+    },
+    {
+      "id": "reinforcements_1",
+      "trigger": "CNT_ATTACK_INBOUND",
+      "target": 1,
+      "actions": [
+        {
+          "type": "SPAWN",
+          "id": "bomber_2",
+          "angle": 170.0,
+          "distance": 1.0,
+          "eta": 120.0,
+          "waves": [
+            [
+              0.9,
+              0.15,
+              0.2,
+              "SQR"
+            ],
+            [
+              0.3,
+              0.7,
+              0.5
+            ]
+          ]
+        },
+        {
+          "type": "SPAWN",
+          "id": "strike_2a",
+          "angle": 150.0,
+          "distance": 1.0,
+          "eta": 50.0,
+          "waves": [
+            [
+              0.3,
+              0.5,
+              0.0
+            ]
+          ]
+          ,
+          "drift": "FREQUENCY"
+        },
+        {
+          "type": "SPAWN",
+          "id": "strike_2b",
+          "angle": 210.0,
+          "distance": 1.0,
+          "eta": 50.0,
+          "waves": [
+            [
+              0.3,
+              0.6,
+              0.0
+            ]
+          ],
+          "drift": "AMPLITUDE"
+        },
+        {
+          "type": "ENABLE_EVENT",
+          "id": "reinforcements_2"
+        }
+
+      ]
+    },
+     {
+      "id": "reinforcements_2",
+      "trigger": "CNT_ATTACK_INBOUND",
+      "target": 1,
+      "actions": [
+        {
+          "type": "SPAWN",
+          "id": "bomber_3",
+          "angle": 170.0,
+          "distance": 1.0,
+          "eta": 120.0,
+          "waves": [
+            [
+              0.9,
+              0.15,
+              0.2,
+              "SQR"
+            ],
+            [
+              0.3,
+              0.7,
+              0.5
+            ]
+          ]
+        },
+        {
+          "type": "SPAWN",
+          "id": "strike_3a",
+          "angle": 160.0,
+          "distance": 1.0,
+          "eta": 50.0,
+          "waves": [
+            [
+              0.3,
+              0.5,
+              0.0
+            ]
+          ],
+          "drift": "PHASE"
+        },
+        {
+          "type": "SPAWN",
+          "id": "strike_3b",
+          "angle": 230.0,
+          "distance": 1.0,
+          "eta": 50.0,
+          "waves": [
+            [
+              0.3,
+              0.6,
+              0.0
+            ]
+          ],
+          "drift": "FREQUENCY"
+        }
+      ]
+    }
+  ]
+}

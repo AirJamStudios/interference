@@ -85,7 +85,7 @@ func _parse_action(d: Dictionary) -> LevelAction:
 				d["id"],
 				d.get("angle", 90.0),
 				waves,
-				d.get("speed", 1.0),
+				d.get("distance", 1.0),
 				d.get("eta", 90),
 				drift
 			)
@@ -96,6 +96,8 @@ func _parse_action(d: Dictionary) -> LevelAction:
 			return LevelAction.cancel_timer(d["id"])
 		"DISABLE_EVENT":
 			return LevelAction.disable_event(d["id"])
+		"ENABLE_EVENT":
+			return LevelAction.enable_event(d["id"])
 		"FAIL_LEVEL":
 			return LevelAction.fail_level()
 		"PASS_LEVEL":

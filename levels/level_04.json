@@ -1,5 +1,5 @@
 {
-  "name": "Ambush",
+  "name": "Tutorial: Signal Drift",
   "events": [
     {
       "trigger": "LEVEL_START",
@@ -7,67 +7,41 @@
         {
           "type": "DIALOGUE",
           "lines": [
-            "Recon drone inbound! Jam it!"
+           "[RADAR ALERT: Hostile strike aircraft detected!]",
+            "Wait... something's wrong with its signal!",
+            "It's changing on its own! The enemy is using signal modulation to evade our jamming!",
+            "Look at the oscilloscope! Its amplitude is constantly shifting!",
+            "Keep adjusting the AMPLITUDE knob to stay matched. Don't take your eyes off those waves!"
           ]
         },
-        { "type": "SPAWN", "id": "drone_1", "angle": 90.0, "distance": 1.0, "eta": 90.0, "waves": [[0.2, 0.4, 0.0]] },
-        { "type": "START_TIMER", "id": "hurry_warning", "duration": 15.0 }
-      ]
-    },
-    {
-      "trigger": "TIMER_COMPLETED",
-      "target": "hurry_warning",
-      "actions": [
-        {
-          "type": "DIALOGUE",
-          "lines": [
-            "Hurry up, it's getting close!"
-          ]
-        }
-      ]
-    },
-    {
-      "trigger": "ATTACK_DEFEATED",
-      "target": "drone_1",
-      "actions": [
-        { "type": "CANCEL_TIMER", "id": "hurry_warning" },
-        {
-          "type": "DIALOGUE",
-          "lines": [
-            "Good job! Area clear... for now."
-          ]
-        },
-        { "type": "START_TIMER", "id": "ambush_timer", "duration": 5.0 }
+        { "type": "SPAWN", "id": "strike_1", "angle": 130.0, "distance": 1.0, "eta": 50.0, "drift": "AMPLITUDE", "waves": [[1.0, 0.1, 0.5]] }
       ]
     },
     {
       "trigger": "ATTACK_REACHED",
-      "target": "drone_1",
+      "target": "strike_1",
       "actions": [
-        { "type": "CANCEL_TIMER", "id": "hurry_warning" },
         {
           "type": "DIALOGUE",
           "lines": [
-            "We took a hit! Falling back to defensive scan."
+            "It's directly over us, we are doomed..."
           ]
-        }
+        },
+        {"type": "FAIL_LEVEL"}
       ]
     },
     {
-      "id": "ambush_event",
-      "trigger": "TIMER_COMPLETED",
-      "target": "ambush_timer",
-      "one_shot": true,
+      "trigger": "ATTACK_DEFEATED",
+      "target": "strike_1",
       "actions": [
         {
           "type": "DIALOGUE",
           "lines": [
-            "Ambush! Two signals just popped up!",
-            "Quick, switch to the one that's closing in fast using the radar dial!"
+            "Excellent work!",
+            "Strike aircraft are fast, and their constantly shifting signals make them especially dangerous.",
+            "Stay alert. Not every target will make matching its signal this easy."
           ]
-        },
-        { "type": "SPAWN", "id": "drone_2", "angle": 120.0, "distance": 1.0, "eta": 80.0, "waves": [[0.5, 0.2, 0.0]] },
-        { "type": "SPAWN", "id": "drone_3", "angle": 130.0, "distance": 1.0, "eta": 30.0, "waves": [[1.0, 0.1, 0.5]] }
+        }
       ]
     }
   ]

@@ -1,0 +1,75 @@
+{
+  "name": "Waves medium",
+  "events": [
+    {
+      "trigger": "LEVEL_START",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "id": "start_dia",
+          "lines": [
+            "[RADAR ALERT: MULTIPLE HOSTILE CONTACTS DETECTED!]",
+            "Our radar is lighting up like a Christmas tree!",
+            "We've got several different threats approaching from multiple directions!",
+            "Don't panic! Check their arrival times and prioritize the most dangerous contacts first!"
+          ]
+        }
+      ]
+    },
+    {
+      "trigger": "DIALOGUE_COMPLETED",
+      "target": "start_dia",
+      "actions": [
+        { "type": "SPAWN", "id": "fpv_1", "angle": 90.0, "distance": 0.7, "eta": 60.0, "waves": [[0.2, 0.4, 0.0]] },
+        { "type": "SPAWN", "id": "bomber_1", "angle": 80.0, "distance": 1.0, "eta": 90.0, "waves": [[0.6, 0.4, 0.08]] },
+        { "type": "SPAWN", "id": "missel_1", "angle": 105.0, "distance": 1.0, "eta": 30.0, "waves": [[0.5, 0.4, 0.0]] },
+        { "type": "SPAWN", "id": "arty_1", "angle": 180.0, "distance": 1.0, "eta": 20.0, "waves": [[1.0, 0.4, 0.0]] }
+      ]
+    },
+    {
+      "trigger": "CNT_ATTACK_GONE",
+      "target": 3,
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "More contacts incoming! Strike aircraft!",
+            "Careful! Their signals are shifting while we're trying to jam them!",
+            "Keep adjusting your waves. Don't let them slip through!"
+          ]
+        },
+        { "type": "SPAWN", "id": "strike_1", "angle": 110.0, "distance": 0.83, "eta": 50.0, "waves": [[0.8, 0.2, 0.0]], "drift": "FREQUENCY" },
+        { "type": "SPAWN", "id": "strike_2", "angle": 120.0, "distance": 1.0, "eta": 60.0, "waves": [[1.0, 0.8, 0.5]], "drift": "AMPLITUDE" }
+      ]
+    },
+    {
+      "trigger": "CNT_ATTACK_GONE",
+      "target": 6,
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "WAIT... IS THAT A BALLISTIC MISSILE?!",
+            "[CRITICAL WARNING: STRATEGIC MISSILE DETECTED!]",
+            "If that thing reaches us, we're finished!",
+            "All available systems on that target! We cannot let it through!"
+          ]
+        },
+        { "type": "SPAWN", "id": "icmb_1", "angle": 30.0, "distance": 1.0, "eta": 120.0, "waves": [[1.0, 0.05, 0.5, "SQR"], [1.0, 0.05, 0.5], [1.0, 0.05, 0.5]] , "drift": "PHASE" }
+      ]
+    },
+    {
+      "trigger": "ATTACK_REACHED",
+      "target": "icmb_1",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "[CRITICAL FAILURE: BALLISTIC MISSILE IMPACT DETECTED!]",
+            "...We're done."
+          ]
+        }
+      ]
+    }
+  ]
+}

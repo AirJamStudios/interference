@@ -1,5 +1,5 @@
 {
-  "name": "Tutorial: Knobs",
+  "name": "Tutorial: Knobs Improved",
   "events": [
     {
       "trigger": "LEVEL_START",
@@ -8,58 +8,105 @@
           "type": "DIALOGUE",
           "id": "start_dia",
           "lines": [
+            "[SYSTEM INFORMATION: Press H to toggle help.]",
             "OH MY GOD, WE'RE UNDER ATTACK!",
-            "Look at the radar, contacts are popping up everywhere! They're closing in fast!",
             "[SYSTEM ALERT: Automated Electronic Warfare offline. Manual Antenna & Radar arrays operational.]",
-            "Our auto-jammers are fried! We have to manually match their signal frequencies to cancel them out!",
-            "Recon drones approaching from the South! Jam them before they lock our coordinates!",
-            "Twist the AMPLITUDE knob until the two waves match up! Just keep turning them till it works!"
+            "Our auto jammers are fried! We have to manually match their signal frequencies to cancel them out!",
+            "[WARNING: Defensive systems compromised. Three impacts will destroy the station!]",
+            "We can take a couple of hits, but don't push your luck!",
+            "Use the PLUS sign to add a wave, hurry!",
+            "Match the height of both waves, using the amplitude knob!"
           ]
-        }
+        },
+        { "type": "SPAWN", "id": "drone_1", "angle": 90.0, "distance": 1.0, "eta": 120.0, "waves": [[0.6, 0.4, 0.0]] }
       ]
     },
     {
-      "trigger": "DIALOGUE_COMPLETED",
-      "target": "start_dia",
+      "trigger": "ATTACK_GONE",
+      "target": "drone_1",
       "actions": [
-        { "type": "SPAWN", "id": "drone_1", "angle": 90.0, "distance": 1.0, "eta": 90.0, "waves": [[0.2, 0.4, 0.0]] },
-        { "type": "SPAWN", "id": "drone_2", "angle": 80.0, "distance": 1.0, "eta": 90.0, "waves": [[0.6, 0.4, 0.0]] },
-        { "type": "SPAWN", "id": "drone_3", "angle": 105.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.4, 0.0]] },
-        { "type": "START_TIMER", "id": "hurry_warning", "duration": 45.0 }
+        { "type": "SPAWN", "id": "drone_2", "angle": 80.0, "distance": 1.0, "eta": 90.0, "waves": [[0.1, 0.4, 0.0]] }
       ]
     },
     {
-      "trigger": "CNT_ATTACK_GONE",
-      "target": 3,
+      "trigger": "ATTACK_GONE",
+      "target": "drone_2",
       "actions": [
-        { "type": "CANCEL_TIMER", "id": "hurry_warning" },
+        { "type": "SPAWN", "id": "drone_3", "angle": 105.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.4, 0.0]] }
+      ]
+    },
+    {
+      "trigger": "ATTACK_GONE",
+      "target": "drone_3",
+      "actions": [
         {
           "type": "DIALOGUE",
           "lines": [
-            "Good job! There's more drones incoming, but we can handle them!",
-            "Twist the FREQUENCY knob until the two waves match up!"
+            "That's three contacts neutralized! More recon drones are approaching!",
+            "Look closely at the waves. Their heights match, but something is still different.",
+            "One oscillates faster than the other. That's FREQUENCY!",
+            "Adjust the FREQUENCY knob until their peaks line up!"
           ]
         },
-        { "type": "SPAWN", "id": "drone_4", "angle": 110.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.2, 0.0]] },
-        { "type": "SPAWN", "id": "drone_5", "angle": 120.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.8, 0.0]] },
+        { "type": "SPAWN", "id": "drone_4", "angle": 110.0, "distance": 1.0, "eta": 120.0, "waves": [[1.0, 0.2, 0.0]] }
+      ]
+    },
+    {
+      "trigger": "ATTACK_GONE",
+      "target": "drone_4",
+      "actions": [
+        { "type": "SPAWN", "id": "drone_5", "angle": 120.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.8, 0.0]] }
+      ]
+    },
+    {
+      "trigger": "ATTACK_GONE",
+      "target": "drone_5",
+      "actions": [
         { "type": "SPAWN", "id": "drone_6", "angle": 130.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.05, 0.0]] }
       ]
     },
     {
-      "trigger": "CNT_ATTACK_GONE",
-      "target": 6,
+      "trigger": "ATTACK_GONE",
+      "target": "drone_6",
       "actions": [
-        { "type": "CANCEL_TIMER", "id": "hurry_warning" },
         {
           "type": "DIALOGUE",
           "lines": [
-            "Good job! There's more drones incoming, but we can handle them!",
-            "Twist the PHASE knob until the two waves match up!"
+            "Excellent work, operator! We're almost through this!",
+            "These signals are trickier. Their height and frequency are identical, but they're shifted relative to each other.",
+            "That's called PHASE!",
+            "Turn the PHASE knob until the waves line up perfectly!"
           ]
         },
-        { "type": "SPAWN", "id": "drone_7", "angle": 30.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.05, 0.5]] },
-        { "type": "SPAWN", "id": "drone_8", "angle": 50.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.05, 0.2]] },
+        { "type": "SPAWN", "id": "drone_7", "angle": 30.0, "distance": 1.0, "eta": 120.0, "waves": [[1.0, 0.05, 0.5]] }
+      ]
+    },
+    {
+      "trigger": "ATTACK_GONE",
+      "target": "drone_7",
+      "actions": [
+        { "type": "SPAWN", "id": "drone_8", "angle": 50.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.05, 0.2]] }
+      ]
+    },
+    {
+      "trigger": "ATTACK_GONE",
+      "target": "drone_8",
+      "actions": [
         { "type": "SPAWN", "id": "drone_9", "angle": 60.0, "distance": 1.0, "eta": 90.0, "waves": [[1.0, 0.05, 0.8]] }
+      ]
+    },
+    {
+      "trigger": "ATTACK_GONE",
+      "target": "drone_9",
+      "actions": [
+        { 
+          "type": "DIALOGUE",
+          "lines": [
+            "[RADAR ALERT: No remaining hostile contacts detected.]",
+            "That's the last of them! Outstanding work, operator!",
+            "You've got the basics of signal matching down. But don't get comfortable... there's plenty more out there."
+          ]
+        }
       ]
     }
   ]

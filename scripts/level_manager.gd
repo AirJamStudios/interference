@@ -26,9 +26,9 @@ const MAIN_MENU_SCENE_PATH := "res://scenes/main_menu.tscn"
 @export var alarm: Alarm
 
 enum LevelOutcome {
-	NONE,
-	PASS,
-	FAIL
+	NONE,	# normal level evalution (no active timers && no unfired events with attacks && attacks inbound -> pass: >=1 defeated && >=1 Stars, starting at 3 minus 1 per hit; fail: otherwise)
+	PASS,	# event based override to force a pass (1-3 stars)
+	FAIL	# event based override to force a fail (0 stars)
 }
 var _pending_outcome: LevelOutcome = LevelOutcome.NONE
 
@@ -46,13 +46,15 @@ enum TriggerType {			# Parameter			Order 	Description
 }
 
 enum ActionType {
-	DIALOGUE,		# (id: String = "", lines: Array[String])															Opens and plays dialogue lines; optional ID allows tracking completion, blocks pass/fail.
-	SPAWN_ATTACK,	# (id: String, angle: float, distance: float, eta: float, waves: [[ampl, freq, phase, type], ...]) 	Spawns a new attack with the given parameters. This can trip further triggers.
-	START_TIMER,	# (id: String, duration: float) 																	Starts a timer with the specified ID and duration in seconds, running timer blocks normal evaluation.
-	CANCEL_TIMER,	# (id: String) 																						Stops and removes the active timer with the specified ID.
-	DISABLE_EVENT,	# (id: String) 																						Disables the event with the matching ID so it can no longer trigger or block level eval.
-	PASS_LEVEL,		# (none) 																							Immediately forces the current level to pass 1-3 stars.
-	FAIL_LEVEL		# (none) 																							Immediately forces the current level to fail.
+	DIALOGUE,		# (id: String = "", lines: Array[String])	Opens and plays dialogue lines; optional ID allows tracking completion, blocks pass/fail.
+	START_TIMER,	# (id: String, duration: float) 			Starts a timer with the specified ID and duration in seconds, running timer blocks normal evaluation.
+	CANCEL_TIMER,	# (id: String) 								Stops and removes the active timer with the specified ID.
+	ENABLE_EVENT,	# (id: String)								Enables the event, but doesn't trigger it
+	DISABLE_EVENT,	# (id: String) 								Disables the event with the matching ID so it can no longer trigger or block normal level evaluation.
+	PASS_LEVEL,		# (none) 									Immediately forces the current level to pass 1-3 stars.
+	FAIL_LEVEL,		# (none) 									Immediately forces the current level to fail.
+	SPAWN_ATTACK	# (id: String, angle: float, distance: float, eta: float, waves: [[ampl, freq, phase, type], ...]) 	
+	#															Spawns a new attack with the given parameters. This can trip CNT_ATTACK_INBOUND trigger. A unfired Event contining attack(s) block normal level evalutaion
 }
 
 class Attack:
@@ -96,6 +98,9 @@ class LevelAction:
 
 	static func disable_event(event_id: String) -> LevelAction:
 		return LevelAction.new(ActionType.DISABLE_EVENT, event_id)
+	
+	static func enable_event(event_id: String) -> LevelAction:
+		return LevelAction.new(ActionType.ENABLE_EVENT, event_id)
 	
 	static func pass_level() -> LevelAction:
 		return LevelAction.new(ActionType.PASS_LEVEL, null)
@@ -378,6 +383,7 @@ func _build_levels() -> void:
 	level_list = data.level_list
 
 func _fire_trigger(type: TriggerType, param: Variant = null) -> void:
+	var temp = []
 	for ev: LevelEvent in current_level_events:
 		if ev._fired and ev.one_shot:
 			continue
@@ -385,7 +391,11 @@ func _fire_trigger(type: TriggerType, param: Variant = null) -> void:
 			continue
 		if ev.trigger_param != null and ev.trigger_param != param:
 			continue
-			
+		temp.append(ev)
+
+	for ev: LevelEvent in temp:
+		if ev._fired and ev.one_shot:
+			continue
 		ev._fired = true
 		for act: LevelAction in ev.actions:
 			_execute_action(act)
@@ -404,6 +414,10 @@ func _execute_action(act: LevelAction) -> void:
 			for ev: LevelEvent in current_level_events:
 				if ev.id == act.data:
 					ev._fired = true
+		ActionType.ENABLE_EVENT:
+			for ev: LevelEvent in current_level_events:
+				if ev.id == act.data:
+					ev._fired = false
 		ActionType.PASS_LEVEL:
 			_pending_outcome = LevelOutcome.PASS
 			_complete_level()

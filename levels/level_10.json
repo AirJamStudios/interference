@@ -1,0 +1,122 @@
+{
+  "name": "Carrier Assault medium",
+  "events": [
+    {
+      "trigger": "LEVEL_START",
+      "actions": [
+        {
+          "type": "DIALOGUE",
+          "id": "start_dia",
+          "lines": [
+            "[RADAR ALERT: HEAVY HOSTILE CONTACT DETECTED!]",
+            "Wait... that's a carrier drone! It's heading straight for us!",
+            "ETA THREE MINUTES!",
+            "According to our intelligence, it's carrying four cruise missiles!",
+            "We have two options: destroy the carrier before it reaches us, or intercept every missile it launches!",
+            "Keep an eye on that carrier. We don't know how long we can hold out!"
+          ]
+        }
+      ]
+    },
+    {
+      "trigger": "DIALOGUE_COMPLETED",
+      "target": "start_dia",
+      "one_shot": true,
+      "actions": [
+        {
+          "type": "SPAWN",
+          "id": "carrier",
+          "angle": 180.0,
+          "distance": 1.0,
+          "eta": 180.0,
+          "waves": [
+            [1.0, 0.05, 0.2, "SQR"],
+            [0.3, 0.7, 0.5]
+          ]
+        },
+        { "type": "START_TIMER", "id": "m1_timer", "duration": 2.0 }
+      ]
+    },
+    {
+      "id": "ev_m1",
+      "trigger": "TIMER_COMPLETED",
+      "target": "m1_timer",
+      "one_shot": true,
+      "actions": [
+        { "type": "DIALOGUE", "lines": ["[WARNING: MISSILE LAUNCH DETECTED!]", "It's launched its first missile! Intercept it before impact!"] },
+        { "type": "SPAWN", "id": "missile_1", "angle": 170.0, "distance": 0.9, "eta": 90.0, "waves": [[0.3, 0.5, 0.0]] },
+        { "type": "START_TIMER", "id": "m2_timer", "duration": 30.0 }
+      ]
+    },
+    {
+      "id": "ev_m2",
+      "trigger": "TIMER_COMPLETED",
+      "target": "m2_timer",
+      "one_shot": true,
+      "actions": [
+        { "type": "DIALOGUE", "lines": ["Another launch! That carrier isn't slowing down!", "Keep tracking both the carrier and its missiles!"] },
+        { "type": "SPAWN", "id": "missile_2", "angle": 190.0, "distance": 0.75, "eta": 75.0, "waves": [[0.7, 0.4, 0.0]] },
+        { "type": "START_TIMER", "id": "m3_timer", "duration": 30.0 }
+      ]
+    },
+    {
+      "id": "ev_m3",
+      "trigger": "TIMER_COMPLETED",
+      "target": "m3_timer",
+      "one_shot": true,
+      "actions": [
+        { "type": "DIALOGUE", "lines": ["THIRD MISSILE DETECTED!", "We're running out of time! Take out that carrier or intercept the missile!"] },
+        { "type": "SPAWN", "id": "missile_3", "angle": 165.0, "distance": 0.6, "eta": 60.0, "waves": [[0.5, 0.6, 0.0]] },
+        { "type": "START_TIMER", "id": "m4_timer", "duration": 30.0 }
+      ]
+    },
+    {
+      "id": "ev_m4",
+      "trigger": "TIMER_COMPLETED",
+      "target": "m4_timer",
+      "one_shot": true,
+      "actions": [
+        { "type": "DIALOGUE", "lines": ["FINAL MISSILE LAUNCHED!", "That's the last one! Don't let it reach us!"] },
+        { "type": "SPAWN", "id": "missile_4", "angle": 195.0, "distance": 0.45, "eta": 45.0, "waves": [[0.9, 0.3, 0.0]] }
+      ]
+    },
+    {
+      "trigger": "ATTACK_DEFEATED",
+      "target": "carrier",
+      "actions": [
+        { "type": "DIALOGUE", "lines": ["YES! Carrier signal neutralized!", "No more new launches!"] },
+        { "type": "CANCEL_TIMER", "id": "m1_timer" },
+        { "type": "DISABLE_EVENT", "id": "ev_m1" },
+        { "type": "CANCEL_TIMER", "id": "m2_timer" },
+        { "type": "DISABLE_EVENT", "id": "ev_m2" },
+        { "type": "CANCEL_TIMER", "id": "m3_timer" },
+        { "type": "DISABLE_EVENT", "id": "ev_m3" },
+        { "type": "CANCEL_TIMER", "id": "m4_timer" },
+        { "type": "DISABLE_EVENT", "id": "ev_m4" }
+      ]
+    },
+    {
+      "trigger": "ATTACK_REACHED",
+      "target": "carrier",
+      "actions": [
+        { "type": "DIALOGUE", "lines": ["[CRITICAL WARNING: HOSTILE CARRIER IMPACT!]", "The carrier has breached our defenses! We've lost the station!"] },
+        { "type": "CANCEL_TIMER", "id": "m1_timer" },
+        { "type": "DISABLE_EVENT", "id": "ev_m1" },
+        { "type": "CANCEL_TIMER", "id": "m2_timer" },
+        { "type": "DISABLE_EVENT", "id": "ev_m2" },
+        { "type": "CANCEL_TIMER", "id": "m3_timer" },
+        { "type": "DISABLE_EVENT", "id": "ev_m3" },
+        { "type": "CANCEL_TIMER", "id": "m4_timer" },
+        { "type": "DISABLE_EVENT", "id": "ev_m4" },
+        {"type": "FAIL_LEVEL"}
+      ]
+    },
+    {
+      "trigger": "ATTACK_REACHED",
+      "one_shot": false,
+      "actions": [
+        { "type": "DIALOGUE", "lines": ["Impact!"] }
+      ]
+    }
+  ]
+}

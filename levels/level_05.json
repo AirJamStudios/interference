@@ -1,117 +1,58 @@
 {
-  "name": "Carrier Assault",
+  "name": "Tutorial: Layered Waves",
   "events": [
     {
       "trigger": "LEVEL_START",
       "actions": [
         {
           "type": "DIALOGUE",
-          "id": "start_dia",
           "lines": [
-            "Heavy carrier drone on a suicide run—ETA 3 minutes!",
-            "It's launching cruise missiles! Jam the missiles or take down the carrier to stop the launches!"
+            "[RADAR ALERT: Heavy bomber detected!]",
+            "Uh oh... this one's different!",
+            "Our instruments are picking up TWO overlapping signals from the bomber!",
+            "One wave won't be enough to jam it. We need to match both signals!",
+            "Use the PLUS button to add a second wave!",
+            "Now carefully adjust the knobs until BOTH waves match the enemy signal!"
+          ]
+        },
+        {
+          "type": "SPAWN",
+          "id": "bomber_1",
+          "angle": 20.0,
+          "distance": 1.0,
+          "eta": 90.0,
+          "waves": [
+            [1.0, 0.05, 0.0],
+            [0.25, 0.9, 0.0]
           ]
         }
       ]
     },
     {
-      "trigger": "DIALOGUE_COMPLETED",
-      "target": "start_dia",
-      "one_shot": true,
+      "trigger": "ATTACK_REACHED",
+      "target": "bomber_1",
       "actions": [
         {
-          "type": "SPAWN",
-          "id": "carrier",
-          "angle": 180.0,
-          "distance": 1.0,
-          "eta": 180.0,
-          "waves": [
-            [1.0, 0.05, 0.2, "SQR"],
-            [0.3, 0.7, 0.5]
+          "type": "DIALOGUE",
+          "lines": [
+            "It's directly over us, we are doomed..."
           ]
         },
-        { "type": "START_TIMER", "id": "m1_timer", "duration": 2.0 }
-      ]
-    },
-    {
-      "id": "ev_m1",
-      "trigger": "TIMER_COMPLETED",
-      "target": "m1_timer",
-      "one_shot": true,
-      "actions": [
-        { "type": "DIALOGUE", "lines": ["Cruise missile launched! Jam it before impact!"] },
-        { "type": "SPAWN", "id": "missile_1", "angle": 170.0, "distance": 0.9, "eta": 90.0, "waves": [[0.3, 0.5, 0.0]] },
-        { "type": "START_TIMER", "id": "m2_timer", "duration": 30.0 }
-      ]
-    },
-    {
-      "id": "ev_m2",
-      "trigger": "TIMER_COMPLETED",
-      "target": "m2_timer",
-      "one_shot": true,
-      "actions": [
-        { "type": "DIALOGUE", "lines": ["Halfway through its payload! Keep tracking that carrier!"] },
-        { "type": "SPAWN", "id": "missile_2", "angle": 190.0, "distance": 0.85, "eta": 75.0, "waves": [[0.7, 0.4, 0.0]] },
-        { "type": "START_TIMER", "id": "m3_timer", "duration": 30.0 }
-      ]
-    },
-    {
-      "id": "ev_m3",
-      "trigger": "TIMER_COMPLETED",
-      "target": "m3_timer",
-      "one_shot": true,
-      "actions": [
-        { "type": "DIALOGUE", "lines": ["Another cruise missile launched! Jam it before impact!"] },
-        { "type": "SPAWN", "id": "missile_3", "angle": 165.0, "distance": 0.8, "eta": 60.0, "waves": [[0.5, 0.6, 0.0]] },
-        { "type": "START_TIMER", "id": "m4_timer", "duration": 30.0 }
-      ]
-    },
-    {
-      "id": "ev_m4",
-      "trigger": "TIMER_COMPLETED",
-      "target": "m4_timer",
-      "one_shot": true,
-      "actions": [
-        { "type": "DIALOGUE", "lines": ["This must be the last cruise missile! It's coming in hot!"] },
-        { "type": "SPAWN", "id": "missile_4", "angle": 195.0, "distance": 0.75, "eta": 45.0, "waves": [[0.9, 0.3, 0.0]] }
-      ]
-    },
-    {
-      "trigger": "ATTACK_DEFEATED",
-      "target": "carrier",
-      "actions": [
-        { "type": "DIALOGUE", "lines": ["Carrier signal fried! No more missiles incoming!"] },
-        { "type": "CANCEL_TIMER", "id": "m1_timer" },
-        { "type": "DISABLE_EVENT", "id": "ev_m1" },
-        { "type": "CANCEL_TIMER", "id": "m2_timer" },
-        { "type": "DISABLE_EVENT", "id": "ev_m2" },
-        { "type": "CANCEL_TIMER", "id": "m3_timer" },
-        { "type": "DISABLE_EVENT", "id": "ev_m3" },
-        { "type": "CANCEL_TIMER", "id": "m4_timer" },
-        { "type": "DISABLE_EVENT", "id": "ev_m4" }
-      ]
-    },
-    {
-      "trigger": "ATTACK_REACHED",
-      "target": "carrier",
-      "actions": [
-        { "type": "DIALOGUE", "lines": ["CRITICAL HIT! The carrier slammed into us!"] },
-        { "type": "CANCEL_TIMER", "id": "m1_timer" },
-        { "type": "DISABLE_EVENT", "id": "ev_m1" },
-        { "type": "CANCEL_TIMER", "id": "m2_timer" },
-        { "type": "DISABLE_EVENT", "id": "ev_m2" },
-        { "type": "CANCEL_TIMER", "id": "m3_timer" },
-        { "type": "DISABLE_EVENT", "id": "ev_m3" },
-        { "type": "CANCEL_TIMER", "id": "m4_timer" },
-        { "type": "DISABLE_EVENT", "id": "ev_m4" },
         {"type": "FAIL_LEVEL"}
       ]
     },
     {
-      "trigger": "ATTACK_REACHED",
-      "one_shot": false,
+      "trigger": "ATTACK_DEFEATED",
+      "target": "bomber_1",
       "actions": [
-        { "type": "DIALOGUE", "lines": ["Impact!"] }
+        {
+          "type": "DIALOGUE",
+          "lines": [
+            "Beautiful work! Both signals neutralized!",
+            "That was a composite signal. Some enemies combine multiple frequencies to make themselves harder to jam.",
+            "Remember: you can use multiple waves to match even the most complicated signals."
+          ]
+        }
       ]
     }
   ]
