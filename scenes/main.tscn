@@ -104,27 +104,27 @@ omni_range = 36.28999
 
 [node name="walls" type="Node3D" parent="room" unique_id=1121277163]
 
-[node name="wall_1" type="MeshInstance3D" parent="room/walls" unique_id=27993720]
+[node name="wall_left" type="MeshInstance3D" parent="room/walls" unique_id=27993720]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.94864, 0, 15.010004)
 mesh = SubResource("QuadMesh_21xpk")
 
-[node name="wall" type="MeshInstance3D" parent="room/walls" unique_id=1730624850]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -9.036854, 0, 0)
+[node name="wall_front" type="MeshInstance3D" parent="room/walls" unique_id=1730624850]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8.87447, 0, 0)
 mesh = SubResource("QuadMesh_21xpk")
 
-[node name="wall_lamp" parent="room/walls/wall" unique_id=1657567979 instance=ExtResource("10_a8y0u")]
+[node name="wall_lamp" parent="room/walls/wall_front" unique_id=1657567979 instance=ExtResource("10_a8y0u")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.4896393, 8.353498, 0.010782242)
 
-[node name="mesh" parent="room/walls/wall/wall_lamp" index="0" unique_id=1369905835]
+[node name="mesh" parent="room/walls/wall_front/wall_lamp" index="0" unique_id=1369905835]
 surface_material_override/1 = null
 
-[node name="wall_lamp2" parent="room/walls/wall" unique_id=444449942 instance=ExtResource("10_a8y0u")]
+[node name="wall_lamp2" parent="room/walls/wall_front" unique_id=444449942 instance=ExtResource("10_a8y0u")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -8.864346, 8.353498, 0.0107831955)
 
-[node name="mesh" parent="room/walls/wall/wall_lamp2" index="0" unique_id=1369905835]
+[node name="mesh" parent="room/walls/wall_front/wall_lamp2" index="0" unique_id=1369905835]
 surface_material_override/1 = null
 
-[node name="wall_lamp_light" type="OmniLight3D" parent="room/walls/wall" unique_id=418273645]
+[node name="wall_lamp_light" type="OmniLight3D" parent="room/walls/wall_front" unique_id=418273645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4896398, 8.353498, 0.85110474)
 light_color = Color(0.9411765, 0.8980392, 0.7137255, 1)
 light_energy = 5.0
@@ -136,7 +136,7 @@ shadow_bias = 0.03
 shadow_normal_bias = 0.6
 omni_range = 25.0
 
-[node name="wall_lamp_light2" type="OmniLight3D" parent="room/walls/wall" unique_id=731552904]
+[node name="wall_lamp_light2" type="OmniLight3D" parent="room/walls/wall_front" unique_id=731552904]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.864346, 8.353498, 0.48407745)
 light_color = Color(0.9406701, 0.89995915, 0.7125584, 1)
 light_energy = 5.0
@@ -148,7 +148,57 @@ shadow_bias = 0.03
 shadow_normal_bias = 0.6
 omni_range = 25.0
 
-[node name="wall_2" type="MeshInstance3D" parent="room/walls" unique_id=2120988382]
+[node name="ceiling" type="MeshInstance3D" parent="room/walls" unique_id=522779401]
+transform = Transform3D(1.9106855e-15, 1, -4.371139e-08, 4.371139e-08, -4.371139e-08, -1, -1, 0, -4.371139e-08, 6.1649246, 14.977186, 0.0019624233)
+mesh = SubResource("QuadMesh_21xpk")
+
+[node name="floor" type="MeshInstance3D" parent="room/walls" unique_id=967824438]
+transform = Transform3D(-5.7320566e-15, -1, 1.3113416e-07, -4.371139e-08, 1.3113416e-07, 1, -1, 0, -4.371139e-08, 6.1649246, -8.724684, 0.0019624233)
+mesh = SubResource("QuadMesh_21xpk")
+
+[node name="wall_back" type="MeshInstance3D" parent="room/walls" unique_id=2081186842]
+transform = Transform3D(4.371139e-08, -8.742278e-08, -1, 8.7422784e-08, 1, -8.742277e-08, 1, -8.742278e-08, 4.3711395e-08, 20.34248, 0, 0)
+mesh = SubResource("QuadMesh_21xpk")
+
+[node name="wall_lamp" parent="room/walls/wall_back" unique_id=611849831 instance=ExtResource("10_a8y0u")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.4896393, 8.353498, 0.010782242)
+
+[node name="mesh" parent="room/walls/wall_back/wall_lamp" index="0" unique_id=1369905835]
+surface_material_override/1 = null
+
+[node name="wall_lamp2" parent="room/walls/wall_back" unique_id=1580887412 instance=ExtResource("10_a8y0u")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -8.864346, 8.353498, 0.0107831955)
+
+[node name="mesh" parent="room/walls/wall_back/wall_lamp2" index="0" unique_id=1369905835]
+surface_material_override/1 = null
+
+[node name="wall_lamp_light" type="OmniLight3D" parent="room/walls/wall_back" unique_id=1165605730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4896398, 8.353498, 0.85110474)
+visible = false
+light_color = Color(0.9411765, 0.8980392, 0.7137255, 1)
+light_energy = 5.0
+light_indirect_energy = 1.5
+light_volumetric_fog_energy = 1.5
+light_size = 0.4
+shadow_enabled = true
+shadow_bias = 0.03
+shadow_normal_bias = 0.6
+omni_range = 25.0
+
+[node name="wall_lamp_light2" type="OmniLight3D" parent="room/walls/wall_back" unique_id=321994996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.864346, 8.353498, 0.48407745)
+visible = false
+light_color = Color(0.9406701, 0.89995915, 0.7125584, 1)
+light_energy = 5.0
+light_indirect_energy = 1.5
+light_volumetric_fog_energy = 1.5
+light_size = 0.4
+shadow_enabled = true
+shadow_bias = 0.03
+shadow_normal_bias = 0.6
+omni_range = 25.0
+
+[node name="wall_right" type="MeshInstance3D" parent="room/walls" unique_id=2120988382]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94864, 0, -15.008734)
 mesh = SubResource("QuadMesh_21xpk")
 
@@ -173,8 +223,8 @@ radar = NodePath("../radar")
 overview_camera = NodePath("../overview_camera")
 desk_camera = NodePath("../desk_camera")
 level_select_ui = NodePath("../ui_level_layer/level_selector")
-wall_light_1 = NodePath("../room/walls/wall/wall_lamp_light")
-wall_light_2 = NodePath("../room/walls/wall/wall_lamp_light2")
+wall_light_1 = NodePath("../room/walls/wall_front/wall_lamp_light")
+wall_light_2 = NodePath("../room/walls/wall_front/wall_lamp_light2")
 ceiling_light = NodePath("../room/lamp_light")
 alarm = NodePath("../room/alarm")
 
@@ -183,8 +233,8 @@ script = ExtResource("7_o6xl0")
 camera = NodePath("../desk_camera")
 light = NodePath("../room/lamp_light")
 radar = NodePath("../radar")
-hit_flicker_lights = [NodePath("../room/walls/wall/wall_lamp_light"), NodePath("../room/walls/wall/wall_lamp_light2")]
-hit_flicker_meshes = [NodePath("../room/walls/wall/wall_lamp/mesh"), NodePath("../room/walls/wall/wall_lamp2/mesh")]
+hit_flicker_lights = [NodePath("../room/walls/wall_front/wall_lamp_light"), NodePath("../room/walls/wall_front/wall_lamp_light2")]
+hit_flicker_meshes = [NodePath("../room/walls/wall_front/wall_lamp/mesh"), NodePath("../room/walls/wall_front/wall_lamp2/mesh")]
 
 [node name="ui_level_layer" type="CanvasLayer" parent="." unique_id=1291320804]
 
@@ -264,5 +314,7 @@ text = "BACK"
 
 [connection signal="pressed" from="ui_level_layer/level_selector/back_button" to="level_manager" method="_on_back_to_menu"]
 
-[editable path="room/walls/wall/wall_lamp"]
-[editable path="room/walls/wall/wall_lamp2"]
+[editable path="room/walls/wall_front/wall_lamp"]
+[editable path="room/walls/wall_front/wall_lamp2"]
+[editable path="room/walls/wall_back/wall_lamp"]
+[editable path="room/walls/wall_back/wall_lamp2"]
