@@ -16,7 +16,7 @@
     },
     {
       "trigger": "ATTACK_DEFEATED",
-      "target": "drone_1",
+      "target": "fpv_1",
       "actions": [
         { "type": "CANCEL_TIMER", "id": "hurry_warning" },
         {

@@ -44,8 +44,13 @@ func get_wave(i: int) -> SingleWave:
 	else:
 		return null
 
+# note other_wave is enemy wave allways
+# is more forgiving if enemy wave has square
+
 #0-100 score
+const TARGET_SCORE_STRICT: float = 97.0
 const TARGET_SCORE: float = 95.0
+const SQUARE_TARGET_SCORE : float = 93.0
 func get_accuracy(other_wave: CompositeWave, t_min: float, t_max: float, dt: float) -> float:
 		
 	var squared_error_sum: float = 0.0
@@ -72,8 +77,22 @@ func get_accuracy(other_wave: CompositeWave, t_min: float, t_max: float, dt: flo
 	# RMSE to percentage
 	var raw_accuracy: float =  clampf((1.0 - rmse) * 100.0, 0.0, 100.0)
 
-	# Remap 30.0..95.0 to 0.0..100.0 
-	var accuracy: float = remap(raw_accuracy, 45.0, TARGET_SCORE, 0.0, 100.0)
+	var has_square: bool = _contains_square_wave() or other_wave._contains_square_wave()
+
+	var target: float = TARGET_SCORE
+	# Strict if just 1 wave
+	if other_wave.wave_count() == 1:
+		target = TARGET_SCORE_STRICT
+	# Leniant if square
+	if has_square:
+		target = SQUARE_TARGET_SCORE
+
+	# Remap 30.0..TARGET_SCORE to 0.0..100.0 
+	var accuracy: float = remap(raw_accuracy, 45.0, target, 0.0, 100.0)
+
+	# Strict if not enough waves
+	if wave_count() < other_wave.wave_count():
+		accuracy -= 10.0
 
 	return clampf(accuracy, 0.0, 100.0)
 
@@ -118,3 +137,10 @@ func update(delta: float) -> void:
 			w.set_frequency(val)
 		DriftMode.PHASE:
 			w.set_phase(fposmod(w.get_phase() + delta * drift_speed, 1.0))
+
+
+func _contains_square_wave() -> bool:
+	for wave: SingleWave in waves:
+		if wave.get_wave_type() == SingleWave.WaveType.SQUARE:
+			return true
+	return false
