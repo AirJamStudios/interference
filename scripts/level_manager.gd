@@ -180,7 +180,7 @@ func open_level_select() -> void:
 	GameManager.set_game_state_active(false)
 	is_playing = false
 	active_attacks.clear()
-	radar.blips.clear()
+	radar.clear()
 	overview_camera.make_current()
 	level_select_ui.refresh_cards(level_list.size())
 	level_select_ui.visible = true
@@ -209,7 +209,7 @@ func _load_level(index: int) -> void:
 	active_timers.clear()
 	active_attacks.clear()
 	current_level_events.clear()
-	radar.blips.clear()
+	radar.clear()
 	
 	for ev: LevelEvent in level.events:
 		var new_event := LevelEvent.new(

@@ -220,3 +220,8 @@ func _on_knob_value_changed(value: float) -> void:
 		
 		selected_index = posmod(selected_index + steps, blips.size())
 		target_changed.emit(selected_index)
+
+func clear() -> void:
+	selected_index = 0
+	blips.clear()
+	_knob_accumulator = 0
