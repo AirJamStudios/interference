@@ -244,6 +244,12 @@ text = "1"
 layout_mode = 2
 text = ">"
 
+[node name="help_hint" type="Label" parent="ui_level_layer/level_selector/CenterContainer/VBoxContainer" unique_id=2125595313]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
+text = "PRESS [H] DURING GAMEPLAY FOR HELP"
+horizontal_alignment = 1
+
 [node name="back_button" type="Button" parent="ui_level_layer/level_selector" unique_id=1002102645]
 layout_mode = 1
 anchors_preset = 2

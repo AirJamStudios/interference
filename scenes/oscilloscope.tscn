@@ -90,7 +90,7 @@ height = 0.10657959
 radial_segments = 32
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6sx2"]
-albedo_color = Color(0.9428228, 0.94282264, 0.94282264, 1)
+albedo_color = Color(0.94058216, 0.501409, 1.1551381e-06, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_thmfj"]
 size = Vector3(0.023797989, 0.07229996, 0.07713318)
