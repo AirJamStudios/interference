@@ -11,13 +11,13 @@
 [ext_resource type="Script" uid="uid://beejw2fpc7b4o" path="res://scripts/signal/wave_plotter.gd" id="3_32ph5"]
 [ext_resource type="Material" uid="uid://dyei8dy30eemy" path="res://assets/textures/black_plastic.tres" id="3_aydle"]
 [ext_resource type="Texture2D" uid="uid://db6jf601nx33y" path="res://assets/models/radio2/old_military_radio_0.jpg" id="3_s6sx2"]
+[ext_resource type="Script" uid="uid://dwjntgii73315" path="res://scripts/power_knob.gd" id="3_thmfj"]
 [ext_resource type="Texture2D" uid="uid://bvimincss1jy7" path="res://assets/models/radio2/old_military_radio_1.png" id="4_thmfj"]
 [ext_resource type="PackedScene" uid="uid://d3axqiks5lqtr" path="res://scenes/numeric_display.tscn" id="4_w04ya"]
 [ext_resource type="Texture2D" uid="uid://dass6lmh38r17" path="res://assets/models/radio2/old_military_radio_2.png" id="5_qdg5w"]
 [ext_resource type="Script" uid="uid://d2jt5uxxw4h71" path="res://scripts/button_3d.gd" id="8_r2n4w"]
 [ext_resource type="PackedScene" uid="uid://d31js5jkqq3vi" path="res://scenes/progress_bar.tscn" id="9_w04ya"]
 [ext_resource type="PackedScene" uid="uid://dfmnkgavu0r4j" path="res://scenes/sub_wave_panel.tscn" id="10_subwv"]
-[ext_resource type="Texture2D" uid="uid://dilwr4jqo51y8" path="res://assets/models/radio/textures/vintage_radio_transceiver_accessories_diff_4k.jpg" id="12_6uxni"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v3pyt"]
 resource_name = "Radio"
@@ -68,14 +68,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qhy16")
 
-[sub_resource type="BoxMesh" id="BoxMesh_anpke"]
-size = Vector3(1.3935547, 1.35, 2.25)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uxni"]
-albedo_texture = ExtResource("12_6uxni")
-roughness = 0.59
-uv1_scale = Vector3(0.09, 0.09, 0.09)
-uv1_offset = Vector3(7.52, -1.47, 0)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_53ofh"]
+height = 0.25286865
+radius = 0.091796875
 
 [sub_resource type="BoxMesh" id="BoxMesh_21xpk"]
 material = ExtResource("3_aydle")
@@ -113,18 +108,21 @@ user_wave = NodePath("sub_viewport/plotter_panel/user_wave")
 [node name="radio_no_face_2" parent="mesh" unique_id=1129943784 instance=ExtResource("2_g3uvk")]
 transform = Transform3D(-6.119594e-08, 0, 1.4, 0, 1.4, 0, -1.4, 0, -6.119594e-08, 0.31284463, 0.15974855, 0.15014243)
 
-[node name="Power" type="Node3D" parent="mesh" unique_id=1962375247]
+[node name="power_knob" type="Node3D" parent="mesh" unique_id=1962375247 node_paths=PackedStringArray("knob_mesh", "click_area")]
 transform = Transform3D(0.97999996, 3.5527137e-15, -3.5527137e-15, 0, 0.74630755, 0.63515747, 0, -0.63515747, 0.74630755, 1.4510394, -0.25359315, 1.2058921)
+script = ExtResource("3_thmfj")
+knob_mesh = NodePath("knob_mesh")
+click_area = NodePath("Area3D")
 
-[node name="Power_Radio_0" type="MeshInstance3D" parent="mesh/Power" unique_id=1853135182]
-transform = Transform3D(0.99999976, 6.352747e-22, -2.2204465e-15, -1.0587912e-22, 0.9999999, -2.9802322e-08, 2.220446e-15, 2.9802322e-08, 0.9999999, 0.038501978, -0.041325092, 0.048553824)
+[node name="knob_mesh" type="MeshInstance3D" parent="mesh/power_knob" unique_id=1853135182]
+transform = Transform3D(0.99999964, 6.352747e-22, -2.2204465e-15, -1.0587912e-22, 0.9999999, -2.9802322e-08, 2.220446e-15, 2.9802322e-08, 0.9999999, 0.038501978, -0.05118859, 0.040159285)
 mesh = SubResource("ArrayMesh_s0c0d")
 
-[node name="main_body" type="MeshInstance3D" parent="mesh" unique_id=527782634]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.80322266, 0.19085693, -0.00086194277)
-visible = false
-mesh = SubResource("BoxMesh_anpke")
-surface_material_override/0 = SubResource("StandardMaterial3D_6uxni")
+[node name="Area3D" type="Area3D" parent="mesh/power_knob" unique_id=242814512]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mesh/power_knob/Area3D" unique_id=1984820780]
+transform = Transform3D(0.02070311, -0.99927133, -0.032015543, 0.59585863, -0.013381327, 0.8029749, -0.80281955, -0.035700947, 0.59514916, -0.0027388334, -0.058229685, 0.046975255)
+shape = SubResource("CylinderShape3D_53ofh")
 
 [node name="screen_body" type="MeshInstance3D" parent="mesh" unique_id=1208833370]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4943448, 0.21899611, 0.2854672)
@@ -262,8 +260,7 @@ layout_mode = 2
 [node name="progress_bar" parent="." unique_id=572663055 instance=ExtResource("9_w04ya")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4938264, -0.4046903, 0.55091375)
 
-[node name="cable_plug" type="Node3D" parent="." unique_id=41424370]
-
+[connection signal="toggled" from="mesh/power_knob" to="mesh/screen_body/screen_quad" method="set_power"]
 [connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="mesh/displays/numeric_display" method="_on_amplitude_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/amplitude_knob" to="sub_viewport/plotter_panel/user_wave" method="_on_amplitude_knob_value_changed"]
 [connection signal="value_changed" from="mesh/knobs/freq_knob" to="mesh/displays/numeric_display2" method="_on_freq_knob_value_changed"]
