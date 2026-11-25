@@ -8,9 +8,9 @@ var total_wave: CompositeWave
 var is_locked: bool = false
 
 func clear() -> void:
-	if total_wave:
-		total_wave.clear_waves()
-		wave_plotter_enemy.redraw_plot()
+	total_wave = null
+	wave_plotter_enemy.set_wave(null) # Or whatever your WavePlotter expects when empty
+	wave_plotter_enemy.redraw_plot()
 
 func set_wave(wave: CompositeWave) -> void:
 	total_wave = wave

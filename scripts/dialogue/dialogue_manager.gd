@@ -21,6 +21,13 @@ signal dialogue_completed(id: String)
 func _ready() -> void:
 	hide()
 
+func reset() -> void:
+	current_lines = []
+	current_index = 0
+	is_typing = false
+	_dialogue_active = false
+	id = ""
+
 func start_dialogue(lines: Array, p_id: String = "") -> void:
 	id = p_id
 	current_lines = lines

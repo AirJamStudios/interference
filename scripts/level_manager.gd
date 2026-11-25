@@ -192,6 +192,7 @@ func start_level(index: int) -> void:
 
 	# clear all waves before level
 	oscilloscope.clear_waves()
+	dialogue_manager.reset()
 
 	await _tween_camera(overview_camera, desk_camera, camera_transition_time)
 	_load_level(_current_level_id)
@@ -336,6 +337,7 @@ func _on_game_completed() -> void:
 	await go_to_level_select()
 
 func go_to_level_select(delay: float = 0.0) -> void:
+	oscilloscope.clear_waves()
 	if _is_transitioning:
 		return
 	
@@ -429,10 +431,10 @@ func _spawn_attack(new_attack: Attack) -> void:
 	active_attacks.append(new_attack)
 	radar.add_blip(deg_to_rad(new_attack.angle_deg), new_attack.start_distance, new_attack.start_eta)
 	
-	_fire_trigger(TriggerType.CNT_ATTACK_INBOUND, active_attacks.size())
-
 	if active_attacks.size() == 1:
 		oscilloscope.set_enemy_wave(active_attacks[0].enemy_wave)
+
+	_fire_trigger(TriggerType.CNT_ATTACK_INBOUND, active_attacks.size())
 
 func set_simulation_paused(paused: bool) -> void:
 	is_simulation_paused = paused
