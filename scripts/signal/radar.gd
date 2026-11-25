@@ -5,6 +5,7 @@ extends Node3D
 @export var sub_viewport: SubViewport
 @export var mesh: MeshInstance3D
 @export var canvas: Control
+@export var dialogue_manager : DialogueManager
 
 @export_group("Colors")
 @export var bg_color: Color = Color.html("#092E10")
@@ -68,7 +69,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_angle = wrapf(_angle + sweep_speed * delta, 0.0, TAU)
 	canvas.queue_redraw()
-	if paused:
+	if paused or dialogue_manager.is_dialogue_active():
 		return
 		
 	_advance_blips(delta)

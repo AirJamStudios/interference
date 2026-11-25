@@ -163,7 +163,7 @@ func _process(delta: float) -> void:
 
 	_elapsed_time += delta
 
-	if not active_timers.is_empty():
+	if not active_timers.is_empty() and not dialogue_manager.is_dialogue_active():
 		var expired: Array[String] = []
 		for timer_id: String in active_timers.keys():
 			active_timers[timer_id] -= delta

@@ -66,8 +66,9 @@ bus = &"Music"
 [node name="oscilloscope" parent="." unique_id=1586478783 instance=ExtResource("3_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.20458138)
 
-[node name="radar" parent="." unique_id=2104920419 instance=ExtResource("4_ya4ey")]
+[node name="radar" parent="." unique_id=2104920419 node_paths=PackedStringArray("dialogue_manager") instance=ExtResource("4_ya4ey")]
 transform = Transform3D(0.75967205, 0, 0.48259526, 0, 0.8999999, 0, -0.48259526, 0, 0.75967205, 1.6684725, -0.15099639, 1.7272098)
+dialogue_manager = NodePath("../dialogue")
 radius_scale = 0.948
 
 [node name="desk_camera" type="Camera3D" parent="." unique_id=893420369]

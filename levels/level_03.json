@@ -23,7 +23,7 @@
           "type": "DIALOGUE",
           "lines": [
             "FPV drone neutralized!",
-            "Radar is clear... wait a moment."
+            "Radar is clear..."
           ]
         },
         { "type": "START_TIMER", "id": "ambush_timer", "duration": 3.0 }
