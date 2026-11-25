@@ -57,11 +57,14 @@ horizontal_alignment = 1
 
 [node name="select_target" type="Control" parent="." unique_id=575441154]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 54.0
-offset_top = 563.0
-offset_right = 54.0
-offset_bottom = 563.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 35.0
+offset_top = 66.0
+offset_right = 35.0
+offset_bottom = 66.0
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="select_target" unique_id=1544299448]
 layout_mode = 0
@@ -83,11 +86,17 @@ joint_mode = 1
 
 [node name="knob_drag_hint" type="Control" parent="." unique_id=1982736451]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 1224.0
-offset_top = 115.0
-offset_right = 1224.0
-offset_bottom = 115.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -547.0
+offset_top = -404.0
+offset_right = -547.0
+offset_bottom = -404.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="knob_drag_hint" unique_id=1982736452]
 layout_mode = 0
@@ -115,16 +124,24 @@ joint_mode = 1
 
 [node name="amplitude" type="Control" parent="." unique_id=812285144]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 1635.0
-offset_top = 328.0
-offset_right = 1635.0
-offset_bottom = 328.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = -177.0
+offset_right = -384.0
+offset_bottom = -177.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="amplitude" unique_id=889231480]
 layout_mode = 0
-offset_right = 220.0
-offset_bottom = 50.0
+offset_left = -303.0
+offset_top = -30.0
+offset_right = -83.0
+offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
 
 [node name="Label" type="Label" parent="amplitude/PanelContainer" unique_id=1612140638]
@@ -134,23 +151,33 @@ text = "AMPLITUDE"
 horizontal_alignment = 1
 
 [node name="Line2D" type="Line2D" parent="amplitude" unique_id=1733718025]
-points = PackedVector2Array(0, 25, -115, 25, -95, 12, -115, 25, -95, 38)
+position = Vector2(-129, 21)
+rotation = 3.1415927
+points = PackedVector2Array(-46, 25, -115, 25, -95, 12, -115, 25, -95, 38)
 width = 4.0
 default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
 joint_mode = 1
 
 [node name="frequency" type="Control" parent="." unique_id=1642673272]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 1635.0
-offset_top = 424.0
-offset_right = 1635.0
-offset_bottom = 424.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -389.0
+offset_top = -85.0
+offset_right = -389.0
+offset_bottom = -85.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="frequency" unique_id=941176228]
 layout_mode = 0
-offset_right = 220.0
-offset_bottom = 50.0
+offset_left = -303.0
+offset_top = -30.0
+offset_right = -83.0
+offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
 
 [node name="Label" type="Label" parent="frequency/PanelContainer" unique_id=2050332273]
@@ -160,23 +187,33 @@ text = "FREQUENCY"
 horizontal_alignment = 1
 
 [node name="Line2D" type="Line2D" parent="frequency" unique_id=54612787]
-points = PackedVector2Array(0, 25, -115, 25, -95, 12, -115, 25, -95, 38)
+position = Vector2(-129, 21)
+rotation = 3.1415927
+points = PackedVector2Array(-46, 25, -115, 25, -95, 12, -115, 25, -95, 38)
 width = 4.0
 default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
 joint_mode = 1
 
 [node name="phase" type="Control" parent="." unique_id=655392140]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 1635.0
-offset_top = 518.0
-offset_right = 1635.0
-offset_bottom = 518.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -387.0
+offset_top = 14.0
+offset_right = -387.0
+offset_bottom = 14.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="phase" unique_id=1853223550]
 layout_mode = 0
-offset_right = 220.0
-offset_bottom = 50.0
+offset_left = -303.0
+offset_top = -30.0
+offset_right = -83.0
+offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
 
 [node name="Label" type="Label" parent="phase/PanelContainer" unique_id=2084491742]
@@ -186,23 +223,33 @@ text = "PHASE"
 horizontal_alignment = 1
 
 [node name="Line2D" type="Line2D" parent="phase" unique_id=2026097099]
-points = PackedVector2Array(0, 25, -115, 25, -95, 12, -115, 25, -95, 38)
+position = Vector2(-129, 21)
+rotation = 3.1415927
+points = PackedVector2Array(-46, 25, -115, 25, -95, 12, -115, 25, -95, 38)
 width = 4.0
 default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
 joint_mode = 1
 
 [node name="add_wave" type="Control" parent="." unique_id=1762701070]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 1635.0
-offset_top = 605.0
-offset_right = 1635.0
-offset_bottom = 605.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -227.0
+offset_top = 75.0
+offset_right = -227.0
+offset_bottom = 75.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="add_wave" unique_id=113220373]
 layout_mode = 0
-offset_right = 220.0
-offset_bottom = 50.0
+offset_left = 20.0
+offset_top = -1.0
+offset_right = 210.0
+offset_bottom = 49.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
 
 [node name="Label" type="Label" parent="add_wave/PanelContainer" unique_id=1889825022]
@@ -212,22 +259,31 @@ text = "ADD WAVE"
 horizontal_alignment = 1
 
 [node name="Line2D" type="Line2D" parent="add_wave" unique_id=1902951728]
-points = PackedVector2Array(0, 25, -115, 25, -95, 12, -115, 25, -95, 38)
+visible = false
+position = Vector2(-25, 0)
+rotation = -1.5707964
+points = PackedVector2Array(-63, 25, -115, 25, -95, 12, -115, 25, -95, 38)
 width = 4.0
 default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
 joint_mode = 1
 
 [node name="remove_wave" type="Control" parent="." unique_id=1602049448]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 1635.0
-offset_top = 695.0
-offset_right = 1635.0
-offset_bottom = 695.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = 142.0
+offset_right = -208.0
+offset_bottom = 142.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="remove_wave" unique_id=301959371]
 layout_mode = 0
-offset_right = 220.0
+offset_right = 190.0
 offset_bottom = 50.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
 
@@ -238,6 +294,7 @@ text = "REMOVE WAVE"
 horizontal_alignment = 1
 
 [node name="Line2D" type="Line2D" parent="remove_wave/PanelContainer" unique_id=406721920]
+visible = false
 points = PackedVector2Array(0, 25, -115, 25, -95, 12, -115, 25, -95, 38)
 width = 4.0
 default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
@@ -245,11 +302,17 @@ joint_mode = 1
 
 [node name="select_wave" type="Control" parent="." unique_id=1097610596]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 1055.0
-offset_top = 659.0
-offset_right = 1055.0
-offset_bottom = 659.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -698.0
+offset_top = 118.0
+offset_right = -698.0
+offset_bottom = 118.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="select_wave" unique_id=1185001856]
 layout_mode = 0
@@ -271,16 +334,24 @@ joint_mode = 1
 
 [node name="change_wave_shape" type="Control" parent="." unique_id=9884801]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 1497.0
-offset_top = 915.0
-offset_right = 1497.0
-offset_bottom = 915.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = 374.0
+offset_right = -210.0
+offset_bottom = 374.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="change_wave_shape" unique_id=490918782]
 layout_mode = 0
-offset_right = 270.0
-offset_bottom = 50.0
+offset_left = -364.0
+offset_top = -1.0
+offset_right = -89.0
+offset_bottom = 49.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_crt_box")
 
 [node name="Label" type="Label" parent="change_wave_shape/PanelContainer" unique_id=1605391600]
@@ -290,7 +361,7 @@ text = "CHANGE WAVE SHAPE"
 horizontal_alignment = 1
 
 [node name="Line2D" type="Line2D" parent="change_wave_shape" unique_id=2122826931]
-points = PackedVector2Array(0, 25, -45, 25, -45, -45, -58, -26, -45, -45, -32, -26)
+points = PackedVector2Array(-91, 25, -45, 25, -45, -45, -58, -26, -45, -45, -32, -26)
 width = 4.0
 default_color = Color(0.35686275, 0.99215686, 0.45490196, 1)
 joint_mode = 1
