@@ -79,14 +79,14 @@ uv1_offset = Vector3(7.52, -1.47, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_21xpk"]
 material = ExtResource("3_aydle")
-size = Vector3(0.05709839, 1.050293, 1.5459595)
+size = Vector3(0.03, 1.0981934, 1.732)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7hroh"]
 resource_local_to_scene = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_anpke"]
 material = SubResource("StandardMaterial3D_7hroh")
-size = Vector2(1.4, 0.95)
+size = Vector2(1.65, 1.05)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_jhj5q"]
 top_radius = 0.2
@@ -117,7 +117,7 @@ transform = Transform3D(-6.119594e-08, 0, 1.4, 0, 1.4, 0, -1.4, 0, -6.119594e-08
 transform = Transform3D(0.97999996, 3.5527137e-15, -3.5527137e-15, 0, 0.74630755, 0.63515747, 0, -0.63515747, 0.74630755, 1.4510394, -0.25359315, 1.2058921)
 
 [node name="Power_Radio_0" type="MeshInstance3D" parent="mesh/Power" unique_id=1853135182]
-transform = Transform3D(0.9999999, 6.352747e-22, -2.2204465e-15, -1.0587912e-22, 0.9999999, -2.9802322e-08, 2.220446e-15, 2.9802322e-08, 0.9999999, 0.038501978, -0.0009045601, 0.0010598898)
+transform = Transform3D(0.99999976, 6.352747e-22, -2.2204465e-15, -1.0587912e-22, 0.9999999, -2.9802322e-08, 2.220446e-15, 2.9802322e-08, 0.9999999, 0.038501978, -0.041325092, 0.048553824)
 mesh = SubResource("ArrayMesh_s0c0d")
 
 [node name="main_body" type="MeshInstance3D" parent="mesh" unique_id=527782634]
@@ -127,11 +127,11 @@ mesh = SubResource("BoxMesh_anpke")
 surface_material_override/0 = SubResource("StandardMaterial3D_6uxni")
 
 [node name="screen_body" type="MeshInstance3D" parent="mesh" unique_id=1208833370]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5321198, 0.24309283, 0.32674032)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4943448, 0.21899611, 0.2854672)
 mesh = SubResource("BoxMesh_21xpk")
 
 [node name="screen_quad" type="MeshInstance3D" parent="mesh/screen_body" unique_id=1396068650 node_paths=PackedStringArray("sub_viewport")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.05107975, 0, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.02665031, 0, 0)
 mesh = SubResource("QuadMesh_anpke")
 script = ExtResource("1_7hroh")
 sub_viewport = NodePath("../../../sub_viewport")
@@ -260,7 +260,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="progress_bar" parent="." unique_id=572663055 instance=ExtResource("9_w04ya")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5148922, -0.42924744, 0.57122034)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4938264, -0.4046903, 0.55091375)
 
 [node name="cable_plug" type="Node3D" parent="." unique_id=41424370]
 

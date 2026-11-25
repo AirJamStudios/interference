@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://06j854lrlc5d"]
 
 [ext_resource type="Script" uid="uid://m71x4a8vsh3c" path="res://scripts/signal/radar.gd" id="1_g0dnf"]
+[ext_resource type="PackedScene" uid="uid://c2wpwa8phgl7c" path="res://assets/models/radio/radar_base.glb" id="2_q54ty"]
 [ext_resource type="Texture2D" uid="uid://dilwr4jqo51y8" path="res://assets/models/radio/textures/vintage_radio_transceiver_accessories_diff_4k.jpg" id="2_stu0n"]
 [ext_resource type="Material" uid="uid://dyei8dy30eemy" path="res://assets/textures/black_plastic.tres" id="3_i2hdy"]
 [ext_resource type="PackedScene" uid="uid://cj54hq8fabudk" path="res://scenes/knob_radar.tscn" id="5_61xpj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_anpke"]
-size = Vector3(0.56811523, 0.92355955, 0.73843)
+size = Vector3(0.3470459, 0.92355955, 0.73843)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uxni"]
 albedo_texture = ExtResource("2_stu0n")
@@ -15,8 +16,8 @@ uv1_scale = Vector3(0.09, 0.09, 0.09)
 uv1_offset = Vector3(7.52, -1.47, 0)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_vb1ax"]
-top_radius = 0.32470703
-bottom_radius = 0.32470703
+top_radius = 0.3
+bottom_radius = 0.3
 height = 0.08746338
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_fso2y"]
@@ -34,15 +35,19 @@ sub_viewport = NodePath("sub_viewport")
 mesh = NodePath("mesh/screen_body/screen_quad")
 canvas = NodePath("sub_viewport/plotter_panel/radial_grid")
 
+[node name="radar_base" parent="." unique_id=1003713801 instance=ExtResource("2_q54ty")]
+transform = Transform3D(-1.9878951, 0, -9.83535, 0, 13, 0, 10.818885, 0, -1.8071774, 0, 0, 0)
+
 [node name="mesh" type="Node3D" parent="." unique_id=227931808]
 
 [node name="main_body" type="MeshInstance3D" parent="mesh" unique_id=527782634]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075805664, 0.018420458, 0.0063495636)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18634033, 0.018420458, 0.0063495636)
+visible = false
 mesh = SubResource("BoxMesh_anpke")
 surface_material_override/0 = SubResource("StandardMaterial3D_6uxni")
 
 [node name="screen_body" type="MeshInstance3D" parent="mesh" unique_id=1208833370]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.41063923, 0.07212183, 0)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.25334686, 0.07212183, 0)
 mesh = SubResource("CylinderMesh_vb1ax")
 surface_material_override/0 = ExtResource("3_i2hdy")
 
@@ -81,6 +86,6 @@ offset_right = 512.0
 offset_bottom = 512.0
 
 [node name="knob_radio" parent="." unique_id=84015496 instance=ExtResource("5_61xpj")]
-transform = Transform3D(-3.4969112e-08, 0.8, 0, -0.8, -3.4969112e-08, 0, 0, 0, 0.8, 0.356785, -0.3162505, 0.24744907)
+transform = Transform3D(-3.4969112e-08, 0.8, 0, -0.8, -3.4969112e-08, 0, 0, 0, 0.8, 0.2718983, -0.26175275, -0.23177943)
 
 [connection signal="value_changed" from="knob_radio" to="." method="_on_knob_value_changed"]

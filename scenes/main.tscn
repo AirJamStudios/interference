@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://06j854lrlc5d" path="res://scenes/radar.tscn" id="4_ya4ey"]
 [ext_resource type="Material" uid="uid://c14cqxnxtnsnl" path="res://resources/wood_material.tres" id="5_tbgi4"]
 [ext_resource type="Material" uid="uid://gnfj577sevo6" path="res://resources/concrete_material.tres" id="5_tefeu"]
-[ext_resource type="PackedScene" uid="uid://sh047oh48vna" path="res://assets/models/radio/vintage_radio_transceiver_4k.gltf" id="6_tipki"]
 [ext_resource type="Script" uid="uid://cy42yyfxg0hem" path="res://scripts/scene_fx.gd" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://b5v5wnkwuk2jj" path="res://scenes/custom_vintage_radio_transceiver_4k.tscn" id="8_0ld40"]
 [ext_resource type="PackedScene" uid="uid://b5umxmradv13d" path="res://scenes/wall_lamp.tscn" id="10_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://dc1l1a4df4dyp" path="res://scenes/alarm.tscn" id="10_jkv2x"]
 [ext_resource type="Script" uid="uid://40s2wdo238r6" path="res://scripts/level_manager.gd" id="11_eb6dy"]
@@ -67,7 +67,7 @@ bus = &"Music"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.20458138)
 
 [node name="radar" parent="." unique_id=2104920419 instance=ExtResource("4_ya4ey")]
-transform = Transform3D(0.85752267, 0, 0.51444614, 0, 1, 0, -0.51444614, 0, 0.85752267, 1.2875421, 0, 2.0561318)
+transform = Transform3D(0.75967205, 0, 0.48259526, 0, 0.8999999, 0, -0.48259526, 0, 0.75967205, 1.6684725, -0.15099639, 1.7272098)
 radius_scale = 0.948
 
 [node name="desk_camera" type="Camera3D" parent="." unique_id=893420369]
@@ -87,8 +87,8 @@ environment = SubResource("Environment_anpke")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.5230286, 0)
 mesh = SubResource("QuadMesh_anpke")
 
-[node name="vintage_radio_transceiver_4k" parent="room/table" unique_id=1406016167 instance=ExtResource("6_tipki")]
-transform = Transform3D(3.6524243, 1.02615786e-07, 4.760231, 4.760231, -2.0807629e-07, -3.6524243, 1.02615786e-07, 6, -2.0807629e-07, 2.1359754, 3.3554368, -0.0066028237)
+[node name="vintage_radio_transceiver_4k2" parent="room/table" unique_id=1055652567 instance=ExtResource("8_0ld40")]
+transform = Transform3D(3.6524243, 1.026158e-07, 4.760231, 4.760231, -2.0807629e-07, -3.6524243, 1.02615815e-07, 6, -2.080763e-07, 2.1359754, 3.3554368, -0.0066028237)
 
 [node name="lamp_light" type="OmniLight3D" parent="room" unique_id=661684959]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2795105, 12.008829, 0)

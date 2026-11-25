@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b5v5wnkwuk2jj"]
+
+[ext_resource type="PackedScene" uid="uid://sh047oh48vna" path="res://assets/models/radio/vintage_radio_transceiver_4k.gltf" id="1_u6626"]
+
+[node name="vintage_radio_transceiver_4k" unique_id=1055652567 instance=ExtResource("1_u6626")]
+
+[node name="vintage_radio_transceiver_speaker" parent="." index="12" unique_id=2031558380]
+visible = false

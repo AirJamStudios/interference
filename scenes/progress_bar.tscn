@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://d31js5jkqq3vi"]
 
 [ext_resource type="Script" uid="uid://c4v1ft3tyk0u8" path="res://scripts/progress_bar.gd" id="1_vt3ux"]
+[ext_resource type="Texture2D" uid="uid://4wssyrcg2awv" path="res://assets/models/radio2/texture_cut_out.png" id="2_8un81"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_53ofh"]
 size = Vector3(0.051, 0.06, 0.7)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vt3ux"]
-albedo_color = Color(0.2592937, 0.2592937, 0.25929365, 1)
+albedo_texture = ExtResource("2_8un81")
 
 [node name="progress_bar" type="Node3D" unique_id=572663055 node_paths=PackedStringArray("body_mesh")]
 script = ExtResource("1_vt3ux")
