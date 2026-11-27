@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cwvf8yn2rjlnd"]
 
 [ext_resource type="PackedScene" uid="uid://d4fw5tgdks77h" path="res://scenes/ui/main_menu_ui.tscn" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://b1lkuksoidygv" path="res://assets/textures/background.png" id="2_bgtex"]
 
 [node name="main_menu" type="Node2D" unique_id=1679435999]
 
@@ -11,6 +12,16 @@ layer = 3
 
 [node name="bg_canvas_layer" type="CanvasLayer" parent="." unique_id=354316992]
 layer = 2
+
+[node name="background" type="TextureRect" parent="bg_canvas_layer" unique_id=1834920571]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bgtex")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="ColorRect" type="ColorRect" parent="bg_canvas_layer" unique_id=1561117731]
 anchors_preset = 15
