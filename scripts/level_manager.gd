@@ -258,6 +258,7 @@ func _on_attack_missed(id: int) -> void:
 	var missed_attack: Attack = active_attacks[id]
 	active_attacks.remove_at(id)
 	_hits_taken += 1
+	GameManager.play_sfx(GameManager.Sfx.DETONATION, -4.0)
 	if(_hits_taken >= 2):
 		_alarm_lights_on(true)
 

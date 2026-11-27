@@ -8,6 +8,9 @@ extends CanvasLayer
 @export_group("Settings")
 @export var soldier_portrait: Texture2D
 @export var seconds_per_character : float = 0.03
+@export var typing_sfx_volume_db : float = -3.0
+
+const TYPING_SFX := preload("res://assets/sound_fx/sound_fx/text_dialog.wav")
 
 var current_lines: Array = []
 var current_index: int = 0
@@ -15,16 +18,22 @@ var is_typing: bool = false
 var _dialogue_active: bool = false
 var tween: Tween
 var id: String = ""
+var _typing_player: AudioStreamPlayer
 
 signal dialogue_completed(id: String)
 
 func _ready() -> void:
 	hide()
+	_typing_player = AudioStreamPlayer.new()
+	_typing_player.stream = TYPING_SFX
+	_typing_player.bus = GameManager.SFX_BUS
+	_typing_player.volume_db = typing_sfx_volume_db
+	add_child(_typing_player)
 
 func reset() -> void:
 	current_lines = []
 	current_index = 0
-	is_typing = false
+	_set_typing(false)
 	_dialogue_active = false
 	id = ""
 
@@ -45,7 +54,7 @@ func _show_line() -> void:
 	text_label.text = current_lines[current_index]
 	
 	text_label.visible_characters = 0
-	is_typing = true
+	_set_typing(true)
 	
 	# Animate typing like 
 	if tween:
@@ -54,7 +63,7 @@ func _show_line() -> void:
 	var total_chars = text_label.get_total_character_count()
 	var duration = total_chars * seconds_per_character
 	tween.tween_property(text_label, "visible_characters", total_chars, duration)
-	tween.finished.connect(func(): is_typing = false)
+	tween.finished.connect(func(): _set_typing(false))
 
 func _input(event: InputEvent) -> void:
 	if not visible:
@@ -70,15 +79,25 @@ func _input(event: InputEvent) -> void:
 		if is_typing:
 			tween.kill()
 			text_label.visible_characters = -1 
-			is_typing = false
+			_set_typing(false)
 		else:
 			current_index += 1
 			_show_line()
 
 func end_dialogue() -> void:
+	_set_typing(false)
 	hide()
 	_dialogue_active = false
 	dialogue_completed.emit(id)
 
 func is_dialogue_active() -> bool:
 	return _dialogue_active
+
+func _set_typing(typing: bool) -> void:
+	is_typing = typing
+	if not _typing_player:
+		return
+	if typing:
+		_typing_player.play()
+	else:
+		_typing_player.stop()

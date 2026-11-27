@@ -2,13 +2,14 @@ extends Node
 
 # Game manager handles tree play/pause logic and gameplay music
 
-enum Sfx { ALARM, UI_SELECT, WAVE_COMPLETE, FADE_IN }
+enum Sfx { ALARM, UI_SELECT, WAVE_COMPLETE, FADE_IN, DETONATION }
 
 const SFX_STREAMS := {
 	Sfx.ALARM: preload("res://assets/sound_fx/sound_fx/alarm.wav"),
 	Sfx.UI_SELECT: preload("res://assets/sound_fx/sound_fx/ui_select.wav"),
 	Sfx.WAVE_COMPLETE: preload("res://assets/sound_fx/sound_fx/wave_complete.wav"),
 	Sfx.FADE_IN: preload("res://assets/sound_fx/sound_fx/fade_in.wav"),
+	Sfx.DETONATION: preload("res://assets/sound_fx/sound_fx/detonation.wav"),
 }
 
 const SFX_BUS := &"SFX"
