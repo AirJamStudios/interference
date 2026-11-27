@@ -39,6 +39,7 @@ func _input(event: InputEvent) -> void:
 
 func _press() -> void:
 	_is_down = true
+	GameManager.play_sfx(GameManager.Sfx.BUTTON_PRESS)
 	_move_to(_rest_position + press_offset)
 	pressed.emit()
 
